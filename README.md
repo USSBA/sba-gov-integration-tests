@@ -11,3 +11,5 @@
 ## To download the latest test results
 `aws s3 sync s3://sbagovlower-test-results/cypress/<env>/latest/ .`
 
+## To Deploy
+`git tag latest -f && git push origin latest -f`
