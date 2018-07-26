@@ -1,0 +1,69 @@
+version: 2
+workflows:
+ version: 2
+ build-and-deploy:
+   jobs:
+     # all branches and tags will build
+     - build:
+         filters:
+           tags:
+             only:
+             - /.*/
+     # we only push to ecr when the tag is a version number (eg vX, vX.X, vX.X.X, vX.X.X.X)
+     - deploy:
+         requires:
+           - build
+         filters:
+           tags:
+             only:
+             - /v[0-9]+(\.[0-9]+)*(-rc[0-9]+)?/
+           branches:
+             ignore:
+             - /.*/
+jobs:
+ build:
+   docker:
+   - image: docker:17.09.1-ce-git
+   steps:
+   - checkout
+   - setup_remote_docker:
+       docker_layer_caching: true
+   - run:
+       name: Build Docker Image
+       command: |
+         docker build -t sba-gov-integration-tests .
+ deploy:
+   docker:
+   - image: docker:17.09.1-ce-git
+   steps:
+   - checkout
+   - setup_remote_docker:
+       docker_layer_caching: true
+   - run:
+       name: Install Dependencies
+       command: |
+         apk add --no-cache --update \
+           py-pip
+         pip install \
+           awscli
+   - run:
+       name: Build Docker Image
+       command: |
+         docker build -t ${CIRCLE_PROJECT_REPONAME}/${CIRCLE_SHA1} .
+   - deploy:
+       name: Push Docker Image
+       command: |
+         function tagpush() {
+           ${loginlower}
+           docker tag ${CIRCLE_PROJECT_REPONAME}/${CIRCLE_SHA1} "${AMAZON_ECR_ENDPOINT_LOWER}/${AMAZON_ECR_REPO}:${1}"
+           docker push "${AMAZON_ECR_ENDPOINT_LOWER}/${AMAZON_ECR_REPO}:${1}"
+           #${loginupper}
+           #docker tag ${CIRCLE_PROJECT_REPONAME}/${CIRCLE_SHA1} "${AMAZON_ECR_ENDPOINT_UPPER}/${AMAZON_ECR_REPO}:${1}"
+           #docker push "${AMAZON_ECR_ENDPOINT_UPPER}/${AMAZON_ECR_REPO}:${1}"
+         }
+         loginlower="$(export AWS_ACCESS_KEY_ID=${LOWER_AWS_KEY} AWS_SECRET_ACCESS_KEY=${LOWER_AWS_SECRET} && aws ecr get-login --region us-east-1 --no-include-email)"
+         #loginupper="$(export AWS_ACCESS_KEY_ID=${UPPER_AWS_KEY} AWS_SECRET_ACCESS_KEY=${UPPER_AWS_SECRET} && aws ecr get-login --region us-east-1 --no-include-email)"
+         tagpush ${CIRCLE_SHA1}
+         tagpush ${CIRCLE_TAG}
+         tagpush circle-${CIRCLE_BUILD_NUM}
+         tagpush latest
