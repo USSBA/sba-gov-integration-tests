@@ -1,0 +1,24 @@
+{
+  "name": "sba-gov-integration-tests",
+  "version": "1.0.0",
+  "description": "for sba.gov integration tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/USSBA/sba-gov-integration-tests.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/USSBA/sba-gov-integration-tests/issues"
+  },
+  "homepage": "https://github.com/USSBA/sba-gov-integration-tests#readme",
+  "dependencies": {
+    "cypress": "^3.0.2",
+    "mocha": "^5.2.0",
+    "mochawesome": "^3.0.3"
+  }
+}

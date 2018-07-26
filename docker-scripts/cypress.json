@@ -1,0 +1,8 @@
+{
+  "baseUrl": "@@BASE_URL@@",
+  "reporter": "mochawesome",
+  "env": {
+    "TEST_USER": "@@TEST_USER@@",
+    "TEST_PASSWORD": "@@TEST_PASSWORD@@"
+  }
+}
