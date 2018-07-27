@@ -5,6 +5,7 @@ describe('Drupal 8 Login', function() {
     cy.get("#edit-pass").type(Cypress.env("TEST_PASSWORD")).wait(4000)
     cy.get("#user-login-form").submit()
     cy.get("#toolbar-item-user")
-    cs.get('a[href^="/user/logoust"]').click()
+    cy.get('#header a[href^="/user/logout"]').click()
+    cy.url().should('eq', Cypress.config("baseUrl")+"/")
   })
 })
