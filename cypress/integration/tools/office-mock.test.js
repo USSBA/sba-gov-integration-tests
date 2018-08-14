@@ -1,4 +1,4 @@
-describe("Office Search", function() {
+describe.skip("Office Search", function() {
     it('Should display custom data with a mocked json request', function() {
 
         const mockResponse = 
