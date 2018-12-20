@@ -1,4 +1,5 @@
 describe('Drupal 8', function() {
+
   this.beforeEach(() => {
     cy.visit('/user/login')
     cy.get("#edit-name").type(Cypress.env("TEST_USER"))
@@ -7,7 +8,7 @@ describe('Drupal 8', function() {
   })
 
   this.afterEach(() => {
-    cy.get('#header a[href^="/user/logout"]').click()
+    cy.wait(2000).visit('/user/logout', { failOnStatusCode: false })
     cy.url().should('eq', Cypress.config("baseUrl")+"/")
   })
 
