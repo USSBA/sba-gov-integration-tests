@@ -1,6 +1,10 @@
 describe('Drupal 8', function() {
 
   this.beforeEach(() => {
+    cy.server();
+    // Capture and stub requests to /quickedit endpoint to prevent delays with logouts
+    cy.route('POST', '/quickedit/*', {}).as('quickEdit');
+
     cy.visit('/user/login')
     cy.get("#edit-name").type(Cypress.env("TEST_USER"))
     cy.get("#edit-pass").type(Cypress.env("TEST_PASSWORD")).wait(4000)
@@ -8,10 +12,7 @@ describe('Drupal 8', function() {
   })
 
   this.afterEach(() => {
-    cy.server();
-    cy.route('POST', '/quickedit/*').as('quickEdit');
-    cy.visit('/');
-    cy.wait('@quickEdit').visit('/user/logout', { failOnStatusCode: false })
+    cy.visit('/user/logout', { failOnStatusCode: false })
     cy.url().should('eq', Cypress.config("baseUrl")+"/")
   })
 
