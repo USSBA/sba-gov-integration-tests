@@ -8,7 +8,10 @@ describe('Drupal 8', function() {
   })
 
   this.afterEach(() => {
-    cy.wait(2000).visit('/user/logout', { failOnStatusCode: false })
+    cy.server();
+    cy.route('POST', '/quickedit/*').as('quickEdit');
+    cy.visit('/');
+    cy.wait('@quickEdit').visit('/user/logout', { failOnStatusCode: false })
     cy.url().should('eq', Cypress.config("baseUrl")+"/")
   })
 
@@ -29,6 +32,7 @@ describe('Drupal 8', function() {
   })
 
   it('allows editing of a content item', function() {
+    // Create a new document
     cy.visit('/node/add/document')
     cy.get("h1.page-title").should('have.text', "Create Document")
     cy.get("#edit-title-0-value").type('My Test Document')
@@ -36,9 +40,18 @@ describe('Drupal 8', function() {
     cy.get("#edit-field-summary160-0-value").type('my document summary is here.')
    	cy.get("input.form-submit[value='Save and publish']").click()
     cy.get("div.messages").should('have.text', '\n                  Status message\n                    Document My Test Document has been created.\n            ')
+    
+    // Edit the document
+    cy.get(".tabs").contains("Edit").click();
+    cy.get("h1.page-title").should('have.text', "Edit Document My Test Document")
+    cy.get("#edit-title-0-value").clear().type('My Test Document 2')
+    cy.get("input.form-submit[value='Save and keep published']").click()
+    cy.get("div.messages").should('have.text', '\n                  Status message\n                    Document My Test Document 2 has been updated.\n            ')
+
+    // Delete the document
     cy.contains("a","Delete").click();
     cy.get("input#edit-submit").click();
-    cy.get("div.messages").should('have.text', '\n                  Status message\n                    The Document My Test Document has been deleted.\n            ')
+    cy.get("div.messages").should('have.text', '\n                  Status message\n                    The Document My Test Document 2 has been deleted.\n            ')
   })
 
 })
