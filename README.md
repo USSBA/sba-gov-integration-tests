@@ -4,8 +4,6 @@ Cypress can run in a few ways.
 1. Local Run - Cypress can be run locally to aid in test creation and development
 1. Docker Run - Cypress can be run in a container to be used for scheduled testing or testing linked to builds in the deployment pipeline
 
-Note:  For the time being, in both cases, when running cypress like the automatically scheduled tests, we will need to run via the script to provide a Drupal username/password and setup the approrpiate environment variables.
-
 ## Local Run - Running cypress locally with the UI
 
 ### Install cypress and dependencies
