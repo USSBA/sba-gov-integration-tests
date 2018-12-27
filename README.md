@@ -16,7 +16,7 @@ Note:  For the time being, in both cases, when running cypress like the automati
 `./node_modules/.bin/cypress open`
 
 ### To run cypress similar to automated runs
-* `environment`: base environment name like "mint", "avery", "demo"
+* `environment`: base environment name like "mint", "avery"
 * `username`: drupal username
 * `password`: drupal password
 
@@ -25,22 +25,40 @@ This will run Cypress using the `cypress open` command to use the Cypress UI for
 `./run-local.sh <environment> <username> <password>`
 
 ## Docker Run - Running Cypress in a docker container
-
+**Please make sure to run this before checking in code to ensure that it will run remotely**
 ### To Build the Docker Container
 `./build.sh`
 
-### To run all tests in the docker container
+### To run in Docker container
+Runs the docker container locally with provided credentials
+* `environment`: base environment name like "mint", "avery"
+* `username`: drupal username
+* `password`: drupal password
+
+
+`./run-local-docker.sh <environment> <username> <password>`
+
+### To run in Docker container (with AWS param store credentials)
 
 This uses the parameter store values in the AWS Account. 
-**Please make sure to run this before checking in code to ensure that it will run remotely**
 
-`./run-local-docker.sh <environment>`
+* `environment`: base environment like "mint", "avery"
+
+`./run-param-store.sh <environment>`
+
 
 ## To download the latest test results
 `aws s3 sync s3://sbagovlower-test-results/cypress/<env>/latest/ .`
 
 ## To Deploy
 `git tag latest -f && git push origin latest -f`
+
+# Cypress Folder Structure
+Everything essential for cypress is located in the `/cypress` folder.  You can read more about the folder structure within the [Cypress documentation](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html#Folder-Structure)
+
+The only exception is how the `/integration` folder is structured.  This folder has two sub folders.
+* `cypress/integration/tests`: contains all tests that should be automatically run.  The automatic processes that run tests look in here and run everything.  Only check in tests here that should ALWAYS be run and potentially often.
+* `cypress/integration/tools`: Is a sandbox of tools for developers to use to aid in development and testing.  These tests are not automatically run and should be manually executed.  These are tests that might have special configurations or be templates for other tests that can be tweaked on the fly.
 
 # Cypress Best Practices
 Please be sure to follow the [Cypress Best Practices](https://docs.cypress.io/guides/references/best-practices.html) in building good tests.
