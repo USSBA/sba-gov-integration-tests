@@ -38,7 +38,7 @@ echo -e "\nRunning with config:"
 echo -e "\n----------------------------------\n"
 cat /app/cypress.json
 echo -e "\n----------------------------------\n"
-node_modules/.bin/cypress run -c /app/cypress.json --spec '/app/cypress/integration/**/*.js' 
+node_modules/.bin/cypress run -c /app/cypress.json --spec '/app/cypress/integration/tests/**/*.js' 
 
 TIMESTAMP=$(date +%Y-%m-%dT%H%MZ)
 
