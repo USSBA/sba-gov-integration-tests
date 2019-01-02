@@ -46,6 +46,9 @@ if [ -z ${S3BUCKET+x} ]
 then 
     echo "Execution Complete" 
 else 
+    echo "Merging mochawesome jsons"
+    node_modules/.bin/mochawesome-merge --reportDir /app/mochawesome-report > /app/mochawesome-report/merged.json
+    node_modules/.bin/marge --reportFilename /app/mochawesome-report/mochawesome.html /app/mochawesome-report/merged.json 
     TARGET_URI="s3://${S3BUCKET}/cypress/${TARGET_ENV}"
     echo "Uploading to ${TARGET_URI}"
     aws s3 sync /app/mochawesome-report/ ${TARGET_URI}/${TIMESTAMP}/mochawesome-report

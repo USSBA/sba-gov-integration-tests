@@ -1,6 +1,10 @@
 describe('Drupal 8', function() {
   
-
+  this.beforeAll( () => {
+      // Modify the Base URL to go to the content subdomain for these tests
+      const newBaseUrl = Cypress.config("baseUrl").replace("://", "://content.")
+      Cypress.config("baseUrl", newBaseUrl)
+  })
 
   this.beforeEach(() => {
     // Capture and stub requests to /quickedit endpoint to prevent delays with logouts

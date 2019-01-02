@@ -1,6 +1,6 @@
 #!/bin/bash
 docker run \
--e "BASE_URL=https://content.${1}.ussba.io" \
+-e "BASE_URL=https://${1}.ussba.io" \
 -e "S3BUCKET=sbagovlower-test-results" \
 -e "TARGET_ENV=${1}" \
 -e "ENVIRONMENT_NAME=${1}" \
