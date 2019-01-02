@@ -1,10 +1,6 @@
 {
-<<<<<<< HEAD
     "baseUrl": "https://mint.ussba.io",
     "viewportWidth": 1200,
     "viewportHeight": 600
 
-=======
-    "baseUrl": "https://mint.ussba.io"
->>>>>>> 4375830d23cc9a20af7274430c42616d3c30304a
 }
