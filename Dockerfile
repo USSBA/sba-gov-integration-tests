@@ -39,5 +39,6 @@ COPY --chown=chrome:chrome package.json package-lock.json ./
 RUN npm install
 RUN mkdir -p cypress/integration
 COPY --chown=chrome:chrome cypress/integration/ cypress/integration/
+COPY --chown=chrome:chrome cypress/fixtures/ cypress/fixtures/
 COPY --chown=chrome:chrome docker-scripts/entrypoint.sh docker-scripts/cypress.json ./
 ENTRYPOINT /app/entrypoint.sh
