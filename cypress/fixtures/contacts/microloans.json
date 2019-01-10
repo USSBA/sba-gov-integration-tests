@@ -1,0 +1,40 @@
+[
+    {
+        "id": 1,
+        "type": "contact",
+        "cdcNumber": null,
+        "city": "Test City 1",
+        "contactName": "User 1",
+        "email": "user2@email.com",
+        "firsNumber": null,
+        "link": "http://www.contact1.com",
+        "phoneNumber": "111-111-1111",
+        "state": "AR",
+        "stateServed": [
+            "Arkansas"
+        ],
+        "streetAddress": "1111 Contact Drive",
+        "category": "Microloan",
+        "zipCode": 111111,
+        "title": "Contact 1"
+    },
+    {
+        "id": 2,
+        "type": "contact",
+        "cdcNumber": null,
+        "city": "Test City 2",
+        "contactName": "User 2",
+        "email": "user2@email.com",
+        "firsNumber": null,
+        "link": {},
+        "phoneNumber": "222-222-2222",
+        "state": "AK",
+        "stateServed": [
+            "Alaska"
+        ],
+        "streetAddress": "222 Contact Drive",
+        "category": "Microloan",
+        "zipCode": 22222,
+        "title": "Contact 2"
+    }
+]
