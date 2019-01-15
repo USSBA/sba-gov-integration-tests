@@ -41,8 +41,8 @@ Runs the docker container locally with provided credentials
 This uses the parameter store values in the AWS Account. 
 
 * `environment`: base environment like "mint", "avery"
-
-`./run-param-store.sh <environment>`
+* `param-store-name`: the leading name of the param store like "mint", "int-bl", "int-as"
+`./run-param-store.sh <environment> <param-store-name>`
 
 
 ## To download the latest test results
