@@ -23,3 +23,33 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("injectAxeCore", () => {
+    cy.window().then(window => {
+    const axe = require('axe-core')
+    window.eval(axe.source)
+    })
+})
+
+Cypress.Commands.add("checkAccessibility", () => {
+    cy.window().then(window => {
+        return window.axe.run(window.document)
+    }).then(({violations}) => {
+        Cypress.log({
+            consoleProps: () => {
+                return { "Violation Count": violations.length }
+            }
+        })
+        
+        violations.forEach(v => {
+            Cypress.log({
+                consoleProps: () => {
+                    return {
+                        "Impact" : v.impact,
+                        "Desc": v.description
+                    }
+                }
+            })
+        })
+    })
+})
