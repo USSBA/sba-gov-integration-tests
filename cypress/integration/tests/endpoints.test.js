@@ -5,17 +5,16 @@ describe("Content Endpoint", function(){
        'announcements', 
         'articles', 
         'contacts',
-        // 'counsellorCta',  // currently returns a 500, broken?
+        // 'counsellorCta',  // broken and seemingly not used anywhere
         'course', 
         'courses', 
         'disaster', 
         'documents',
         'mainMenu', 
-        'nodes',
+        // 'nodes',  // very large file in some envs - not used?
         'offices',
         'officesRaw',
         'persons', 
-        // 'search',  // currently returns a 500, broken?
         'siteMap',
         'taxonomys',
         'events']
@@ -24,6 +23,11 @@ describe("Content Endpoint", function(){
     it(`${endpoint} endpoint returns 200`, function(){
         cy.request(`/api/content/${endpoint}.json`).its("status").should('equal',200)
     })})
+
+    it("search endpoint returns 200", function(){
+        // requires a search term query parameter
+        cy.request(`/api/content/search.json?term=test`).its("status").should('equal',200)
+    })
 
     it("non existing endpoint returns 404", function(){
         cy.request({
