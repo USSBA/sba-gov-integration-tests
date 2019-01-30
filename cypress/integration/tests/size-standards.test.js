@@ -13,7 +13,7 @@ describe("Size Standards Tool", function(){
         cy.get('.naics-codes-list .right').contains('YES').should('exist')
     })
 
-    it.only('validate a naics code with revenue as not a small business', function(){
+    it('validate a naics code with revenue as not a small business', function(){
         cy.visit('/size-standards/')
         cy.get('.submit-button > .button').click()
 
