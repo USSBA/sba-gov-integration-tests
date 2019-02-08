@@ -87,10 +87,7 @@ describe("Local Assistance Find", function(){
     })
 
     it("shows office detail view when a result is selected", () => {
-        cy.server()
-        cy.fixture("local-assistance/search-results.json").as("SearchResult")
-        cy.route("GET", "/api/content/offices.json**", "@SearchResult").as("OfficeSearch")
-        cy.visit("/local-assistance/find")
+        cy.visit("/local-assistance/find/?pageNumber=1")
         cy.get("[data-cy='search button']").click()
         cy.get("#office-results")
         cy.get("[data-cy='open detail']").eq(0).click()
