@@ -6,7 +6,7 @@ describe("Local Assistance Find", function(){
         expect(cy.get("input#zip")).to.exist
         expect(cy.get("#officetype-select")).to.exist
         expect(cy.get("button#office-primary-search-bar-search-button")).to.exist
-        expect(cy.get("button").contains("Search")).to.exist
+        expect(cy.get("[data-cy='search button']")).to.exist
     })
 
     it("can search for an office by keyword", function() {
@@ -14,7 +14,7 @@ describe("Local Assistance Find", function(){
         cy.route("GET","/api/content/offices.json**").as("OfficeSearch")
         cy.visit("/local-assistance/find")
         cy.get("input#search").type("district")
-        cy.get("button").contains("Search").click();
+        cy.get("[data-cy='search button']").click()
         cy.wait("@OfficeSearch")
         expect(cy.get("#office-results").as("Results")).to.exist
         // Claims it has 5 results
@@ -28,7 +28,7 @@ describe("Local Assistance Find", function(){
         cy.route("GET","/api/content/offices.json**").as("OfficeSearch")
         cy.visit("/local-assistance/find")
         cy.get("input#zip").type("20024")
-        cy.get("button").contains("Search").click();
+        cy.get("[data-cy='search button']").click()
         cy.wait("@OfficeSearch")
         expect(cy.get("#office-results").as("Results")).to.exist
         // Claims it has 5 results
@@ -43,7 +43,7 @@ describe("Local Assistance Find", function(){
         cy.visit("/local-assistance/find")
         cy.get("#officetype-select").click()
         cy.get("#officetype-select").contains("SBA District Office").click();
-        cy.get("button").contains("Search").click();
+        cy.get("[data-cy='search button']").click()
         cy.wait("@OfficeSearch")
         expect(cy.get("#office-results").as("Results")).to.exist
         // Claims it has 5 results
@@ -91,7 +91,7 @@ describe("Local Assistance Find", function(){
         cy.fixture("local-assistance/search-results.json").as("SearchResult")
         cy.route("GET", "/api/content/offices.json**", "@SearchResult").as("OfficeSearch")
         cy.visit("/local-assistance/find")
-        cy.get("button").contains("Search").click();
+        cy.get("[data-cy='search button']").click()
         cy.get("#office-results")
         cy.get("[data-cy='open detail']").eq(0).click()
         expect(cy.get("#office-detail")).to.exist
@@ -102,7 +102,7 @@ describe("Local Assistance Find", function(){
         cy.fixture("local-assistance/search-results.json").as("SearchResult")
         cy.route("GET", "/api/content/offices.json**", "@SearchResult").as("OfficeSearch")
         cy.visit("/local-assistance/find")
-        cy.get("button").contains("Search").click();
+        cy.get("[data-cy='search button']").eq(0).click()
         cy.get("[data-cy='open detail']").eq(0).click()
 
         expect(cy.get("#office-detail")).to.exist
