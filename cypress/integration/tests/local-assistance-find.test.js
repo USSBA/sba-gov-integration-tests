@@ -92,12 +92,8 @@ describe("Local Assistance Find", function(){
         cy.route("GET", "/api/content/offices.json**", "@SearchResult").as("OfficeSearch")
         cy.visit("/local-assistance/find")
         cy.get("button").contains("Search").click();
-
         cy.get("#office-results")
-
-        // select the first result
-        cy.get("#office-title-result-0 > h2 > .fa").click()
-
+        cy.get("[data-cy='open detail']").eq(0).click()
         expect(cy.get("#office-detail")).to.exist
     })
 
