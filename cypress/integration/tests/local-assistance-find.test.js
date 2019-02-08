@@ -6,7 +6,7 @@ describe("Local Assistance Find", function(){
         expect(cy.get("input#zip")).to.exist
         expect(cy.get("#officetype-select")).to.exist
         expect(cy.get("button#office-primary-search-bar-search-button")).to.exist
-        expect(cy.get("button").contains("Search")).to.exist
+        expect(cy.get("[data-cy='search button']")).to.exist
     })
 
     it("can search for an office by keyword", function() {
@@ -14,7 +14,7 @@ describe("Local Assistance Find", function(){
         cy.route("GET","/api/content/offices.json**").as("OfficeSearch")
         cy.visit("/local-assistance/find")
         cy.get("input#search").type("district")
-        cy.get("button").contains("Search").click();
+        cy.get("[data-cy='search button']").click()
         cy.wait("@OfficeSearch")
         expect(cy.get("#office-results").as("Results")).to.exist
         // Claims it has 5 results
@@ -28,7 +28,7 @@ describe("Local Assistance Find", function(){
         cy.route("GET","/api/content/offices.json**").as("OfficeSearch")
         cy.visit("/local-assistance/find")
         cy.get("input#zip").type("20024")
-        cy.get("button").contains("Search").click();
+        cy.get("[data-cy='search button']").click()
         cy.wait("@OfficeSearch")
         expect(cy.get("#office-results").as("Results")).to.exist
         // Claims it has 5 results
@@ -43,7 +43,7 @@ describe("Local Assistance Find", function(){
         cy.visit("/local-assistance/find")
         cy.get("#officetype-select").click()
         cy.get("#officetype-select").contains("SBA District Office").click();
-        cy.get("button").contains("Search").click();
+        cy.get("[data-cy='search button']").click()
         cy.wait("@OfficeSearch")
         expect(cy.get("#office-results").as("Results")).to.exist
         // Claims it has 5 results
@@ -52,7 +52,7 @@ describe("Local Assistance Find", function(){
         expect(cy.get("a.card-layout").eq(4)).to.exist
     })
 
-    it("displays office details in search results", function(){
+    it("displays office info in search results", function(){
         cy.visit("/local-assistance/find/?type=SBA%20District%20Office&q=SBA&pageNumber=1")
         cy.get("#office-results").within((results => {
            expect(cy.get(".search-info-panel").contains("Results 1 - 5")).to.exist
@@ -86,4 +86,38 @@ describe("Local Assistance Find", function(){
         expect(cy.get("@Pagination").contains("Showing 1 - 5")).to.exist
     })
 
+    it("shows office detail view when a result is selected", () => {
+        cy.visit("/local-assistance/find/?pageNumber=1")
+        cy.get("[data-cy='search button']").click()
+        cy.get("#office-results")
+        cy.get("[data-cy='open detail']").eq(0).click()
+        expect(cy.get("#office-detail")).to.exist
+    })
+
+    it("displays all office details when they exist", () => {
+        cy.server()
+        cy.fixture("local-assistance/search-results.json").as("SearchResult")
+        cy.route("GET", "/api/content/offices.json**", "@SearchResult").as("OfficeSearch")
+        cy.visit("/local-assistance/find")
+        cy.get("[data-cy='search button']").eq(0).click()
+        cy.get("[data-cy='open detail']").eq(0).click()
+
+        expect(cy.get("#office-detail")).to.exist
+        cy.get("#office-miles").should("have.text", "0.8 miles")
+        cy.get(".office-title").should("have.text", "Office of the Chief Human Capital Officer - MAIN")
+        cy.get("#office-type").should("have.text", "SBA Headquarters Office")
+        cy.get("[data-cy='contact address']").should("have.text", "4091 3rd St SW, Suite 5300Washington, DC 20416")
+        cy.get("[data-cy='contact phone']").should("have.text", "(202) 205-6780")
+        cy.get("[data-cy='contact fax']").should("have.text", "(202) 555-0000")
+        cy.get("[data-cy='contact link']").should("have.text", "Visit website")
+        cy.get("[data-cy='contact email']").should("have.text", "sbaheadquarters@usa.gov")
+    })
+
+    it("returns to results list when office details is closed", () => {
+        cy.visit("/local-assistance/find/?type=SBA%20District%20Office&q=SBA&pageNumber=1")
+        cy.get("#office-results")
+        cy.get("[data-cy='open detail']").eq(0).click()
+        cy.get('[data-cy="close detail"]').click()
+        expect(cy.get("#office-results").contains("Results 1 - 5")).to.exist
+    })
 })
