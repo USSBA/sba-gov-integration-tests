@@ -17,14 +17,23 @@
                 "location_phone_number": [
                     "(202) 205-6780"
                 ],
+                "location_fax": [
+                    "(202) 555-0000"
+                ],
                 "location_state": [
                     "DC"
                 ],
                 "location_street_address": [
-                    "4091 3rd St SW,, Suite 5300"
+                    "4091 3rd St SW, Suite 5300"
                 ],
                 "location_zipcode": [
                     "20416"
+                ],
+                "location_email": [
+                    "sbaheadquarters@usa.gov"
+                ],
+                "office_website": [
+                    "https://www.officeofhumanresources.gov"
                 ],
                 "office_type": [
                     "SBA Headquarters Office"
@@ -62,7 +71,7 @@
                     "DC"
                 ],
                 "location_street_address": [
-                    "4092 3rd St SW,, Suite 5300"
+                    "4092 3rd St SW, Suite 5300"
                 ],
                 "location_zipcode": [
                     "20416"
@@ -103,7 +112,7 @@
                     "DC"
                 ],
                 "location_street_address": [
-                    "4093 3rd St SW,, Suite 5300"
+                    "4093 3rd St SW, Suite 5300"
                 ],
                 "location_zipcode": [
                     "20416"
