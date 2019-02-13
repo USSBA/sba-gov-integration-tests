@@ -1,7 +1,6 @@
 describe("Events Find Page", function () {
     it('should load and have a title', function () {
         cy.visit("/events/find")
-<<<<<<< HEAD
         cy.get("head > title").should("have.text", "Small Business Administration")
     })
 
@@ -21,7 +20,6 @@ describe("Events Find Page", function () {
         cy.get("@SubmitButton").click()
         cy.get("@EventKeyword").invoke("val").should("equal", expectedKeyword)
         cy.url().should("include", `q=${expectedKeyword}`)
-=======
         // TODO: replace when changed from office
         cy.get('#office-primary-search-bar-title').should("have.text", "Find events")
         cy.get("head > title").should("have.text", "Small Business Administration")
@@ -57,6 +55,5 @@ describe("Events Find Page", function () {
         // TODO: replace when changed from office
         cy.get('#office-primary-search-bar-search-button').click();
         cy.get('#zip-error').should("exist")
->>>>>>> 24c9310... TA-1568 Filling out tests for zip code search
     })
 })
