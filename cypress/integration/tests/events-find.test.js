@@ -8,7 +8,7 @@ describe("Events Find Page", function () {
         cy.visit("/events/find")
         cy.get("[data-cy='keyword search']").as("EventKeyword")
         cy.get("@EventKeyword").should("exist")
-        cy.get("@EventKeyword").parent().siblings().get('label').should("have.text", "Search")
+        cy.get('label[for="keyword-search"]').should("have.text", "Search")
     })
 
     it("takes a string of text as a keyword", function(){
@@ -20,15 +20,13 @@ describe("Events Find Page", function () {
         cy.get("@SubmitButton").click()
         cy.get("@EventKeyword").invoke("val").should("equal", expectedKeyword)
         cy.url().should("include", `q=${expectedKeyword}`)
-        // TODO: replace when changed from office
-        cy.get('#office-primary-search-bar-title').should("have.text", "Find events")
+        cy.get('#events-primary-search-bar-title').should("have.text", "Find events")
         cy.get("head > title").should("have.text", "Small Business Administration")
     })
 
     it('should have a submit button', function() {
         cy.visit("/events/find")
-        // TODO: replace when changed from office
-        cy.get('#office-primary-search-bar-search-button').should('exist')
+        cy.get('#events-primary-search-bar-search-button').should('exist')
     })
 
     it('should have a labeled zip code field', function(){
@@ -36,15 +34,14 @@ describe("Events Find Page", function () {
         cy.get("[data-cy='zip']").as("ZipInput")
         cy.get("@ZipInput").should("exist")
         cy.get("@ZipInput").parent().siblings("label").as("ZipLabel")
-        cy.get("@ZipLabel").should("have.text", "Near")
+        cy.get('label[for="zip"]').should("have.text", "Near")
     })
 
     it('should allow valid zip codes to be entered', function(){
         cy.visit("/events/find")
         cy.get("[data-cy='zip']").as("ZipInput")
         cy.get("@ZipInput").type("99999")
-        // TODO: replace when changed from office
-        cy.get('#office-primary-search-bar-search-button').click();
+        cy.get('#events-primary-search-bar-search-button').click();
         cy.get("@ZipInput").invoke("val").should("eq","99999")
     })
 
@@ -52,8 +49,18 @@ describe("Events Find Page", function () {
         cy.visit("/events/find")
         cy.get("[data-cy='zip']").as("ZipInput")
         cy.get("@ZipInput").type("abcde")
-        // TODO: replace when changed from office
-        cy.get('#office-primary-search-bar-search-button').click();
+        cy.get('#events-primary-search-bar-search-button').click();
         cy.get('#zip-error').should("exist")
+    })
+
+    it("takes a number as zip code", function(){
+        const expectedZip = "12345"
+        cy.visit("/events/find")
+        cy.get("[data-cy='zip']").as("ZipInput")
+        cy.get("button.button").as("SubmitButton")
+        cy.get("@ZipInput").type(expectedZip)
+        cy.get("@SubmitButton").click()
+        cy.get("@ZipInput").invoke("val").should("equal", expectedZip)
+        cy.url().should("include", `address=${expectedZip}`)
     })
 })
