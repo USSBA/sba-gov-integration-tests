@@ -67,7 +67,7 @@ describe("Events Find Page", function () {
     it("has a date range filter with options", function(){
         cy.visit("/events/find")
         cy.get('label[for="date-filter"]').should("have.text", "Date Range")
-        cy.get(".Select-control").as("DateRange")
+        cy.get("[data-cy='date']").as("DateRange")
         cy.get("@DateRange").click()
         cy.get(".Select-menu-outer").as("DateRangeOptions")
         cy.get("@DateRangeOptions").contains("All Upcoming").should("exist")
@@ -79,7 +79,7 @@ describe("Events Find Page", function () {
 
     it("allows selection of a date range option", function(){
         cy.visit("/events/find")
-        cy.get(".Select-control").as("DateRange")
+        cy.get("[data-cy='date']").as("DateRange")
         cy.get("@DateRange").click()
         cy.get(".Select-menu-outer").as("DateRangeOptions")
         cy.get("@DateRangeOptions").contains("Tomorrow").click()
