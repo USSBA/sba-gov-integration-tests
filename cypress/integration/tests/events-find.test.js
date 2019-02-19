@@ -88,4 +88,14 @@ describe("Events Find Page", function () {
         cy.get(".Select-value").should("have.text", "Tomorrow")
         cy.url().should("include", `dateRange=tomorrow`)
     })
+
+    it('date range option default is All Upcoming', function() {
+        cy.visit("/events/find")
+        cy.get(".Select-value").should("have.text", "All Upcoming")
+    })
+
+    it('date range is populated when date range query parameter is used', function(){
+        cy.visit('events/find/?dateRange=7days')
+        cy.get(".Select-value").should("have.text", "Next 7 Days")
+    })
 })
