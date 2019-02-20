@@ -130,4 +130,16 @@ describe("Events Find Page", function () {
         cy.get("@DateRangeOptions").contains("Next 7 Days").should("exist")
         cy.get("@DateRangeOptions").contains("Next 30 Days").should("exist")
     })
+
+    it("has a miles dropdown with options", function(){
+        cy.visit("/events/find")
+        cy.get('label[for="distance-filter"]').should("have.text", "Distance")
+        cy.get("[data-cy='distance']").as("Distance")
+        cy.get("@Distance").click()
+        cy.get("@Distance").find(".Select-menu-outer").as("DistanceOptions")
+        cy.get("@DistanceOptions").contains("200 miles").should("exist")
+        cy.get("@DistanceOptions").contains("100 miles").should("exist")
+        cy.get("@DistanceOptions").contains("50 miles").should("exist")
+        cy.get("@DistanceOptions").contains("25 miles").should("exist")
+    })
 })
