@@ -51,27 +51,33 @@ describe("Events Find Page", function () {
         const expectedZip = "12345"
         const expectedKeyword = "test"
         const expectedDateRange ="tomorrow"
+        const expectedDistance = "50"
 
         cy.visit("/events/find")
         cy.get("[data-cy='zip']").type(expectedZip)
         cy.get("[data-cy='keyword search']").type(expectedKeyword)
         cy.get("[data-cy='date']").click().find(".Select-menu-outer").contains("Tomorrow").click()
+        cy.get("[data-cy='distance']").as("Distance").click()
+        cy.get("@Distance").find(".Select-menu-outer").contains("50 miles").click()
         cy.get("[data-cy='search button']").click()
 
         cy.url().should("include", `address=${expectedZip}`)
         cy.url().should("include", `q=${expectedKeyword}`)
         cy.url().should("include", `dateRange=${expectedDateRange}`)
+        cy.url().should("include", `distance=${expectedDistance}`)
     })
 
     it("sets form values from query parameters", function(){
         const expectedZip = "23456"
         const expectedKeyword = "test123"
         const expectedDateRange ="Next 7 Days"
+        const expectedDistance = "25 miles"
 
-        cy.visit("/events/find/?dateRange=7days&address=23456&q=test123")
+        cy.visit("/events/find/?dateRange=7days&address=23456&q=test123&distance=25")
         cy.get("[data-cy='zip']").invoke('val').should("equal", expectedZip)
         cy.get("[data-cy='keyword search']").invoke('val').should("equal", expectedKeyword)
         cy.get("[data-cy='date']").find(".Select-value").should("have.text",expectedDateRange)
+        cy.get("[data-cy='distance']").find(".Select-value").should("have.text",expectedDistance)
     })
 
     it("has a date range filter with options", function(){
@@ -106,6 +112,8 @@ describe("Events Find Page", function () {
         cy.get("[data-cy='zip']").type("99999")
         cy.get("[data-cy='date']").as("DateRange").click()
         cy.get("@DateRange").find(".Select-menu-outer").contains("Tomorrow").click()
+        cy.get("[data-cy='distance']").as("Distance").click()
+        cy.get("@Distance").find(".Select-menu-outer").contains("50 miles").click()
 
         cy.get("[data-cy='search button']").click()
 
@@ -115,6 +123,8 @@ describe("Events Find Page", function () {
             expect(xhr.url).to.contain("q=test")
             expect(xhr.url).to.contain("address=9999")
             expect(xhr.url).to.contain("dateRange=tomorrow")
+            expect(xhr.url).to.contain("distance=50")
+            
         })
     })
 
@@ -130,4 +140,28 @@ describe("Events Find Page", function () {
         cy.get("@DateRangeOptions").contains("Next 7 Days").should("exist")
         cy.get("@DateRangeOptions").contains("Next 30 Days").should("exist")
     })
+
+    it("has a miles dropdown with options", function(){
+        cy.visit("/events/find")
+        cy.get('label[for="distance-filter"]').should("have.text", "Distance")
+        cy.get("[data-cy='distance']").as("Distance")
+        cy.get("@Distance").click()
+        cy.get("@Distance").find(".Select-menu-outer").as("DistanceOptions")
+        cy.get("@DistanceOptions").contains("200 miles").should("exist")
+        cy.get("@DistanceOptions").contains("100 miles").should("exist")
+        cy.get("@DistanceOptions").contains("50 miles").should("exist")
+        cy.get("@DistanceOptions").contains("25 miles").should("exist")
+    })
+
+    it("has a distance default o 200 miles", function() {
+        cy.server()
+        cy.route("GET", "/api/content/events.json**").as("EventsRequest")
+        cy.visit("/events/find")
+        cy.wait("@EventsRequest").then((xhr) => {
+            expect(xhr.url).to.contain("distance=200")
+        })
+        cy.get("[data-cy='distance']").find(".Select-value").should("have.text", "200 miles")
+    })
+
+
 })
