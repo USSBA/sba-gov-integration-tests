@@ -15,7 +15,7 @@ describe("Events Find Page", function () {
         const expectedKeyword = "testkeyword"
         cy.visit("/events/find")
         cy.get("[data-cy='keyword search']").as("EventKeyword")
-        cy.get("button.button").as("SubmitButton")
+        cy.get("[data-cy='submit button").as("SubmitButton")
         cy.get("@EventKeyword").type(expectedKeyword)
         cy.get("@SubmitButton").click()
         cy.get("@EventKeyword").invoke("val").should("equal", expectedKeyword)
@@ -57,10 +57,88 @@ describe("Events Find Page", function () {
         const expectedZip = "12345"
         cy.visit("/events/find")
         cy.get("[data-cy='zip']").as("ZipInput")
-        cy.get("button.button").as("SubmitButton")
+        cy.get("[data-cy='submit button").as("SubmitButton")
         cy.get("@ZipInput").type(expectedZip)
         cy.get("@SubmitButton").click()
         cy.get("@ZipInput").invoke("val").should("equal", expectedZip)
         cy.url().should("include", `address=${expectedZip}`)
+    })
+
+    it("has a date range filter with options", function(){
+        cy.visit("/events/find")
+        cy.get('label[for="date-filter"]').should("have.text", "Date Range")
+        cy.get("[data-cy='date']").as("DateRange")
+        cy.get("@DateRange").click()
+        cy.get(".Select-menu-outer").as("DateRangeOptions")
+        cy.get("@DateRangeOptions").contains("All Upcoming").should("exist")
+        cy.get("@DateRangeOptions").contains("Today").should("exist")
+        cy.get("@DateRangeOptions").contains("Tomorrow").should("exist")
+        cy.get("@DateRangeOptions").contains("Next 7 Days").should("exist")
+        cy.get("@DateRangeOptions").contains("Next 30 Days").should("exist")
+    })
+
+    it("allows selection of a date range option", function(){
+        cy.server()
+        cy.route("GET", "/api/content/events.json**").as("EventsRequest")
+        cy.visit("/events/find")
+        cy.get("[data-cy='date']").as("DateRange")
+        cy.get("@DateRange").click()
+        cy.get(".Select-menu-outer").as("DateRangeOptions")
+        cy.get("@DateRangeOptions").contains("Tomorrow").click()
+        cy.get("[data-cy='submit button").as("SubmitButton")
+        cy.get("@SubmitButton").click()
+        cy.wait("@EventsRequest").then((xhr) => {
+            expect(xhr.url).to.contain("dateRange=tomorrow")
+        })
+        cy.get(".Select-value").should("have.text", "Tomorrow")
+        cy.url().should("include", `dateRange=tomorrow`)
+    })
+
+    it('date range option default is All Upcoming', function() {
+        cy.server()
+        cy.route("GET", "/api/content/events.json**").as("EventsRequest")
+        cy.visit("/events/find")
+        cy.wait("@EventsRequest").then((xhr) => {
+            expect(xhr.url).to.contain("dateRange=all")
+        })
+        cy.get(".Select-value").should("have.text", "All Upcoming")
+    })
+
+    it('date range is populated when date range query parameter is used', function(){
+        cy.server()
+        cy.route("GET", "/api/content/events.json**").as("EventsRequest")
+        cy.visit('/events/find/?dateRange=7days')
+        cy.wait("@EventsRequest").then((xhr) => {
+            expect(xhr.url).to.contain("dateRange=7days")
+        })
+        cy.get(".Select-value").should("have.text", "Next 7 Days")
+    })
+
+    it('submits the appropriate backend request when a search is submitted', function(){
+        cy.server()
+        cy.route("GET", "/api/content/events.json**").as("EventsRequest")
+        cy.visit('/events/find')
+        
+        cy.get("[data-cy='submit button]").as("SubmitButton")
+        cy.get("[data-cy='zip']").as("ZipInput")
+        cy.get("[data-cy='keyword search']").as("EventKeyword")
+        cy.get("[data-cy='date']").as("DateRange")
+
+        cy.get("@ZipInput").type("99999")
+        cy.get("@EventKeyword").type("test")
+        cy.get("@DateRange").click()
+        cy.get(".Select-menu-outer").as("DateRangeOptions")
+        cy.get("@DateRangeOptions").contains("Tomorrow").click()
+
+        cy.get("@SubmitButton").click()
+
+        cy.wait("@EventsRequest").then((xhr) => {
+            expect(xhr.url).to.contain("pageSize=5")
+            expect(xhr.url).to.contain("pageNumber=1")
+            expect(xhr.url).to.contain("start=0")
+            expect(xhr.url).to.contain("q=test")
+            expect(xhr.url).to.contain("address=9999")
+            expect(xhr.url).to.contain("dateRange=tomorrow")
+        })
     })
 })
