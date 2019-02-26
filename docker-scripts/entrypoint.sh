@@ -3,6 +3,7 @@
 BASE_URL_VALUE=${BASE_URL}
 TEST_USER_VALUE=${TEST_USER}
 TEST_PASSWORD_VALUE=${TEST_PASSWORD}
+TEST_PATH=${TEST_FILE_TO_RUN:-'/app/cypress/integration/tests/**/*.js'}
 
 function getparameterstore () {
   ENV_NAME=$1
@@ -38,7 +39,7 @@ echo -e "\nRunning with config:"
 echo -e "\n----------------------------------\n"
 cat /app/cypress.json
 echo -e "\n----------------------------------\n"
-node_modules/.bin/cypress run -c /app/cypress.json --spec '/app/cypress/integration/tests/**/*.js' 
+node_modules/.bin/cypress run -c /app/cypress.json --spec ${TEST_PATH}
 
 TIMESTAMP=$(date +%Y-%m-%dT%H%MZ)
 
