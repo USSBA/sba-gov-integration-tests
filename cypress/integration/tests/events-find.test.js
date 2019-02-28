@@ -163,5 +163,24 @@ describe("Events Find Page", function () {
         cy.get("[data-cy='distance']").find(".Select-value").should("have.text", "200 miles")
     })
 
+    it("has results", function(){
+        cy.visit("/events/find")
+        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'date']")
+        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'time']")
+        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'title']")
+        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'location']")
+        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'cost']")
+        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'registration']")
 
+    })
+
+    // it("has no registration", function(){
+    //     cy.visit("events/find")
+    //     cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'registration']")
+
+    // })
+
+    // it ("has ")
+    
+   
 })
