@@ -153,7 +153,7 @@ describe("Events Find Page", function () {
         cy.get("@DistanceOptions").contains("25 miles").should("exist")
     })
 
-    it("has a distance default o 200 miles", function() {
+    it("has a distance default of 200 miles", function() {
         cy.server()
         cy.route("GET", "/api/content/events.json**").as("EventsRequest")
         cy.visit("/events/find")
@@ -174,13 +174,24 @@ describe("Events Find Page", function () {
 
     })
 
-    // it("has no registration", function(){
-    //     cy.visit("events/find")
-    //     cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'registration']")
+    it("paginates through search results", function(){
+        cy.visit("events/find")
+        cy.get("[data-cy= 'showing results text']").as("Pagination")
+        cy.get("[data-cy= 'previous button']").as("Prev")
+        cy.get("[data-cy= 'next button']").as("Next")
+        expect(cy.get("@Pagination").contains("Showing 1 - 10 of ")).to.exist
+        expect(cy.get("@Prev")).to.exist
+        expect(cy.get("@Next")).to.exist
 
-    // })
+        //Forward pagination
+        cy.get("@Next").click()
+        expect(cy.get("@Pagination").contains("Showing 11 - 20 of ")).to.exist
 
-    // it ("has ")
-    
-   
+        //Backwards pagination
+        cy.get("@Prev").click()
+        expect(cy.get("@Pagination").contains("Showing 1 - 10 of ")).to.exist
+    })
+
+
+  
 })
