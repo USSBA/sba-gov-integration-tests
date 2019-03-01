@@ -1,0 +1,344 @@
+{
+    "count": 2300,
+    "items": [{
+            "title": "Where’s the Contract? How To Do Business with the General Services Administration (GSA)",
+            "type": "event",
+            "description": "Is it strategic for your business to sell its goods and/or services to multiple government agencies based on a single contract with the GSA? What procurement tools does the GSA have, in order for those many government agencies to consider buying from your company? Please come out and learn from Nate Jackson, a Nevada PTAC team member who came to the PTAC late last year directly from the GSA. At GSA, Nate was a Contracting Officer with an unlimited warrant. (GSA is a U.S. Federal Government Agency) \r\n \r\nWho should attend: Interested Nevada small businesses\r\nWhat to bring: Capabilities statements & business cards. “Where’s the Contract” is a FREE monthly program designed to put Nevada businesses on the path to securing government contracts and diversifying revenue sources. Locations alternate on a regular basis between the Reno-Carson City and Las Vegas areas. These monthly programs are provided by Nevada GOED’s Procurement Technical Assistance Center in partnership with the Nevada Small Business Development Center.\r\n",
+            "id": "1636803",
+            "registrationUrl": "https://nsbdc.ecenterdirect.com/events/4307",
+            "startDate": "2019-02-28T23:30:00-08:00",
+            "endDate": "2019-03-01T01:30:00-08:00",
+            "timezone": "PST",
+            "cost": "0.00",
+            "locationType": "In Person",
+            "location": {
+                "name": "Clark County Government Center",
+                "address": "500 S. Grand Central Parkway ",
+                "address_additional": "1st Floor Pueblo Room",
+                "city": "Las Vegas",
+                "zipcode": "89155",
+                "state": "Nevada",
+                "latitude": "35.927901",
+                "longitude": "-114.972061"
+            },
+            "contact": {
+                "name": null,
+                "email": null,
+                "phone": "702 455-0000"
+            },
+            "sponsor": {
+                "type": "District Office",
+                "sponsorName": "Nevada"
+            },
+            "organizer": "NV PTAC",
+            "recurring": "No",
+            "recurringType": null
+        },
+        {
+            "title": "From Traditional to Digital Marketing Workshop 2019",
+            "type": "event",
+            "description": "Do you have the feeling that online marketing has become too complicated? Do you want to know which digital marketing tasks you can take on? Do you want to understand your digital marketing reports? If you answered YES, this course is for you.\r\n\r\nTopics:\r\n\r\nThe Building Blocks of a Strong Digital Marketing Strategy, Understanding the Tools of Digital Marketing, Beyond Digital: Putting Traditional Marketing Methods to Work, Be an Expert at Understanding Marketing Reports, not just the Bits & Bytes. ",
+            "id": "1634959",
+            "registrationUrl": "https://www.georgiasbdc.org/training/?center=gwinnett",
+            "startDate": "2019-03-01T03:00:00-05:00",
+            "endDate": "2019-03-01T07:00:00-05:00",
+            "timezone": "EST",
+            "cost": "69.00",
+            "locationType": "In Person",
+            "location": {
+                "name": "UGA Gwinnett Campus",
+                "address": "2530 Sever Road",
+                "address_additional": "Suite 202",
+                "city": "Lawrenceville",
+                "zipcode": "30043",
+                "state": "Georgia",
+                "latitude": "34.001159",
+                "longitude": "-84.014870"
+            },
+            "contact": {
+                "name": "Helen Sutherland",
+                "email": "gwinnett@georgiasbdc.org",
+                "phone": "6789856820"
+            },
+            "sponsor": {
+                "type": "District Office",
+                "sponsorName": "Georgia"
+            },
+            "organizer": "UGA SBDC",
+            "recurring": "No",
+            "recurringType": null
+        },
+        {
+            "title": "Grow Your Business Phase I ",
+            "type": "event",
+            "description": "Wondering if your product or service is a good idea? Phase I Validation takes you through a step-by-step process to validate whether your idea is a good idea and in line with the needs of the market before you spend a dime on development. Designed to help entrepreneurs avoid many of the common pitfalls when developing a product or service.",
+            "id": "1621533",
+            "registrationUrl": null,
+            "startDate": "2019-03-01T01:30:00-07:00",
+            "endDate": "2019-03-01T04:30:00-07:00",
+            "timezone": "MST",
+            "cost": "0.00",
+            "locationType": "In Person",
+            "location": {
+                "name": "Orem SBDC",
+                "address": "815 W 1250 S",
+                "address_additional": "",
+                "city": "Orem",
+                "zipcode": "84058",
+                "state": "Utah",
+                "latitude": "40.278086",
+                "longitude": "-111.710670"
+            },
+            "contact": {
+                "name": "Vira Bahr",
+                "email": "vbahr@uvu.edu",
+                "phone": null
+            },
+            "sponsor": {
+                "type": "District Office",
+                "sponsorName": "Utah"
+            },
+            "organizer": "Orem SBDC",
+            "recurring": "Yes",
+            "recurringType": "Recurs monthly (same week &amp; same day of week)"
+        },
+        {
+            "title": " Free SBA Loan Workshop",
+            "type": "event",
+            "description": "Please Join Us!\r\nIn this workshop, you will learn about SBA assistance in Starting, Growing, Expanding and Recovering through guaranty loan programs for home-based businesses to multi-million dollar real estate and manufacturing transactions.  If you want to apply for an SBA guaranteed loan or disaster loan or have ever considered applying for one, this workshop is a must and will be presented by an experienced SBA loan officer and a local SBA lender.  The workshop will provide you with the tools and information that you will need for a successful loan application.  \r\n",
+            "id": "1632125",
+            "registrationUrl": "https://www.eventbrite.com/e/free-sba-guaranty-loan-workshop-tickets-53600232739?aff=ebdssbcitybrowse",
+            "startDate": "2019-03-01T01:00:00-08:00",
+            "endDate": "2019-03-01T02:30:00-08:00",
+            "timezone": "PST",
+            "cost": "0.00",
+            "locationType": "In Person",
+            "location": {
+                "name": "SBA Fresno District Office",
+                "address": "801 R Street",
+                "address_additional": "Suite 201",
+                "city": "Fresno",
+                "zipcode": "93721",
+                "state": "California",
+                "latitude": "36.737847",
+                "longitude": "-119.780388"
+            },
+            "contact": {
+                "name": "William Hori",
+                "email": "fresno@sba.gov",
+                "phone": "559-487-5791 ext. 2701"
+            },
+            "sponsor": {
+                "type": "District Office",
+                "sponsorName": "California (Fresno)"
+            },
+            "organizer": null,
+            "recurring": "No",
+            "recurringType": null
+        },
+        {
+            "title": "Start-up Series: Financing Your Business",
+            "type": "event",
+            "description": "Friday, March 1, 2019 - 9:00 AM to 12:00 PM PST\r\nFee: $25.00\r\n\r\nNeed Money? \r\n\r\nAlmost all businesses require an infusion of money at some time to start, maintain, or grow. This workshop describes various funding sources and specific criteria used to evaluate funding requests. A SCORE mentor will explain the process for SBA guaranteed loans, as well as talk about local organizations that provide loans to start-ups and exisiting businesses.  Also get tips on crowd-funding, friends and family loans and equity investments from Angel Investors and when Venture Capitalists come in.",
+            "id": "1616466",
+            "registrationUrl": "http://events.r20.constantcontact.com/register/event?llr=upmnz5eab&oeidk=a07eg2579yr9b9f4a01",
+            "startDate": "2019-03-01T01:00:00-08:00",
+            "endDate": "2019-03-01T04:00:00-08:00",
+            "timezone": "PST",
+            "cost": "25.00",
+            "locationType": "In Person",
+            "location": {
+                "name": "SCORE San Diego",
+                "address": "8825 Aero Drive, Ste. 102",
+                "address_additional": "",
+                "city": "San Diego",
+                "zipcode": "92123",
+                "state": "California",
+                "latitude": "32.803799",
+                "longitude": "-117.135950"
+            },
+            "contact": {
+                "name": "SCORE Chapter 140",
+                "email": "score0140@scorevolunteer.org",
+                "phone": null
+            },
+            "sponsor": {
+                "type": "District Office",
+                "sponsorName": "California (San Diego)"
+            },
+            "organizer": "SCORE San Diego",
+            "recurring": "No",
+            "recurringType": null
+        },
+        {
+            "title": "How to Turn Your Passion Into a Business",
+            "type": "event",
+            "description": "Are you dreaming of starting your own business? Are you looking for some practical advice? Some inspiration? Or perhaps you’ve already made the leap, want to learn tips and tricks to help you along the way, and network with women who have reinvented themselves and never been happier.\r\n\r\nCome join us for a panel discussion followed by Q&A with women who started from scratch and are doing what they love today. Learn how they took the risk, followed their dreams, and never wasted another minute on “what could have been.”\r\n\r\nWhen: Friday, March 1 from 10:00 AM - 12:00 PM\r\n\r\nWhere:\r\n\r\nCWE Central MA \r\n69 Milk St., Suite 217\r\nWestborough, MA 01581\r\n\r\nFee: $10. Must register to attend. Partial scholarships may be available to those that qualify. \r\n\r\nClick Here to Register: http://bit.ly/2C4ZMko",
+            "id": "1633852",
+            "registrationUrl": "http://bit.ly/2C4ZMko",
+            "startDate": "2019-03-01T05:00:00-05:00",
+            "endDate": "2019-03-01T07:00:00-05:00",
+            "timezone": "EST",
+            "cost": "10.00",
+            "locationType": "In Person",
+            "location": {
+                "name": "CWE Central MA",
+                "address": "69 Milk Street",
+                "address_additional": "217",
+                "city": "Westborough",
+                "zipcode": "01581",
+                "state": "Massachusetts",
+                "latitude": "42.269845",
+                "longitude": "-71.614080"
+            },
+            "contact": {
+                "name": null,
+                "email": null,
+                "phone": null
+            },
+            "sponsor": {
+                "type": "District Office",
+                "sponsorName": "Massachusetts"
+            },
+            "organizer": null,
+            "recurring": "No",
+            "recurringType": null
+        },
+        {
+            "title": "Opening Doors to Federal Government Contracting",
+            "type": "event",
+            "description": "Take your business to the next level by selling your product or service to the federal government.\r\nLet SBA help you learn how it’s done when you attend one of our upcoming workshops on federal contracting.\r\nLearn how the federal government purchases goods and services\r\nUnderstand federal certification’s application process and benefits for small business owners\r\nSmall Disadvantaged Business\r\nWomen Owned Small Business\r\nService Disabled Veteran Owned\r\n8(a) Business Development Program\r\nHUBZone Program",
+            "id": "1635142",
+            "registrationUrl": "https://www.eventbrite.com/e/opening-doors-to-federal-government-contracting-small-business-administration-tickets-55976945551",
+            "startDate": "2019-03-01T05:00:00-05:00",
+            "endDate": "2019-03-01T07:00:00-05:00",
+            "timezone": "EST",
+            "cost": "0.00",
+            "locationType": "In Person",
+            "location": {
+                "name": "Tip O&#039;Neill Federal Building",
+                "address": "10 Causeway Street, RM 265",
+                "address_additional": "",
+                "city": "Boston",
+                "zipcode": "02222",
+                "state": "Massachusetts",
+                "latitude": "42.367797",
+                "longitude": "-71.062820"
+            },
+            "contact": {
+                "name": "Nadine Boone",
+                "email": "nadine.boone@sba.gov",
+                "phone": "617-565-8514"
+            },
+            "sponsor": {
+                "type": "District Office",
+                "sponsorName": "Massachusetts"
+            },
+            "organizer": null,
+            "recurring": "No",
+            "recurringType": null
+        },
+        {
+            "title": " Lunch &amp; Learn Workshop: Risky Business Panel ",
+            "type": "event",
+            "description": "When it comes to business, there are a lot of tough questions. And, if you’re not sure on some of these answers, you could be putting your business at risk. You'll hear from a panel of subject matter experts and get the answers to all your risky business questions.\r\n\r\n Our experienced panelists tackle topics such as:\r\n\r\n *What is insider fraud and how do I protect myself?\r\n\r\n*Is risk management really necessary? (I already have insurance.)\r\n\r\n*How do I legally protect myself (and my family) should I get sick or become disabled?\r\n\r\n*What are the biggest risks of payroll, taxes, and worker misclassification?\r\n\r\n*How does insurance protect me or my company if I am sued?\r\n\r\nFee: $25\r\n\r\nMeet Our Subject Matter Experts\r\n\r\nBernadette Harris, forensic accountant, realizes that when businesses fail the impact is widespread. Bernadette will why insider fraud is a bigger problem than you realize, exactly what insider fraud is, how small businesses become victim, and what you can do to protect yourself.\r\n\r\n\r\nJ Christopher Miller, attorney, believes \"life is a journey that begins and ends with family.\" He will help you navigate the legal side of protecting your assets as business owner and for your family should you become sick, disabled, or worse. \r\n\r\n\r\nJoi Blume, commercial insurance agent and our moderator, is a skilled commercial insurance professional that understands the complexities of insurance and property risk. Joi will discuss the importance of insurance and how it can protect you in the event of a lawsuit.\r\n\r\n\r\nLawanda Hall, risk management professional, has demonstrated the ability to develop, manage and document risk management concepts, procedures, and strategies. Lawanda will explain risk management in easy to understand terms, divulge what tools you need in your arsenal, and discern the types of insurance you really need.\r\n\r\n\r\nShruti Dhawan, payroll and HR specialist, is a seasoned CEO who understands the payroll and HR challenges of small/medium sized businesses. She will discuss the risks of payroll and worker misclassification and will let you know exactly how to determine the right classification. Shruti will also explain just how big of a deal employee misclassification really is.\r\n\r\n",
+            "id": "1636081",
+            "registrationUrl": "http://events.r20.constantcontact.com/register/event?llr=885sqpxab&oeidk=a07eg3vjhk32e1a4797",
+            "startDate": "2019-03-01T06:30:00-05:00",
+            "endDate": "2019-03-01T08:00:00-05:00",
+            "timezone": "EST",
+            "cost": "25.00",
+            "locationType": "In Person",
+            "location": {
+                "name": "Gwinnett Chamber of Commerce ",
+                "address": "6500 Sugarloaf Parkway",
+                "address_additional": "",
+                "city": "Duluth",
+                "zipcode": "30097",
+                "state": "Georgia",
+                "latitude": "34.020621",
+                "longitude": "-84.142940"
+            },
+            "contact": {
+                "name": "North Metro Atlanta SCORE",
+                "email": "northmetroatl@scorevolunteer.org",
+                "phone": "678-506-0718 "
+            },
+            "sponsor": {
+                "type": "District Office",
+                "sponsorName": "Georgia"
+            },
+            "organizer": "SCORE North Metro Atlanta ",
+            "recurring": "No",
+            "recurringType": null
+        },
+        {
+            "title": "FIRST FRIDAY: MICHELLE DECLERCK ",
+            "type": "event",
+            "description": "On the first Friday of every month, join us to hear the savvy, successful business owners + entrepreneurs of Des Moines share their story. In a laid-back environment, you’ll catch some words of wisdom from women + men who have been through it before—and maybe walk away with a new connection (or two).\r\n\r\nSessions are completely free and open to the public, and are held from 11:30am to 1pm, with networking from 11:30am to noon. This First Friday will be held at The Greater Des Moines Partnership, 700 Locust, Ste 100 in Conference Room, Des Moines, IA 50309. Seating is first come, first served. Lunch is not provided, though we encourage you to bring your own if you'd like.\r\n\r\nOn March 1, hear from Michelle DeClerck, CMP - President and founder of Conference Event Management. Conference Event Management was founded in 2003 by Michelle DeClerck. As an industry’s premier provider of unique, world-class event, conference, incentive travel and meeting experiences, the company has experienced significant growth—primarily through referrals—since its inception, and in early 2017, was selected by Goldman Sachs 10,000 Small Businesses as the only company in Iowa and one of 150 small businesses throughout the nation to participate in an elite business growth program\r\n\r\nA proven industry leader and innovator, Michelle has won numerous professional accolades, including: the 2018 Enterprising Women Award.  2017: SBA Iowa Women in Business Champion of the Year; the Inspiring Women of Iowa – Character Award; Smart Meetings Top Influential Woman – Innovator of the Year Award; and Midwest Meetings Magazine Cover Feature. 2016 Awards included being named a Top 20 Change Maker in the Event Industry by MeetingsNet and named Iowa’s National Association of Women Business Owners (NAWBO) Business Owner of the Year (2011).\r\n\r\nMichelle is also committed to supporting other businesswomen.  Her leadership roles in this area include public speaking as well as serving as both the Director at Large Counsel and Programming Chair of the National Association of Women Business Owners (NAWBO) – Iowa; serving on the Executive Council for Iowa Women Lead Change (IWLC); enrolling her company in the Iowa Epic Corporate Challenge; serving on the Million Women Mentors – Iowa committee; founding Mentor Tank to provide mentoring opportunities for young women; developing a panel of female business owners to educate local business fraternity members; and sharing her experience and insight by serving as a guest writer for the Business Record and for Lift Iowa, the Business Record’s publication for women.\r\n\r\nPlease join us to hear this amazing women business owner, active community member, and friend to many share her entrepreneurial story!",
+            "id": "1635335",
+            "registrationUrl": "http://theiowacenter.org/calendar/register/?event=459",
+            "startDate": "2019-03-01T05:30:00-06:00",
+            "endDate": "2019-03-01T07:00:00-06:00",
+            "timezone": "CST",
+            "cost": "0.00",
+            "locationType": "In Person",
+            "location": {
+                "name": "The Greater Des Moines Partnership",
+                "address": "700 Locust",
+                "address_additional": "Suite 100 in Conference Room",
+                "city": "Des Moines",
+                "zipcode": "50309",
+                "state": "Iowa",
+                "latitude": "41.585939",
+                "longitude": "-93.620040"
+            },
+            "contact": {
+                "name": null,
+                "email": null,
+                "phone": null
+            },
+            "sponsor": {
+                "type": "District Office",
+                "sponsorName": "Iowa (Des Moines)"
+            },
+            "organizer": "Iowa Center for Economic Success",
+            "recurring": "Yes",
+            "recurringType": "Recurs monthly (same week &amp; same day of week)"
+        },
+        {
+            "title": "FIRST FRIDAY: MICHELLE DECLERCK [recurring]",
+            "type": "event",
+            "description": "On the first Friday of every month, join us to hear the savvy, successful business owners + entrepreneurs of Des Moines share their story. In a laid-back environment, you’ll catch some words of wisdom from women + men who have been through it before—and maybe walk away with a new connection (or two).\r\n\r\nSessions are completely free and open to the public, and are held from 11:30am to 1pm, with networking from 11:30am to noon. This First Friday will be held at The Greater Des Moines Partnership, 700 Locust, Ste 100 in Conference Room, Des Moines, IA 50309. Seating is first come, first served. Lunch is not provided, though we encourage you to bring your own if you'd like.\r\n\r\nOn March 1, hear from Michelle DeClerck, CMP - President and founder of Conference Event Management. Conference Event Management was founded in 2003 by Michelle DeClerck. As an industry’s premier provider of unique, world-class event, conference, incentive travel and meeting experiences, the company has experienced significant growth—primarily through referrals—since its inception, and in early 2017, was selected by Goldman Sachs 10,000 Small Businesses as the only company in Iowa and one of 150 small businesses throughout the nation to participate in an elite business growth program\r\n\r\nA proven industry leader and innovator, Michelle has won numerous professional accolades, including: the 2018 Enterprising Women Award.  2017: SBA Iowa Women in Business Champion of the Year; the Inspiring Women of Iowa – Character Award; Smart Meetings Top Influential Woman – Innovator of the Year Award; and Midwest Meetings Magazine Cover Feature. 2016 Awards included being named a Top 20 Change Maker in the Event Industry by MeetingsNet and named Iowa’s National Association of Women Business Owners (NAWBO) Business Owner of the Year (2011).\r\n\r\nMichelle is also committed to supporting other businesswomen.  Her leadership roles in this area include public speaking as well as serving as both the Director at Large Counsel and Programming Chair of the National Association of Women Business Owners (NAWBO) – Iowa; serving on the Executive Council for Iowa Women Lead Change (IWLC); enrolling her company in the Iowa Epic Corporate Challenge; serving on the Million Women Mentors – Iowa committee; founding Mentor Tank to provide mentoring opportunities for young women; developing a panel of female business owners to educate local business fraternity members; and sharing her experience and insight by serving as a guest writer for the Business Record and for Lift Iowa, the Business Record’s publication for women.\r\n\r\nPlease join us to hear this amazing women business owner, active community member, and friend to many share her entrepreneurial story!",
+            "id": "1635323",
+            "registrationUrl": "http://theiowacenter.org/calendar/register/?event=459",
+            "startDate": "2019-03-01T05:30:00-06:00",
+            "endDate": "2019-03-01T07:00:00-06:00",
+            "timezone": "CST",
+            "cost": "0.00",
+            "locationType": "In Person",
+            "location": {
+                "name": "The Greater Des Moines Partnership",
+                "address": "700 Locust",
+                "address_additional": "Suite 100 in Conference Room",
+                "city": "Des Moines",
+                "zipcode": "50309",
+                "state": "Iowa",
+                "latitude": "41.585939",
+                "longitude": "-93.620040"
+            },
+            "contact": {
+                "name": null,
+                "email": null,
+                "phone": null
+            },
+            "sponsor": {
+                "type": "District Office",
+                "sponsorName": "Iowa (Des Moines)"
+            },
+            "organizer": "Iowa Center for Economic Success",
+            "recurring": "Yes",
+            "recurringType": "Recurs monthly (same week &amp; same day of week)"
+        }
+    ]
+}

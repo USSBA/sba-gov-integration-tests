@@ -163,7 +163,11 @@ describe("Events Find Page", function () {
         cy.get("[data-cy='distance']").find(".Select-value").should("have.text", "200 miles")
     })
 
-    it("has results", function(){
+    it("displays results when they exist", function(){
+        cy.server()
+        cy.fixture("event/search-results.json").as("EventResults")
+        cy.route("GET", "/api/content/events.json**", "@EventResults")
+
         cy.visit("/events/find")
         cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'date']")
         cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'time']")
@@ -174,7 +178,23 @@ describe("Events Find Page", function () {
 
     })
 
+    //Check that title links to event page(WIP)
+    it("allow to click on title", function(){
+        cy.server()
+        cy.fixture("event/search-results.json").as("EventResults")
+        cy.route("GET", "/api/content/events.json**", "@EventResults")
+
+        cy.visit("/events/find")
+        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'title']").click()
+        expect(cy.url())
+        
+    })
+
     it("paginates through search results", function(){
+        cy.server()
+        cy.fixture("event/search-results.json").as("EventResults")
+        cy.route("GET", "/api/content/events.json**", "@EventResults")
+
         cy.visit("events/find")
         cy.get("[data-cy= 'showing results text']").as("Pagination")
         cy.get("[data-cy= 'previous button']").as("Prev")
@@ -191,7 +211,6 @@ describe("Events Find Page", function () {
         cy.get("@Prev").click()
         expect(cy.get("@Pagination").contains("Showing 1 - 10 of ")).to.exist
     })
-
 
   
 })
