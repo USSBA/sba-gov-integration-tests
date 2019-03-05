@@ -163,17 +163,24 @@ describe("Events Find Page", function () {
         cy.get("[data-cy='distance']").find(".Select-value").should("have.text", "200 miles")
     })
 
-    it("displays results when they exist", function(){
+    it.only("displays results when they exist", function(){
+
+        const expectedDate = "Thursday, February 28"
+        const expectedTime = "11:30 pm–1:30 am"
+        const expectedTitle = "Where’s the Contract? How To Do Business with the General Services Administration (GSA)"
+        const expectedLocation = "Las Vegas, Nevada"
+        const expectedCost = "Free"
+
         cy.server()
         cy.fixture("event/search-results.json").as("EventResults")
         cy.route("GET", "/api/content/events.json**", "@EventResults")
 
         cy.visit("/events/find")
-        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'date']")
-        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'time']")
-        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'title']")
-        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'location']")
-        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'cost']")
+        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'date']").should("equal", expectedDate)
+        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'time']").should("have.text", expectedTime)
+        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'title']").should("equal", expectedTitle)
+        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'location']").should("equal", expectedLocation)
+        cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'cost']").should("equal", expectedCost)
         cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'registration']")
 
     })
