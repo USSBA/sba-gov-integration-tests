@@ -178,7 +178,6 @@ describe("Events Find Page", function () {
 
     })
 
-    //Check that title links to event page(WIP)
     it("allow to click on title", function(){
         cy.server()
         cy.fixture("event/search-results.json").as("EventResults")
@@ -212,5 +211,14 @@ describe("Events Find Page", function () {
         expect(cy.get("@Pagination").contains("Showing 1 - 10 of ")).to.exist
     })
 
-  
+    it("displays 10 results", function(){
+        cy.server()
+        cy.fixture("event/search-results.json").as("EventResults")
+        cy.route("GET", "/api/content/events.json**", "@EventResults")
+
+        cy.visit("events/find")
+        cy.get("[data-cy= 'event result']").should('have.length', 10)
+
+    })
+
 })
