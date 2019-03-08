@@ -232,7 +232,7 @@ describe("Events Find Page", function () {
             })
             const expectedRegistrationLabel = "REGISTER"
             cy.visit("/events/find")
-            cy.get("[data-cy='event result']").eq(0).find("[data-cy='registration']").should("have.text", expectedRegistrationLabel)
+            cy.get("[data-cy='event result']").eq(0).find("[data-cy='registration']").contains(expectedRegistrationLabel)
         })
 
         it("has no registration button with no registration url", function(){
@@ -242,10 +242,10 @@ describe("Events Find Page", function () {
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
             })
             cy.visit("/events/find")
-            expect(cy.get("[data-cy='event result']").eq(0).find("[data-cy='registration']")).not.to.exist
+            cy.get("[data-cy='event result']").eq(0).find("[data-cy='registration']").find(".button").should('not.exist')
         })
 
-        it.only("displays 'Open event' text with no registration url", function(){
+        it("displays 'Open event' text with no registration url", function(){
             cy.server()
             cy.fixture("event/search-results.json").as("EventResults").then((event) => {
                 event.items[0].registrationUrl = null
@@ -254,9 +254,7 @@ describe("Events Find Page", function () {
             const expectedRegistrationText = "Open event"
             cy.visit("/events/find")
             cy.get("[data-cy='event result']").eq(0).find("[data-cy='registration']").should("have.text", expectedRegistrationText)
-
         })
-
     })
 
     it("allow to click on title", function(){
@@ -267,7 +265,68 @@ describe("Events Find Page", function () {
         cy.visit("/events/find")
         cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'title']").click()
         expect(cy.url())
-        
+    })
+
+    describe("registration button", function(){
+        it("allow to click on registration button", function(){
+            cy.server()
+            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+                event.items[0].registrationUrl = "https://doesnt.matter"
+                cy.route("GET", "/api/content/events.json**", "@EventResults")
+            })
+            cy.visit("/events/find")
+            cy.get("[data-cy='event result']").eq(0).find("[data-cy='registration']").click()
+        })
+
+        it("shows external link in leaving sba modal when registration button is clicked", function(){
+            const mockUrl = "https://doesnt.matter"
+            cy.server()
+            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+                event.items[0].registrationUrl = mockUrl
+                cy.route("GET", "/api/content/events.json**", "@EventResults")
+            })
+            cy.visit("/events/find")
+            cy.get("[data-cy='event result']").eq(0).find("[data-cy='registration']").click()
+            cy.get("[data-cy='external url']").should("have.text", mockUrl)
+        })
+
+        it("opens external website in new window when external link is clicked in sba modal", function(){
+            const mockUrl = "https://doesnt.matter"
+            cy.server()
+            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+                event.items[0].registrationUrl = mockUrl
+                cy.route("GET", "/api/content/events.json**", "@EventResults")
+            })
+
+            cy.visit("/events/find", {
+                onBeforeLoad(win) {
+                    cy.stub(win, 'open').as('windowOpen')
+                }
+            })
+
+            cy.get("[data-cy='event result']").eq(0).find("[data-cy='registration']").click()
+            cy.get("[data-cy='external url']").should("have.text", mockUrl).click()
+            cy.get('@windowOpen').should('be.calledWith', mockUrl)
+        })
+
+        it("opens external website in new window when continue button is clicked in sba modal", function(){
+            const mockUrl = "https://doesnt.matter"
+            cy.server()
+            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+                event.items[0].registrationUrl = mockUrl
+                cy.route("GET", "/api/content/events.json**", "@EventResults")
+            })
+
+            cy.visit("/events/find", {
+                onBeforeLoad(win) {
+                    cy.stub(win, 'open').as('windowOpen')
+                }
+            })
+
+            cy.get("[data-cy='event result']").eq(0).find("[data-cy='registration']").click()
+            cy.get("[data-cy='ok button']").click()
+            cy.get('@windowOpen').should('be.calledWith', mockUrl)
+        })
     })
 
     it("paginates through search results", function(){
@@ -300,5 +359,4 @@ describe("Events Find Page", function () {
         cy.visit("events/find")
         cy.get("[data-cy= 'event result']").should('have.length', 10)
     })
-
 })
