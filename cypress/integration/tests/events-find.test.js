@@ -235,15 +235,26 @@ describe("Events Find Page", function () {
             cy.get("[data-cy='event result']").eq(0).find("[data-cy='registration']").should("have.text", expectedRegistrationLabel)
         })
 
-        // ToDo:  enable this test later on when this feature is enabled
-        it.skip("has no registration button with no registration url", function(){
+        it("has no registration button with no registration url", function(){
             cy.server()
             cy.fixture("event/search-results.json").as("EventResults").then((event) => {
-                event.items[0].registrationUrl = ""
+                event.items[0].registrationUrl = null
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
             })
             cy.visit("/events/find")
             expect(cy.get("[data-cy='event result']").eq(0).find("[data-cy='registration']")).not.to.exist
+        })
+
+        it.only("displays 'Open event' text with no registration url", function(){
+            cy.server()
+            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+                event.items[0].registrationUrl = null
+                cy.route("GET", "/api/content/events.json**", "@EventResults")
+            })
+            const expectedRegistrationText = "Open event"
+            cy.visit("/events/find")
+            cy.get("[data-cy='event result']").eq(0).find("[data-cy='registration']").should("have.text", expectedRegistrationText)
+
         })
 
     })
