@@ -1,3 +1,4 @@
 {
-  "title" : "Event Title"
+  "title" : "Event Title",
+  "registrationUrl": "https://registration.url"
 }
