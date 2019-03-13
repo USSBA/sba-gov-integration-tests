@@ -27,3 +27,11 @@ describe('Event page', () => {
         cy.get("@EventTitle").should("have.text", expectedTitle)
     })
 })
+describe('Event 404 page', () => {
+  let testUrlBase = "/event/"
+  it('displays the 404 page when the event is NOT found', function() {
+    cy.visit(testUrlBase + 'foo', { failOnStatusCode: false })
+    cy.get("[data-cy='error-page-title']").should("have.text", '404')
+    cy.get("[data-cy='error-page-message']").should("contain", 'find events page')
+  })
+})
