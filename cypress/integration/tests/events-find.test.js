@@ -157,7 +157,7 @@ describe("Events Find Page", function () {
     describe("event results", function(){
         it("has a date", function(){
             cy.server()
-            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+            cy.fixture("event/search-results.json").as("EventResults").then(event => {
                 event.items[0].startDate = "2019-02-28T23:30:00-08:00"
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
             })
@@ -168,7 +168,7 @@ describe("Events Find Page", function () {
 
         it("has a time", function(){
             cy.server()
-            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+            cy.fixture("event/search-results.json").as("EventResults").then(event => {
                 event.items[0].startDate = "2019-02-28T23:30:00-08:00"
                 event.items[0].endDate = "2019-03-01T01:30:00-08:00"
                 event.items[0].timezone = "PST"
@@ -181,7 +181,7 @@ describe("Events Find Page", function () {
 
         it("has a title", function(){
             cy.server()
-            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+            cy.fixture("event/search-results.json").as("EventResults").then(event => {
                 event.items[0].title = "Chuck Norris Business Classes (now with more roundhouse)"
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
             })
@@ -192,7 +192,7 @@ describe("Events Find Page", function () {
 
         it("has a location", function(){
             cy.server()
-            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+            cy.fixture("event/search-results.json").as("EventResults").then(event => {
                 event.items[0].location.city = "Deep In The Heart O"
                 event.items[0].location.state = "Texas"
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
@@ -204,7 +204,7 @@ describe("Events Find Page", function () {
 
         it("has a cost with a dollar value", function(){
             cy.server()
-            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+            cy.fixture("event/search-results.json").as("EventResults").then(event => {
                 event.items[0].cost = "13.37"
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
             })
@@ -215,7 +215,7 @@ describe("Events Find Page", function () {
 
         it("has a cost when free", function(){
             cy.server()
-            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+            cy.fixture("event/search-results.json").as("EventResults").then(event => {
                 event.items[0].cost = "0.00"
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
             })
@@ -226,7 +226,7 @@ describe("Events Find Page", function () {
 
         it("has a registration link with the label register", function(){
             cy.server()
-            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+            cy.fixture("event/search-results.json").as("EventResults").then(event => {
                 event.items[0].registrationUrl = "https://doesnt.matter"
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
             })
@@ -237,7 +237,7 @@ describe("Events Find Page", function () {
 
         it("has no registration button with no registration url", function(){
             cy.server()
-            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+            cy.fixture("event/search-results.json").as("EventResults").then(event => {
                 event.items[0].registrationUrl = null
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
             })
@@ -247,7 +247,7 @@ describe("Events Find Page", function () {
 
         it("displays 'Open event' text with no registration url", function(){
             cy.server()
-            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+            cy.fixture("event/search-results.json").as("EventResults").then(event => {
                 event.items[0].registrationUrl = null
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
             })
@@ -270,7 +270,7 @@ describe("Events Find Page", function () {
     describe("registration button", function(){
         it("allow to click on registration button", function(){
             cy.server()
-            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+            cy.fixture("event/search-results.json").as("EventResults").then(event => {
                 event.items[0].registrationUrl = "https://doesnt.matter"
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
             })
@@ -281,7 +281,7 @@ describe("Events Find Page", function () {
         it("shows external link in leaving sba modal when registration button is clicked", function(){
             const mockUrl = "https://doesnt.matter"
             cy.server()
-            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+            cy.fixture("event/search-results.json").as("EventResults").then(event => {
                 event.items[0].registrationUrl = mockUrl
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
             })
@@ -293,7 +293,7 @@ describe("Events Find Page", function () {
         it("opens external website in new window when external link is clicked in sba modal", function(){
             const mockUrl = "https://doesnt.matter"
             cy.server()
-            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+            cy.fixture("event/search-results.json").as("EventResults").then(event => {
                 event.items[0].registrationUrl = mockUrl
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
             })
@@ -312,7 +312,7 @@ describe("Events Find Page", function () {
         it("opens external website in new window when continue button is clicked in sba modal", function(){
             const mockUrl = "https://doesnt.matter"
             cy.server()
-            cy.fixture("event/search-results.json").as("EventResults").then((event) => {
+            cy.fixture("event/search-results.json").as("EventResults").then(event => {
                 event.items[0].registrationUrl = mockUrl
                 cy.route("GET", "/api/content/events.json**", "@EventResults")
             })
