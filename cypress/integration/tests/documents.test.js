@@ -24,11 +24,16 @@ describe("Document", function(){
             cy.visit("/document/report--agency-financial-report")
             cy.wait("@NodeLookup")
             cy.get(".document-article-title").should("have.text", "Agency Financial Report")
-            
+
             //Icon is present for PDFs
             cy.get('a').contains("Download pdf").find("[data-cy='pdf icon']").should("exist")
             // No icon for non PDFs
             cy.get('a').contains("Download txt").find("i").should("not.exist")
+        })
+        it('displays the 404 page when the document is NOT found', function() {
+          cy.visit("document/foo", { failOnStatusCode: false })
+          cy.get("[data-cy='error-page-title']").should("have.text", '404')
+          cy.get("[data-cy='error-page-message']").should("contain", 'home page')
         })
     })
 })

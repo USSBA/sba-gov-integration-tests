@@ -9,7 +9,6 @@ describe('Event page', () => {
             firstEventTitle = response.body.items[0].title
             cy.log("Found event id: " + firstEventId)
         });
-
     })
 
     let testUrlBase = "/event/"
@@ -39,4 +38,12 @@ describe('Event page', () => {
         cy.get('button').contains("REGISTER").click()
         cy.get("[data-cy='external url']").should("have.text", expectedUrl)
     })
+})
+describe('Event 404 page', () => {
+  let testUrlBase = "/event/"
+  it('displays the 404 page when the event is NOT found', function() {
+    cy.visit(testUrlBase + 'foo', { failOnStatusCode: false })
+    cy.get("[data-cy='error-page-title']").should("have.text", '404')
+    cy.get("[data-cy='error-page-message']").should("contain", 'find events page')
+  })
 })
