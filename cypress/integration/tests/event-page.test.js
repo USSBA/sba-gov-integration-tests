@@ -3,11 +3,10 @@ describe('Event page', () => {
 
     before(() => {
         cy.request("/api/content/events.json").then(response => {
-            firstEventId = response.body[0].id
-            firstEventTitle = response.body[0].title
-            cy.log("Found event id: " + firstEventId)
+          firstEventId = response.body.items[0].id
+          firstEventTitle = response.body.items[0].title
+          cy.log("Found event id: " + firstEventId)
         });
-
     })
 
     let testUrlBase = "/event/"
