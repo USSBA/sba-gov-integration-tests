@@ -1,0 +1,34 @@
+{
+    "title": "Test Event",
+    "type": "event",
+    "description": "This is a test event.  There is a thing going on.  Blah blah.  Do stuff.",
+    "id": "99999",
+    "registrationUrl": "https://www.event.test/page/",
+    "startDate": "2019-03-19T05:00:00-04:00",
+    "endDate": "2019-03-19T12:00:00-04:00",
+    "timezone": "EDT",
+    "cost": "10.00",
+    "locationType": "In Person",
+    "location": {
+    "name": "Awesome Event Venue",
+    "address": "1234 Someplace Dr.",
+    "address_additional": "Suite 1234",
+    "city": "Macon",
+    "zipcode": "31210",
+    "state": "Georgia",
+    "latitude": "32.888990",
+    "longitude": "-83.722040"
+    },
+    "contact": {
+    "name": "Joanne Shmoe",
+    "email": "joanne@event.test",
+    "phone": "1234567890"
+    },
+    "sponsor": {
+    "type": "District Office",
+    "sponsorName": "Georgia"
+    },
+    "organizer": "Event Organizer Inc.",
+    "recurring": "Yes",
+    "recurringType": "Recurs weekly"
+    }
