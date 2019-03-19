@@ -131,12 +131,32 @@ describe("Events Find Page", function () {
         cy.get("@DateRangeOptions").contains("Next 30 Days")
     })
 
+    it("has disabled distance dropdown (by NOT displaying menu when clicked) when zip code field is empty", function(){
+        cy.visit("/events/find")
+        cy.get("[data-cy='distance']").as("Distance")
+        cy.get("[data-cy='zip']").as("ZipInput")
+
+        cy.get("@ZipInput").clear()
+        cy.get("@Distance").click().find(".Select-menu-outer").should('not.exist')
+    })
+
+    it("has enabled distance dropdown (by displaying menu when clicked) when zip code field is NOT empty", function(){
+        cy.visit("/events/find")
+        cy.get("[data-cy='distance']").as("Distance")
+        cy.get("[data-cy='zip']").as("ZipInput")
+
+        cy.get("@ZipInput").type("12345")
+        cy.get("@Distance").click().find(".Select-menu-outer").should('exist')
+    })
+
     it("has a miles dropdown with options", function(){
         cy.visit("/events/find")
         cy.get('label[for="distance-filter"]').should("have.text", "Distance")
         cy.get("[data-cy='distance']").as("Distance")
-        cy.get("@Distance").click()
-        cy.get("@Distance").find(".Select-menu-outer").as("DistanceOptions")
+        cy.get("[data-cy='zip']").as("ZipInput")
+
+        cy.get("@ZipInput").type("12345")
+        cy.get("@Distance").click().find(".Select-menu-outer").as("DistanceOptions")
 
         cy.get("@DistanceOptions").contains("200 miles")
         cy.get("@DistanceOptions").contains("100 miles")
