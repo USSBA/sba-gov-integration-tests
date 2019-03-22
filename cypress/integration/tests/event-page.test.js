@@ -38,6 +38,15 @@ describe('Event page', () => {
         cy.get('button').contains("REGISTER").click()
         cy.get("[data-cy='external url']").should("have.text", expectedUrl)
     })
+    it("should have a breadcrumb leading back to the home page", function() {
+      cy.server()
+      cy.fixture("event/event.json").as("EventDetailResult")
+      cy.route("GET", "/api/content/event/" + firstEventId + ".json", "@EventDetailResult").as("EventDetailRoute")
+      cy.visit(testUrlBase + firstEventId)
+      cy.get("[data-cy='breadcrumb-home-icon']")
+      cy.get("[data-cy='last-breadcrumb']").should("contain", firstEventTitle)
+      cy.get("[data-cy='navigation-breadcrumb']").should("contain", 'Find Events')
+    })
 })
 describe('Event 404 page', () => {
   let testUrlBase = "/event/"
