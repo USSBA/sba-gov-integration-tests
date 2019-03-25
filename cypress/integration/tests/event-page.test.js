@@ -43,9 +43,9 @@ describe('Event page', () => {
       cy.fixture("event/event.json").as("EventDetailResult")
       cy.route("GET", "/api/content/event/" + firstEventId + ".json", "@EventDetailResult").as("EventDetailRoute")
       cy.visit(testUrlBase + firstEventId)
-      cy.get("[data-cy='breadcrumb-home-icon']")
-      cy.get("[data-cy='last-breadcrumb']").should("contain", firstEventTitle)
-      cy.get("[data-cy='navigation-breadcrumb']").should("contain", 'Find Events')
+      const expectedTitle = "Event Title"
+      cy.get("[data-cy='last-breadcrumb']").should("contain", expectedTitle)
+      cy.get("[data-cy='navigation-breadcrumb-0']").should("contain", 'Find Events')
     })
 })
 describe('Event 404 page', () => {
