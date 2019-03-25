@@ -42,7 +42,7 @@ describe('Event page', () => {
       cy.server()
       cy.fixture("event/event.json").as("EventDetailResult")
       cy.route("GET", "/api/content/event/" + firstEventId + ".json", "@EventDetailResult").as("EventDetailRoute")
-      cy.visit(testUrlBase + firstEventId)
+      cy.visit("/event/" + firstEventId)
       const expectedTitle = "Event Title"
       cy.get("[data-cy='last-breadcrumb']").should("contain", expectedTitle)
       cy.get("[data-cy='navigation-breadcrumb-0']").should("contain", 'Find Events')
