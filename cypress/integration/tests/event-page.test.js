@@ -13,7 +13,7 @@ describe("Event details page", function(){
         const expectedHeaderDate = "Tuesday, March 19"
         const expectedDate = "Tuesday, March 19, 2019"
         const expectedRecurringText = "Recurs weekly"
-        const expectedTime = "5am-12pm " + this.event.timezone
+        const expectedTime = "5am–12pm " + this.event.timezone
 
         cy.get("[data-cy='event-title']").should("have.text", this.event.title)
         cy.get("[data-cy='event-header-date']").should("have.text", expectedHeaderDate)
@@ -30,7 +30,7 @@ describe("Event details page", function(){
             .and('contain', this.event.location.city)
             .and('contain', this.event.location.zipcode)
             .and('contain', this.event.location.state)
-        cy.get("a#event-details-location-link").should("have.text", "View on Map")
+        cy.get("a#event-details-location-link").should("have.text", "View on map")
         cy.get("[data-cy=event-details-organizer]").should('have.text', this.event.contact.name)
         cy.get('[data-cy=email]').should('have.text', this.event.contact.email)
         cy.get('[data-cy=event-details-phone]').should('have.text', this.event.contact.phone)
@@ -54,7 +54,7 @@ describe("Event details page", function(){
             event.timezone = "PST"
             cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
-        const expectedTime = "5:55am-12:12pm PST" 
+        const expectedTime = "5:55am–12:12pm PST" 
 
         cy.visit("/event/99999")
         cy.get("[data-cy='event-details-time']").should("have.text", expectedTime)
@@ -63,12 +63,26 @@ describe("Event details page", function(){
     it("displays both am and pm in the time", function(){
         cy.server()
         cy.fixture("event/99999.json").as("specialEvent").then(event => {
+            event.startDate =  "2019-03-19T10:00:00-04:00"
+            event.endDate = "2019-03-19T20:00:00-04:00"
+            event.timezone = "PST"
+            cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
+        })
+        const expectedTime = "10am–8pm PST" 
+
+        cy.visit("/event/99999")
+        cy.get("[data-cy='event-details-time']").should("have.text", expectedTime)
+    })
+
+    it("displays only pm when both times are pm", function(){
+        cy.server()
+        cy.fixture("event/99999.json").as("specialEvent").then(event => {
             event.startDate =  "2019-03-19T17:00:00-04:00"
             event.endDate = "2019-03-19T20:00:00-04:00"
             event.timezone = "PST"
             cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
-        const expectedTime = "5-8pm PST" 
+        const expectedTime = "5–8pm PST" 
 
         cy.visit("/event/99999")
         cy.get("[data-cy='event-details-time']").should("have.text", expectedTime)
@@ -110,10 +124,15 @@ describe("Event details page", function(){
         cy.server()
         cy.fixture("event/99999.json").as("specialEvent").then(event => {
             event.contact.name =  null
+            event.contact.email = "test@test.com"
+            event.contact.phone = "1234567890"
             cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
         cy.visit("/event/99999")
         cy.get("[data-cy='event-details-contact-label']").should('not.exist')
+        cy.get("[data-cy=event-details-organizer]").should('not.exist')
+        cy.get('[data-cy=email]').should('not.exist')
+        cy.get('[data-cy=event-details-phone]').should('not.exist')
     })
 
     it("should not display recurring details when an event does not recur", function(){
@@ -129,9 +148,8 @@ describe("Event details page", function(){
 })
 
 describe('Event 404 page', () => {
-  let testUrlBase = "/event/"
   it('displays the 404 page when the event is NOT found', function() {
-    cy.visit(testUrlBase + 'foo', { failOnStatusCode: false })
+    cy.visit("/event/foo", { failOnStatusCode: false })
     cy.get("[data-cy='error-page-title']").should("have.text", '404')
     cy.get("[data-cy='error-page-message']").should("contain", 'find events page')
   })
