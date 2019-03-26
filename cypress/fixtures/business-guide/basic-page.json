@@ -1,0 +1,50 @@
+{
+    "paragraphs": [
+        {
+            "id": 127,
+            "type": "sectionHeader",
+            "text": "Some read more tests below"
+        },
+        {
+            "id": 130,
+            "type": "textSection",
+            "text": "<p>Some read more tests...</p>\r\n"
+        },
+        {
+            "id": 131,
+            "type": "readMore",
+            "expandedCopyText": "",
+            "preview": "",
+            "titleText": ""
+        },
+        {
+            "id": 990,
+            "type": "readMore",
+            "expandedCopyText": "",
+            "preview": "",
+            "titleText": "Aaron is in fact the best"
+        },
+        {
+            "id": 991,
+            "type": "readMore",
+            "expandedCopyText": "",
+            "preview": "",
+            "titleText": "Aaron is in fact the best"
+        },
+        {
+            "id": 992,
+            "type": "readMore",
+            "expandedCopyText": "This is the text inside when it is expanded",
+            "preview": "Click read more to see more",
+            "titleText": "This is a regular read more"
+        }
+    ],
+    "summary": "This is a page to test the Read More functions",
+    "type": "page",
+    "title": "Test Page for Read More",
+    "id": 47,
+    "updated": 1544127037,
+    "created": 1493042768,
+    "langCode": "en",
+    "url": "/business-guide/plan-your-business/market-research-competitive-analysis"
+}

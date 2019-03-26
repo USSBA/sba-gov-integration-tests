@@ -106,6 +106,16 @@ describe("Event details page", function(){
         cy.get("[data-cy='event-details-recurring']").should('have.text', expectedRecurringText)
     })
 
+    it("should not display contact section if contact is null", function(){
+        cy.server()
+        cy.fixture("event/99999.json").as("specialEvent").then(event => {
+            event.contact.name =  null
+            cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
+        })
+        cy.visit("/event/99999")
+        cy.get("[data-cy='event-details-contact-label']").should('not.exist')
+    })
+
     it("should not display recurring details when an event does not recur", function(){
         cy.server()
         cy.fixture("event/99999.json").as("specialEvent").then(event => {
