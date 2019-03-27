@@ -54,7 +54,7 @@ describe("Event details page", function(){
             event.timezone = "PST"
             cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
-        const expectedTime = "5:55am–12:12pm PST" 
+        const expectedTime = "5:55am–12:12pm PST"
 
         cy.visit("/event/99999")
         cy.get("[data-cy='event-details-time']").should("have.text", expectedTime)
@@ -68,7 +68,7 @@ describe("Event details page", function(){
             event.timezone = "PST"
             cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
-        const expectedTime = "10am–8pm PST" 
+        const expectedTime = "10am–8pm PST"
 
         cy.visit("/event/99999")
         cy.get("[data-cy='event-details-time']").should("have.text", expectedTime)
@@ -82,7 +82,7 @@ describe("Event details page", function(){
             event.timezone = "PST"
             cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
-        const expectedTime = "5–8pm PST" 
+        const expectedTime = "5–8pm PST"
 
         cy.visit("/event/99999")
         cy.get("[data-cy='event-details-time']").should("have.text", expectedTime)
@@ -144,6 +144,14 @@ describe("Event details page", function(){
         })
         cy.visit("/event/99999")
         cy.get("[data-cy='event-details-recurring']").should("not.exist")
+    })
+    it("should have a breadcrumb leading back to the home page", function() {
+      cy.server()
+      cy.route("GET", "/api/content/event/99999.json", "@event").as("TestEventDetails")
+      cy.visit("/event/99999")
+      const expectedTitle = "Event Title"
+      cy.get("[data-cy='last-breadcrumb']").should("contain", this.event.title)
+      cy.get("[data-cy='navigation-breadcrumb-0']").should("contain", 'Find Events')
     })
 })
 
