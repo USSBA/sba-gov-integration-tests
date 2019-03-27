@@ -1,22 +1,19 @@
 describe("Events search", function() {
-  it("has all the desired fields on page load", function() {
+  it("has fields for searching", function() {
     const defaultDateRange ="All Upcoming"
-    const defaultUrlDateRange ="all"
     const defaultDistance = "200"
 
     cy.visit("/events/find")
-
-    cy.get("head > title").should("have.text", "Small Business Administration")
     
     cy.get('label[for="keyword-search"]').should("have.text", "Search")
     cy.get("[data-cy='keyword search']")
     
     cy.get('label[for="date-filter"]').should("have.text", "Date Range")
     cy.get("[data-cy='date']").as("DateRange")
-    cy.get("@DateRange").find(".Select-value").should("have.text", defaultDateRange)
+      .find(".Select-value").should("have.text", defaultDateRange)
     
-    cy.get("@DateRange").click().find(".Select-menu-outer").as("DateRangeOptions")
-    cy.get("@DateRangeOptions").should("contain", "All Upcoming")
+    cy.get("@DateRange").click().find(".Select-menu-outer")
+      .should("contain", "All Upcoming")
       .and("contain", "Today")
       .and("contain", "Tomorrow")
       .and("contain", "Next 7 Days")
@@ -26,13 +23,9 @@ describe("Events search", function() {
     cy.get("[data-cy='zip']")
     
     cy.get('label[for="distance-filter"]').should("have.text", "Distance")
-    cy.get("[data-cy='distance']").as("Distance")
-    cy.get("@Distance").find(".Select-value").should("have.text", defaultDistance + " miles")
+    cy.get("[data-cy='distance']").find(".Select-value").should("have.text", defaultDistance + " miles")
     
     cy.get('[data-cy="search button"]')
-
-    cy.url().should("contain", `dateRange=${defaultUrlDateRange}`)
-      .and("contain", `distance=${defaultDistance}`)
   })
 
   it("fields accept input and submit an event.json request with query parameters when a search is submitted", function(){
@@ -49,16 +42,21 @@ describe("Events search", function() {
     
     cy.visit("/events/find")
     cy.get("[data-cy='keyword search']").as("EventKeyword")
+      .type(expectedKeyword)
     cy.get("[data-cy='date']").as("DateRange")
+      .click()
+      .find(".Select-menu-outer")
+      .contains(expectedDateRange)
+      .click()
     cy.get("[data-cy='zip']").as("ZipInput")
+      .type(expectedZip)
     cy.get("[data-cy='distance']").as("Distance")
+      .click()
+      .find(".Select-menu-outer")
+      .contains(expectedDistance + " miles")
+      .click()
     cy.get("[data-cy='search button']").as("SearchButton")
-
-    cy.get("@EventKeyword").type(expectedKeyword)
-    cy.get("@DateRange").click().find(".Select-menu-outer").contains(expectedDateRange).click()
-    cy.get("@ZipInput").type(expectedZip)
-    cy.get("@Distance").click().find(".Select-menu-outer").contains(expectedDistance + " miles").click()
-    cy.get("@SearchButton").click()
+      .click()
 
     // checks for json request
     cy.wait("@ExpectedRequest")
@@ -78,19 +76,17 @@ describe("Events search", function() {
 
   it("displays an error for non-numeric zip codes", function(){
     cy.visit("/events/find")
-    cy.get("[data-cy='zip']").as("ZipInput")
-    cy.get("@ZipInput").type("abcde")
+    cy.get("[data-cy='zip']").type("abcde")
     cy.get('#events-primary-search-bar-search-button').click()
     cy.get('#zip-error')
   })
 
-  it("disables distance dropdown when zip code field is empty and enables (with options) when zip code field is NOT empty", function(){
+  it("enabled distance dropdown when zip code is entered", function(){
     cy.visit("/events/find")
     cy.get("[data-cy='distance']").as("Distance")
-    cy.get("[data-cy='zip']").as("ZipInput")
+    cy.get("[data-cy='zip']").as("ZipInput").clear()
 
     // when zip code field is empty, dropdown menu should NOT exist
-    cy.get("@ZipInput").clear()
     cy.get("@Distance").click().find(".Select-menu-outer").should('not.exist')
 
     // when zip code field is NOT empty, dropdown menu should exist

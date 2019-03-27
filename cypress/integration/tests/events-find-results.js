@@ -1,5 +1,5 @@
-describe("results list", function(){
-  it("renders 10 search results per page and allows pagination through results", function(){
+describe("Event search results", function(){
+  it("paginates through 10 results at a time", function(){
     cy.server()
     cy.fixture("event/search-results.json").as("EventResults")
     cy.route("GET", "/api/content/events.json**", "@EventResults")
@@ -20,15 +20,13 @@ describe("results list", function(){
     cy.get("@Prev").click()
     cy.get("@Pagination").contains("Showing 1 - 10 of ")
   })
-})
 
-describe("event result", function(){
-  it("displays the desired information for a single result", function(){
+  it("displays event information for a result", function(){
     const expectedDate = "Thursday, February 28"
     const expectedTime = "11:30 pm–1:30 am PST"
     const expectedTitle = "Chuck Norris Business Classes (now with more roundhouse)"
     const expectedLocation = "Deep In The Heart O, Texas"
-    const expectedCost = "$13.37"
+    const expectedCost = "13.37"
     const expectedRegistrationLabel = "REGISTER"
 
     cy.server()
@@ -36,10 +34,10 @@ describe("event result", function(){
       event.items[0].startDate = "2019-02-28T23:30:00-08:00"
       event.items[0].endDate = "2019-03-01T01:30:00-08:00"
       event.items[0].timezone = "PST"
-      event.items[0].title = "Chuck Norris Business Classes (now with more roundhouse)"
+      event.items[0].title = expectedTitle
       event.items[0].location.city = "Deep In The Heart O"
       event.items[0].location.state = "Texas"
-      event.items[0].cost = "13.37"
+      event.items[0].cost = expectedCost
       event.items[0].registrationUrl = "https://doesnt.matter"
       cy.route("GET", "/api/content/events.json**", "@EventResults")
     })
@@ -51,23 +49,22 @@ describe("event result", function(){
     cy.get("@FirstResult").find("[data-cy='time']").should("have.text", expectedTime)
     cy.get("@FirstResult").find("[data-cy= 'title']").should("have.text", expectedTitle)
     cy.get("@FirstResult").find("[data-cy= 'location']").should("have.text", expectedLocation)
-    cy.get("@FirstResult").find("[data-cy='cost']").should("have.text", expectedCost)
+    cy.get("@FirstResult").find("[data-cy='cost']").should("have.text", `$${expectedCost}`)
     cy.get("@FirstResult").find("[data-cy='registration']").contains(expectedRegistrationLabel)
   })
 
   it("opens event detail page url when event title link is clicked", function(){
     const mockId = '123456'
-    const mockUrl = `/event/${mockId}`
 
     cy.server()
     cy.fixture("event/search-results.json").as("EventResults").then(event => {
-        event.items[0].id = '123456'
+        event.items[0].id = mockId
         cy.route("GET", "/api/content/events.json**", "@EventResults")
     })
 
     cy.visit("/events/find")
     cy.get("[data-cy='event result']").eq(0).find("[data-cy= 'title']").click()
-    cy.url().should("contain", mockUrl)
+    cy.url().should("contain", `/event/${mockId}`)
   })
 
   it("displays 'Free' when cost is 0.00", function(){
