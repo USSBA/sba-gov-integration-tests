@@ -15,7 +15,6 @@ describe('Site Search', () => {
         cy.get("#results-list").should('exist')
         cy.get(".result-box").should('exist')
         cy.get(".result-box").should('have.length', 10)
-        
     })
 
     it('searches with provided query paramters', () => {
@@ -34,4 +33,20 @@ describe('Site Search', () => {
         cy.visit('/search/?q=business')
         cy.wait("@SearchRequest").its("url").should('include', "term=business")
     })
+
+    it(`displays a custom CTA's when a suggested route keyword is used`, () => {
+        cy.fixture("suggested-routes/custom-routes.json").then((customRoutes => {
+            cy.server()
+            cy.route("GET", "/api/content/suggestedRoutes.json", customRoutes)
+            customRoutes.forEach((route) => {
+                route.keywords.forEach((keyword) => {
+                    cy.visit(`/search/?q=${keyword}`)
+                    cy.get('[data-cy="suggested route"]').as("CTA")
+                    cy.get("@CTA").find('[data-cy="card message"]').contains(route.cardMessage)
+                    cy.get("@CTA").find('[data-cy="button"]').contains(route.buttonLabel)
+                })
+            })
+        }))
+    })
+
 })

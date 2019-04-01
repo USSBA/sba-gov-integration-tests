@@ -1,0 +1,19 @@
+[
+    {
+        "route": "/foo",
+        "cardMessage": "Want foo?",
+        "buttonLabel": "Find A Foo",
+        "keywords": [
+            "foo",
+            "foos"
+        ]
+    },
+    {
+        "route": "/foobar/find",
+        "cardMessage": "Need a foobar?",
+        "buttonLabel": "Get Your Foobar",
+        "keywords": [
+            "foobar"
+        ]
+    }
+]
