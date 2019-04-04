@@ -14,7 +14,11 @@ FROM cypress/browsers:chrome67
 #   && rm -rf /var/lib/apt/lists/* \
 #   && ln -s /usr/bin/google-chrome-stable /usr/bin/chrome
 
-RUN apt-get update && apt-get install -y \
+# Fix the "W: Failed to fetch http://deb.debian.org/debian/dists/jessie-updates/main/binary-amd64/Packages 404" error
+RUN echo "deb [check-valid-until=no] http://archive.debian.org/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list \
+  && sed -i '/deb http:\/\/deb.debian.org\/debian jessie-updates main/d' /etc/apt/sources.list \
+  && apt-get -o Acquire::Check-Valid-Until=false update \
+  && apt-get install -y \
   #build-essential \
   python \
   python-dev \
