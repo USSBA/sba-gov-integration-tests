@@ -34,7 +34,7 @@ describe('Basic page', function() {
     it('display a website link when it is included in the contact data', function(){
       cy.server()
       cy.fixture('contacts/microloans.json').as('MicroloanContacts')
-      cy.route("GET", "/api/content/contacts.json?category=Microloan", "@MicroloanContacts" ).as("ContactRequest")
+      cy.route("GET", "/api/content/search/contacts.json?category=Microloan", "@MicroloanContacts" ).as("ContactRequest")
       
       cy.visit('/partners/lenders/microloan-program/list-lenders')
       cy.get(".basicpage-titlesection > div[id^='lookup-']").as("ContactLookup")
@@ -47,7 +47,7 @@ describe('Basic page', function() {
     it('does not display a website link when it is missing in the contact data', function(){
       cy.server()
       cy.fixture('contacts/microloans.json').as('MicroloanContacts')
-      cy.route("GET", "/api/content/contacts.json?category=Microloan", "@MicroloanContacts" ).as("ContactRequest")
+      cy.route("GET", "/api/content/search/contacts.json?category=Microloan", "@MicroloanContacts" ).as("ContactRequest")
       
       cy.visit('/partners/lenders/microloan-program/list-lenders')
       cy.get(".basicpage-titlesection > div[id^='lookup-']").as("ContactLookup")

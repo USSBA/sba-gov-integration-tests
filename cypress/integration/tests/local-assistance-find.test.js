@@ -11,7 +11,7 @@ describe("Local Assistance Find", function(){
 
     it("can search for an office by keyword", function() {
         cy.server()
-        cy.route("GET","/api/content/offices.json**").as("OfficeSearch")
+        cy.route("GET","/api/content/search/offices.json**").as("OfficeSearch")
         cy.visit("/local-assistance/find")
         cy.get("input#search").type("district")
         cy.get("[data-cy='search button']").click()
@@ -25,7 +25,7 @@ describe("Local Assistance Find", function(){
 
     it("can search for an office by zip code", function(){
         cy.server()
-        cy.route("GET","/api/content/offices.json**").as("OfficeSearch")
+        cy.route("GET","/api/content/search/offices.json**").as("OfficeSearch")
         cy.visit("/local-assistance/find")
         cy.get("input#zip").type("20024")
         cy.get("[data-cy='search button']").click()
@@ -39,7 +39,7 @@ describe("Local Assistance Find", function(){
 
     it("can search for offices by office type", function(){
         cy.server()
-        cy.route("GET","/api/content/offices.json**").as("OfficeSearch")
+        cy.route("GET","/api/content/search/offices.json**").as("OfficeSearch")
         cy.visit("/local-assistance/find")
         cy.get("#officetype-select").click()
         cy.get("#officetype-select").contains("SBA District Office").click();
@@ -65,7 +65,7 @@ describe("Local Assistance Find", function(){
 
     it("paginates through search results", function(){
         cy.server()
-        cy.route("GET","/api/content/offices.json**").as("OfficeSearch")
+        cy.route("GET","/api/content/search/offices.json**").as("OfficeSearch")
         cy.visit("/local-assistance/find/?pageNumber=1&address=20024")
         cy.wait("@OfficeSearch")
         expect(cy.get(".paginator").as("Pagination")).to.exist
@@ -97,7 +97,7 @@ describe("Local Assistance Find", function(){
     it("displays all office details when they exist", () => {
         cy.server()
         cy.fixture("local-assistance/search-results.json").as("SearchResult")
-        cy.route("GET", "/api/content/offices.json**", "@SearchResult").as("OfficeSearch")
+        cy.route("GET", "/api/content/search/offices.json**", "@SearchResult").as("OfficeSearch")
         cy.visit("/local-assistance/find")
         cy.get("[data-cy='search button']").eq(0).click()
         cy.get("[data-cy='open detail']").eq(0).click()

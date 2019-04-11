@@ -3,7 +3,7 @@ describe('Program Page', () => {
     it('with a hero image', () => {
         cy.server()
         cy.fixture('program-page/generic.json').as('programPage')
-        cy.route("GET", "/api/content/node/58.json", "@programPage" )
+        cy.route("GET", "/api/content/search/node/58.json", "@programPage" )
         cy.visit('/funding-programs/investment-capital')
     })
 
@@ -12,7 +12,7 @@ describe('Program Page', () => {
         cy.fixture('program-page/generic.json').as('programPage').then((page) => {
             page.bannerImage = {}
         })
-        cy.route("GET", "/api/content/node/58.json", "@programPage" )
+        cy.route("GET", "/api/content/search/node/58.json", "@programPage" )
         cy.visit('/funding-programs/investment-capital')
     })
 
@@ -21,7 +21,7 @@ describe('Program Page', () => {
         cy.fixture('program-page/generic.json').as('programPage').then((page) => {
             page.buttons = {}
         })
-        cy.route("GET", "/api/content/node/58.json", "@programPage" )
+        cy.route("GET", "/api/content/search/node/58.json", "@programPage" )
         cy.visit('/funding-programs/investment-capital')
     })
 
@@ -31,7 +31,7 @@ describe('Program Page', () => {
             page.bannerImage = {}
             page.buttons = []
         })
-        cy.route("GET", "/api/content/node/58.json", "@programPage" )
+        cy.route("GET", "/api/content/search/node/58.json", "@programPage" )
         cy.visit('/funding-programs/investment-capital')
     })
 
@@ -43,7 +43,7 @@ describe('Program Page', () => {
                     "url": "#paragraph-11",
                 }]
         })
-        cy.route("GET", "/api/content/node/58.json", "@programPage" )
+        cy.route("GET", "/api/content/search/node/58.json", "@programPage" )
         cy.visit('/funding-programs/investment-capital')
     })
 })

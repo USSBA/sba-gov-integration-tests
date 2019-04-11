@@ -6,7 +6,7 @@ describe("Event details page", function(){
 
     it("has all the event details", function(){
         cy.server()
-        cy.route("GET", "/api/content/event/99999.json", "@event").as("TestEventDetails")
+        cy.route("GET", "/api/content/search/event/99999.json", "@event").as("TestEventDetails")
         cy.visit("/event/99999")
 
         const expectedDescriptionLabel = "Description"
@@ -40,7 +40,7 @@ describe("Event details page", function(){
         cy.server()
         cy.fixture("event/99999.json").as("specialEvent").then(event => {
             event.cost = "0.00"
-            cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
+            cy.route("GET", "/api/content/search/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
         cy.visit("/event/99999")
         cy.get("[data-cy=event-details-cost").should("have.text", "Free")
@@ -52,7 +52,7 @@ describe("Event details page", function(){
             event.startDate =  "2019-03-19T05:55:00-04:00"
             event.endDate = "2019-03-19T12:12:00-04:00"
             event.timezone = "PST"
-            cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
+            cy.route("GET", "/api/content/search/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
         const expectedTime = "5:55am–12:12pm PST"
 
@@ -66,7 +66,7 @@ describe("Event details page", function(){
             event.startDate =  "2019-03-19T10:00:00-04:00"
             event.endDate = "2019-03-19T20:00:00-04:00"
             event.timezone = "PST"
-            cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
+            cy.route("GET", "/api/content/search/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
         const expectedTime = "10am–8pm PST"
 
@@ -80,7 +80,7 @@ describe("Event details page", function(){
             event.startDate =  "2019-03-19T17:00:00-04:00"
             event.endDate = "2019-03-19T20:00:00-04:00"
             event.timezone = "PST"
-            cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
+            cy.route("GET", "/api/content/search/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
         const expectedTime = "5–8pm PST"
 
@@ -91,7 +91,7 @@ describe("Event details page", function(){
     it("should display leaving sba modal when registration button is clicked", function(){
         cy.server()
         const expectedUrl = this.event.registrationUrl
-        cy.route("GET", "/api/content/event/99999.json", "@event").as("EventDetailRoute")
+        cy.route("GET", "/api/content/search/event/99999.json", "@event").as("EventDetailRoute")
         cy.visit("/event/99999")
         cy.get('[data-cy="registration"]')
         cy.get('button').contains("REGISTER").click()
@@ -102,7 +102,7 @@ describe("Event details page", function(){
         cy.server()
         cy.fixture("event/99999.json").as("specialEvent").then(event => {
             event.locationType =  "Online"
-            cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
+            cy.route("GET", "/api/content/search/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
         cy.visit("/event/99999")
         cy.get("#event-details-location").should("have.text", "Online")
@@ -113,7 +113,7 @@ describe("Event details page", function(){
         cy.fixture("event/99999.json").as("specialEvent").then(event => {
             event.recurring =  "Yes"
             event.recurringType = "Recurs semi bi annually"
-            cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
+            cy.route("GET", "/api/content/search/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
         const expectedRecurringText = "This is a recurring event"
         cy.visit("/event/99999")
@@ -126,7 +126,7 @@ describe("Event details page", function(){
             event.contact.name =  null
             event.contact.email = "test@test.com"
             event.contact.phone = "1234567890"
-            cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
+            cy.route("GET", "/api/content/search/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
         cy.visit("/event/99999")
         cy.get("[data-cy='event-details-contact-label']").should('not.exist')
@@ -140,14 +140,14 @@ describe("Event details page", function(){
         cy.fixture("event/99999.json").as("specialEvent").then(event => {
             event.recurring =  "No"
             event.recurringType = "Recurs semi bi annually"
-            cy.route("GET", "/api/content/event/99999.json", "@specialEvent").as("TestEventDetails")
+            cy.route("GET", "/api/content/search/event/99999.json", "@specialEvent").as("TestEventDetails")
         })
         cy.visit("/event/99999")
         cy.get("[data-cy='event-details-recurring']").should("not.exist")
     })
     it("should have a breadcrumb leading back to the home page", function() {
       cy.server()
-      cy.route("GET", "/api/content/event/99999.json", "@event").as("TestEventDetails")
+      cy.route("GET", "/api/content/search/event/99999.json", "@event").as("TestEventDetails")
       cy.visit("/event/99999")
       const expectedTitle = "Event Title"
       cy.get("[data-cy='last-breadcrumb']").should("contain", this.event.title)

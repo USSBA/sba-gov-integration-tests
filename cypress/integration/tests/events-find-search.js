@@ -37,7 +37,7 @@ describe("Events search", function() {
     cy.server()
     // note that order of query parameters in the GET request is affected by the order of fields receiving input
     cy.route("GET",
-      `/api/content/events.json?pageSize=10&start=0&dateRange=${expectedDateRange.toLowerCase()}&distance=${expectedDistance}&q=${expectedKeyword}&address=${expectedZip}`
+      `/api/content/search/events.json?pageSize=10&start=0&dateRange=${expectedDateRange.toLowerCase()}&distance=${expectedDistance}&q=${expectedKeyword}&address=${expectedZip}`
     ).as("ExpectedRequest")
     
     cy.visit("/events/find")

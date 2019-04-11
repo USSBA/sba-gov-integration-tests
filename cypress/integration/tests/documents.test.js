@@ -3,7 +3,7 @@ describe("Document", function(){
         it("contains a pdf icon when the document is pdf", function(){
             cy.server()
             cy.fixture("document/search-result.json").as("SearchResult")
-            cy.route("GET", "/api/content/documents.json**", "@SearchResult").as("DocumentSearch")
+            cy.route("GET", "/api/content/search/documents.json**", "@SearchResult").as("DocumentSearch")
             cy.visit('/document')
             cy.get(".card-container").should("have.length", 2)
 
@@ -20,7 +20,7 @@ describe("Document", function(){
         it("displays an icon in the version list", function(){
             cy.server()
             cy.fixture("document/document-versions.json").as("Document")
-            cy.route("GET", "/api/content/node/**", "@Document").as("NodeLookup")
+            cy.route("GET", "/api/content/search/node/**", "@Document").as("NodeLookup")
             cy.visit("/document/report--agency-financial-report")
             cy.wait("@NodeLookup")
             cy.get(".document-article-title").should("have.text", "Agency Financial Report")
