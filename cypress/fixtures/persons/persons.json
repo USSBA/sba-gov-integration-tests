@@ -62,7 +62,7 @@
     "title": "Administrative Officer",
     "type": "person",
     "url": "/person/sabrina-abousaleh",
-    "name": "Sabrina Abousaleh ",
+    "name": "Sabrina Abousaleh",
     "id": 6861,
     "updated": 1551806327,
     "created": 1527675968,
@@ -296,6 +296,52 @@
     "id": 6991,
     "updated": 1551733881,
     "created": 1527676073,
+    "langCode": "en"
+  },
+  {
+    "bio": {},
+    "emailAddress": "Alexander.kohls@sba.gov",
+    "fax": "202-292-3510",
+    "firstName": "Alex",
+    "highResolutionPhoto": {},
+    "lastName": "Kohls",
+    "office": {
+      "id": 6443,
+      "name": "Columbus District Office",
+      "type": "SBA District Office"
+    },
+    "phone": "614-633-6372",
+    "picture": {},
+    "title": "Senior Area Manager/International Exporting, Dayton",
+    "type": "person",
+    "url": "/person/alex-kohls",
+    "name": "Alex Kohls",
+    "id": 6982,
+    "updated": 1551733934,
+    "created": 1527676067,
+    "langCode": "en"
+  },
+  {
+    "bio": {},
+    "emailAddress": "david.pinkosky@sba.gov",
+    "fax": {},
+    "firstName": "David",
+    "highResolutionPhoto": {},
+    "lastName": "Pinkosky",
+    "office": {
+      "id": 6438,
+      "name": "Pittsburgh District Office",
+      "type": "SBA District Office"
+    },
+    "phone": "412-395-6560 x123",
+    "picture": {},
+    "title": "Business Opportunity Specialist",
+    "type": "person",
+    "url": "/person/david-pinkosky",
+    "name": "David Pinkosky",
+    "id": 17713,
+    "updated": 1550777528,
+    "created": 1544461888,
     "langCode": "en"
   }
 ]
