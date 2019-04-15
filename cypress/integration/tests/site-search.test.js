@@ -49,4 +49,12 @@ describe('Site Search', () => {
         }))
     })
 
+    it('displays a message when search results cannot be found', () => {
+        cy.visit('/search/?p=1&q=thispageshouldneverexistandnoresultsshouldbefound')
+        cy.contains(
+            '.results-message',
+            "Sorry, we couldn't find anything matching that query.",
+        )
+    })
+    
 })
