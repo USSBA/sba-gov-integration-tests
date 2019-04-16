@@ -2,7 +2,7 @@ describe('Blog Page', function () {
     before(function () {
         // This will only work temporarily.  We should be using the
         // blogs endpoint to get a valid blog 
-        cy.wrap('18343').as("validBlogId")
+        cy.wrap('direct-mail-hot-again-heres-how-use-it').as("validBlogId")
     })
 
     it('displays a basic blog for a valid blog', function() {
