@@ -7,7 +7,7 @@ describe('Blog Page', function () {
 
     it('displays a basic blog for a valid blog', function() {
         cy.visit(`/blog/${this.validBlogId}`)
-        cy.get("[data-testid=blog-content")
+        cy.get("[data-testid=blog-content]")
     })
 
     it('displays an error for an invalid blog', function() {
@@ -21,7 +21,7 @@ describe('Blog Page', function () {
         }
         ).as("BlogRequest")
         cy.visit(`/blog/${ this.validBlogId }`)
-        cy.get('[data-testid=blog-error')
+        cy.get('[data-testid=blog-error]')
         cy.contains("404")
     })
 
