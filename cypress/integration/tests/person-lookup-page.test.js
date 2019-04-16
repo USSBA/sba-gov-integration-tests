@@ -161,7 +161,8 @@ describe('Person lookup page', function () {
       .as('office')
       // Grab text input from React-Select dropdown
       .find('.Select-input > input')
-      // React-Select covers the input with a <span> to hide it
+      // React-Select covers the input with a <span> to hide it, so Cypress
+      // doesn't type unless we force it to
       .type('Pittsburgh District Office', { force: true })
 
     // Select first option that should be labelled "Pittsburgh District Office"
