@@ -60,7 +60,7 @@ describe('Site Search', () => {
         cy.visit('/search/?p=1&q=thispageshouldneverexistandnoresultsshouldbefound')
         cy.contains(
             '.results-message',
-            "Sorry, we couldn't find anything matching that query.",
+            "Sorry, we didn't find any results that matched your search.",
         )
     })
     
