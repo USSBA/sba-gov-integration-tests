@@ -7,12 +7,14 @@ describe("Document", function(){
             cy.visit('/document')
             cy.get(".card-container").should("have.length", 2)
 
-            // Icon is present on the download link for a PDF
-            cy.get(".document-card-download").first().should("have.text", "Download pdf")
-            cy.get(".document-card-download").first().find("[data-cy='pdf icon']").should("exist")
+            // Icon is present on the download link for a             
+            cy.get('.detail-card').eq(0)
+                .find("a").contains("Download pdf").as("DownloadPdfLink")
+
             // Icon is not present on the download link for a non PDF
-            cy.get(".document-card-download").eq(1).should("have.text", "Download zip")
-            cy.get(".document-card-download").eq(1).find("i").should("not.exist")
+            cy.get('.detail-card').eq(1)
+                .find('a').contains("Download zip").as("DownloadZipLink")
+            cy.get("@DownloadZipLink").siblings("i").should("not.exist")
         })
     })
 
@@ -30,6 +32,7 @@ describe("Document", function(){
             // No icon for non PDFs
             cy.get('a').contains("Download txt").find("i").should("not.exist")
         })
+        
         it('displays the 404 page when the document is NOT found', function() {
           cy.visit("document/foo", { failOnStatusCode: false })
           cy.get("[data-cy='error-page-title']").should("have.text", '404')
