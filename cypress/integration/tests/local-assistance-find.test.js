@@ -4,7 +4,7 @@ describe("Local Assistance Find", function(){
         cy.visit("/local-assistance/find")
         expect(cy.get("input#search")).to.exist
         expect(cy.get("input#zip")).to.exist
-        expect(cy.get("#officetype-select")).to.exist
+        expect(cy.get("[data-cy='officetype-select']")).to.exist
         expect(cy.get("button#office-primary-search-bar-search-button")).to.exist
         expect(cy.get("[data-cy='search button']")).to.exist
     })
@@ -41,8 +41,8 @@ describe("Local Assistance Find", function(){
         cy.server()
         cy.route("GET","/api/content/search/offices.json**").as("OfficeSearch")
         cy.visit("/local-assistance/find")
-        cy.get("#officetype-select").click()
-        cy.get("#officetype-select").contains("SBA District Office").click();
+        cy.get("[data-cy='officetype-select']").find(".Select-arrow-zone").click()
+        cy.get("[data-cy='officetype-select']").contains("SBA District Office").click();
         cy.get("[data-cy='search button']").click()
         cy.wait("@OfficeSearch")
         expect(cy.get("#office-results").as("Results")).to.exist
