@@ -7,7 +7,7 @@ describe('Site Search', () => {
 
     it('searches when a keyword is submitted', () => {
         cy.server()
-        cy.route("GET" ,"/api/content/search.json**").as("SearchRequest")
+        cy.route("GET" ,"/api/content/search/search.json**").as("SearchRequest")
         cy.visit('/search/')
         cy.get("#search").type("business")
         cy.get("#submit-button").click()
@@ -19,7 +19,7 @@ describe('Site Search', () => {
 
     it('searches with provided query paramters', () => {
         cy.server()
-        cy.route("GET" ,"/api/content/search.json**").as("SearchRequest")
+        cy.route("GET" ,"/api/content/search/search.json**").as("SearchRequest")
         cy.visit('/search/?q=business')
         cy.wait("@SearchRequest")
         cy.get("#results-list").should('exist')
@@ -29,7 +29,7 @@ describe('Site Search', () => {
 
     it('searches make the appropriate endpoint call', () => {
         cy.server()
-        cy.route("GET" ,"/api/content/search.json**").as("SearchRequest")
+        cy.route("GET" ,"/api/content/search/search.json**").as("SearchRequest")
         cy.visit('/search/?q=business')
         cy.wait("@SearchRequest").its("url").should('include', "term=business")
     })
@@ -37,7 +37,7 @@ describe('Site Search', () => {
     it(`displays a custom CTA's when a suggested route keyword is used`, () => {
         cy.fixture("suggested-routes/custom-routes.json").then((customRoutes => {
             cy.server()
-            cy.route("GET", "/api/content/suggestedRoutes.json", customRoutes)
+            cy.route("GET", "/api/content/search/suggestedRoutes.json", customRoutes)
             customRoutes.forEach((route) => {
                 route.keywords.forEach((keyword) => {
                     cy.visit(`/search/?q=${keyword}`)

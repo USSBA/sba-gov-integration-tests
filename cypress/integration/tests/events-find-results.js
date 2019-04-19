@@ -2,7 +2,7 @@ describe("Event search results", function(){
   it("paginates through 10 results at a time", function(){
     cy.server()
     cy.fixture("event/search-results.json").as("EventResults")
-    cy.route("GET", "/api/content/events.json**", "@EventResults")
+    cy.route("GET", "/api/content/search/events.json**", "@EventResults")
     cy.visit("events/find")
 
     cy.get("[data-cy= 'showing results text']").as("Pagination")
@@ -39,7 +39,7 @@ describe("Event search results", function(){
       event.items[0].location.state = "Texas"
       event.items[0].cost = expectedCost
       event.items[0].registrationUrl = "https://doesnt.matter"
-      cy.route("GET", "/api/content/events.json**", "@EventResults")
+      cy.route("GET", "/api/content/search/events.json**", "@EventResults")
     })
 
     cy.visit("/events/find")
@@ -59,7 +59,7 @@ describe("Event search results", function(){
     cy.server()
     cy.fixture("event/search-results.json").as("EventResults").then(event => {
         event.items[0].id = mockId
-        cy.route("GET", "/api/content/events.json**", "@EventResults")
+        cy.route("GET", "/api/content/search/events.json**", "@EventResults")
     })
 
     cy.visit("/events/find")
@@ -73,7 +73,7 @@ describe("Event search results", function(){
     cy.server()
     cy.fixture("event/search-results.json").as("EventResults").then(event => {
         event.items[0].cost = "0.00"
-        cy.route("GET", "/api/content/events.json**", "@EventResults")
+        cy.route("GET", "/api/content/search/events.json**", "@EventResults")
     })
 
     cy.visit("/events/find")
@@ -86,7 +86,7 @@ describe("Event search results", function(){
     cy.server()
     cy.fixture("event/search-results.json").as("EventResults").then(event => {
         event.items[0].registrationUrl = null
-        cy.route("GET", "/api/content/events.json**", "@EventResults")
+        cy.route("GET", "/api/content/search/events.json**", "@EventResults")
     })
 
     cy.visit("/events/find")
@@ -102,7 +102,7 @@ describe("Event search results", function(){
     cy.server()
     cy.fixture("event/search-results.json").as("EventResults").then(event => {
         event.items[0].registrationUrl = mockUrl
-        cy.route("GET", "/api/content/events.json**", "@EventResults")
+        cy.route("GET", "/api/content/search/events.json**", "@EventResults")
     })
 
     cy.visit("/events/find")

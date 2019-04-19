@@ -21,17 +21,17 @@ describe("Content Endpoint", function(){
 
     endpoints.forEach((endpoint) => {
     it(`${endpoint} endpoint returns 200`, function(){
-        cy.request(`/api/content/${endpoint}.json`).its("status").should('equal',200)
+        cy.request(`/api/content/search/${endpoint}.json`).its("status").should('equal',200)
     })})
 
     it("search endpoint returns 200", function(){
         // requires a search term query parameter
-        cy.request(`/api/content/search.json?term=test`).its("status").should('equal',200)
+        cy.request(`/api/content/search/search.json?term=test`).its("status").should('equal',200)
     })
 
     it("non existing endpoint returns 404", function(){
         cy.request({
-            url: "/api/content/does-not-exist.json",
+            url: "/api/content/search/does-not-exist.json",
             failOnStatusCode: false})
         .its("status").should('equal', 404)
     })

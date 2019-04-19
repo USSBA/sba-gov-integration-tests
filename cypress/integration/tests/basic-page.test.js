@@ -34,12 +34,12 @@ describe('Basic page', function() {
     it('display a website link when it is included in the contact data', function(){
       cy.server()
       cy.fixture('contacts/microloans.json').as('MicroloanContacts')
-      cy.route("GET", "/api/content/contacts.json?category=Microloan", "@MicroloanContacts" ).as("ContactRequest")
+      cy.route("GET", "/api/content/search/contacts.json?category=Microloan", "@MicroloanContacts" ).as("ContactRequest")
       
       cy.visit('/partners/lenders/microloan-program/list-lenders')
       cy.get(".basicpage-titlesection > div[id^='lookup-']").as("ContactLookup")
-      cy.get("@ContactLookup").get("#lookup-select").click();
-      cy.get("@ContactLookup").get("#lookup-select").contains("Arkansas").click()
+      cy.get("@ContactLookup").get("[data-cy=lookup-select]").find('.Select-arrow-zone').click();
+      cy.get("@ContactLookup").get("[data-cy=lookup-select]").contains("Arkansas").click()
 
       cy.get("@ContactLookup").get('.contact-card').contains("Visit website").should("exist")
     })
@@ -47,12 +47,12 @@ describe('Basic page', function() {
     it('does not display a website link when it is missing in the contact data', function(){
       cy.server()
       cy.fixture('contacts/microloans.json').as('MicroloanContacts')
-      cy.route("GET", "/api/content/contacts.json?category=Microloan", "@MicroloanContacts" ).as("ContactRequest")
+      cy.route("GET", "/api/content/search/contacts.json?category=Microloan", "@MicroloanContacts" ).as("ContactRequest")
       
       cy.visit('/partners/lenders/microloan-program/list-lenders')
       cy.get(".basicpage-titlesection > div[id^='lookup-']").as("ContactLookup")
-      cy.get("@ContactLookup").get("#lookup-select").click();
-      cy.get("@ContactLookup").get("#lookup-select").contains("Alaska").click()
+      cy.get("@ContactLookup").get("[data-cy=lookup-select]").find('.Select-arrow-zone').click();
+      cy.get("@ContactLookup").get("[data-cy=lookup-select]").contains("Alaska").click()
 
       cy.get("@ContactLookup").get('.contact-card').contains("Visit website").should("not.exist")
     })

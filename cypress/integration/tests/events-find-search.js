@@ -9,10 +9,11 @@ describe("Events search", function() {
     cy.get("[data-cy='keyword search']")
     
     cy.get('label[for="date-filter"]').should("have.text", "Date Range")
-    cy.get("[data-cy='date']").as("DateRange")
+    cy.get("form > [data-cy='date']").as("DateRange")
       .find(".Select-value").should("have.text", defaultDateRange)
     
-    cy.get("@DateRange").click().find(".Select-menu-outer")
+    cy.get("@DateRange").find('.Select-arrow-zone').click()
+    cy.get('div.Select-menu-outer')
       .should("contain", "All Upcoming")
       .and("contain", "Today")
       .and("contain", "Tomorrow")
@@ -37,16 +38,17 @@ describe("Events search", function() {
     cy.server()
     // note that order of query parameters in the GET request is affected by the order of fields receiving input
     cy.route("GET",
-      `/api/content/events.json?pageSize=10&start=0&dateRange=${expectedDateRange.toLowerCase()}&distance=${expectedDistance}&q=${expectedKeyword}&address=${expectedZip}`
+      `/api/content/search/events.json?pageSize=10&start=0&dateRange=${expectedDateRange.toLowerCase()}&distance=${expectedDistance}&q=${expectedKeyword}&address=${expectedZip}`
     ).as("ExpectedRequest")
     
     cy.visit("/events/find")
     cy.get("[data-cy='keyword search']").as("EventKeyword").type(expectedKeyword)
-    cy.get("[data-cy='date']").as("DateRange").click()
-      .find(".Select-menu-outer").contains(expectedDateRange).click()
+    cy.get("form > [data-cy='date']").as("DateRange")
+    cy.get("@DateRange").find('.Select-arrow-zone').click()
+    cy.get('div.Select-menu-outer').contains(expectedDateRange).click('center')
     cy.get("[data-cy='zip']").as("ZipInput").type(expectedZip)
-    cy.get("[data-cy='distance']").as("Distance").click()
-      .find(".Select-menu-outer").contains(expectedDistance + " miles").click()
+    cy.get("[data-cy='distance']").as("Distance").find('.Select-arrow-zone').click()
+    cy.get(".Select-menu-outer").contains(expectedDistance + " miles").click()
     cy.get("[data-cy='search button']").as("SearchButton").click()
 
     // checks for json request
@@ -54,9 +56,9 @@ describe("Events search", function() {
 
     // checks that fields show accepted input
     cy.get("@EventKeyword").invoke("val").should("equal", expectedKeyword)
-    cy.get("@DateRange").invoke("text").should("equal", expectedDateRange)
+    cy.get("@DateRange").find('.Select-value').invoke("text").should("equal", expectedDateRange)
     cy.get("@ZipInput").invoke("val").should("equal", expectedZip)
-    cy.get("@Distance").invoke("text").should("equal", expectedDistance + " miles")
+    cy.get("@Distance").find('.Select-value').invoke("text").should("equal", expectedDistance + " miles")
     
     // checks for query parameters in the url
     cy.url().should("contain", `q=${expectedKeyword}`)
@@ -82,7 +84,8 @@ describe("Events search", function() {
 
     // when zip code field is NOT empty, dropdown menu should exist
     cy.get("@ZipInput").type("12345")
-    cy.get("@Distance").click().find(".Select-menu-outer").as("DistanceOptions")
+    cy.get("@Distance").find('.Select-arrow-zone').click()
+    cy.get("div.Select-menu-outer").as("DistanceOptions")
 
     // checks available options in distance dropdown
     cy.get("@DistanceOptions").should("contain", "200 miles")
@@ -99,8 +102,8 @@ describe("Events search", function() {
     
     cy.visit("/events/find/?dateRange=7days&address=23456&q=test123&distance=25")
     cy.get("[data-cy='keyword search']").invoke('val').should("equal", expectedKeyword)
-    cy.get("[data-cy='date']").as("DateRange").should("have.text",expectedDateRange)
+    cy.get("[data-cy='date']").find('.Select-value').should("have.text",expectedDateRange)
     cy.get("[data-cy='zip']").invoke('val').should("equal", expectedZip)
-    cy.get("[data-cy='distance']").as("Distance").should("have.text",expectedDistance)
+    cy.get("[data-cy='distance']").find('.Select-value').should("have.text",expectedDistance)
   })
 })
