@@ -38,8 +38,8 @@ describe('Basic page', function() {
       
       cy.visit('/partners/lenders/microloan-program/list-lenders')
       cy.get(".basicpage-titlesection > div[id^='lookup-']").as("ContactLookup")
-      cy.get("@ContactLookup").get("#lookup-select").click();
-      cy.get("@ContactLookup").get("#lookup-select").contains("Arkansas").click()
+      cy.get("@ContactLookup").get("[data-cy=lookup-select]").find('.Select-arrow-zone').click();
+      cy.get("@ContactLookup").get("[data-cy=lookup-select]").contains("Arkansas").click()
 
       cy.get("@ContactLookup").get('.contact-card').contains("Visit website").should("exist")
     })
@@ -51,8 +51,8 @@ describe('Basic page', function() {
       
       cy.visit('/partners/lenders/microloan-program/list-lenders')
       cy.get(".basicpage-titlesection > div[id^='lookup-']").as("ContactLookup")
-      cy.get("@ContactLookup").get("#lookup-select").click();
-      cy.get("@ContactLookup").get("#lookup-select").contains("Alaska").click()
+      cy.get("@ContactLookup").get("[data-cy=lookup-select]").find('.Select-arrow-zone').click();
+      cy.get("@ContactLookup").get("[data-cy=lookup-select]").contains("Alaska").click()
 
       cy.get("@ContactLookup").get('.contact-card').contains("Visit website").should("not.exist")
     })
