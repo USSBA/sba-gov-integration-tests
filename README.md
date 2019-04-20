@@ -2,7 +2,7 @@
 Cypress can run in a few ways.  
 
 1. Local Run - Cypress can be run locally to aid in test creation and development
-1. Docker Run - Cypress can be run in a container to be used for scheduled testing or testing linked to builds in the deployment pipeline
+1. Docker Run - Cypress can be run in a container to be used for development, scheduled testing, testing linked to builds in the deployment pipeline
 
 ## Local Run - Running cypress locally with the UI
 
@@ -63,3 +63,31 @@ Please be sure to follow the [Cypress Best Practices](https://docs.cypress.io/gu
 
 Some additional best practices to consider are:
 * Avoid unnecessary UI interactions - use a `cy.visit()` to go to a page directly rather than clicking your way through interfaces unless it is absolutely necessary to test the entire user flow.
+
+# Project Details
+
+## Changelog
+Refer to the changelog for details on API updates. [CHANGELOG](CHANGELOG.md)
+
+## License
+The SBA.gov Integration Tests is licensed permissively under the Apache License v2.0.
+A copy of that license is distributed with this software.
+
+## Contributing
+We welcome contributions. Please read [CONTRIBUTING](CONTRIBUTING.md) for how to contribute.
+
+### Code Of Conduct
+
+We strive for a welcoming and inclusive environment for the SBA.gov Integration Tests project.
+
+Please follow this guidelines in all interactions:
+
+1. Be Respectful: use welcoming and inclusive language.
+2. Assume best intentions: seek to understand other's opinions.
+
+## Security Issues
+Please do not submit an issue on GitHub for a security vulnerability. Please contact the development team through [SBA Website Support](mailto:support@us-sba.atlassian.net).
+
+Be sure to include all the pertinent information.
+
+<sub>The agency reserves the right to change this policy at any time.</sub>
