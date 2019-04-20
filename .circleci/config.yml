@@ -3,8 +3,19 @@ workflows:
  version: 2
  build-and-deploy:
    jobs:
+     # all branches and tags will be tested by poirot
+     - poirot:
+         filters:
+           branches:
+             only:
+             - /.*/
+           tags:
+             only:
+             - /.*/
      # all branches and tags will build
      - build:
+         requires:
+           - poirot
          filters:
            tags:
              only:
@@ -22,6 +33,20 @@ workflows:
              ignore:
              - /.*/
 jobs:
+ poirot:
+   docker:
+   - image: circleci/python:latest
+   steps:
+   - checkout
+   - setup_remote_docker:
+       docker_layer_caching: true
+   - run:
+       name: Run poirot tests
+       command: |
+         sudo pip install poirot
+         poirot --patterns='https://raw.githubusercontent.com/DCgov/poirot/master/poirot/patterns/default.txt'
+         poirot --patterns='https://raw.githubusercontent.com/DCgov/poirot-patterns/master/financial.txt'
+         
  build:
    docker:
    - image: docker:17.09.1-ce-git
