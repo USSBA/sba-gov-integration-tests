@@ -3,7 +3,7 @@
     "emailAddress": "john.doe@sba.gov",
     "fax": "123-456-7890",
     "firstName": "John",
-    "highResolutionPhoto": "/sites/default/files/2019-02/test.jpg",
+    "highResolutionPhoto": {},
     "lastName": "Doe",
     "office": 6443,
     "phone": "987-654-3210 ext 999",
