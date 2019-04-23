@@ -1,0 +1,74 @@
+[
+    {
+        "title": "For partners",
+        "url": "partners",
+        "fullUrl": "/partners",
+        "children": [
+            {
+                "title": "Lenders",
+                "url": "lenders",
+                "fullUrl": "/partners/lenders",
+                "children": [
+                    {
+                        "title": "Test Child Page 1",
+                        "url": "test-page-1",
+                        "fullUrl": "/partners/lenders/test1",
+                        "children": [
+                            {
+                                "title": "Does Not Exist 1",
+                                "url": "does-not-exist-1",
+                                "fullUrl": "/partners/lenders/test-page-2/does-not-exist-1",
+                                "description": null,
+                                "summary": "This page does not exist 1",
+                                "node": "201",
+                                "weight": -50
+                            }
+                        ],
+                        "description": null,
+                        "summary": "Test Page 1 Summary",
+                        "node": "101",
+                        "weight": -50
+                    },
+                    {
+                        "title": "Test Child Page 2",
+                        "url": "test-page-2",
+                        "fullUrl": "/partners/lenders/test2",
+                        "children": [
+                            {
+                                "title": "Does Not Exist 2",
+                                "url": "does-not-exist-2",
+                                "fullUrl": "/partners/lenders/test-page-2/does-not-exist-2",
+                                "description": null,
+                                "summary": "This page does not exist 2",
+                                "node": "202",
+                                "weight": -50
+                            }
+                        ],
+                        "description": null,
+                        "summary": "Test Page 2 Summary",
+                        "node": "201",
+                        "weight": -50
+                    }
+                ],
+                "description": "Partner with the Small Business Administration to issue government-guaranteed loans.",
+                "summary": "Financial institutions and other organizations work with the SBA to give small businesses loans. The SBA has three loan programs: 7(a), CDC/504, and Microloans.",
+                "node": "2976",
+                "weight": -62
+            },
+            {
+                "title": "This Will Not Display",
+                "url": "will-not-display",
+                "fullUrl": "/partners/sbics",
+                "children": [  ],
+                "description": "This page won't display",
+                "summary": "This page won't display",
+                "node": "3910",
+                "weight": -60
+            }
+        ],
+        "description": "For partners",
+        "summary": "",
+        "node": "",
+        "weight": 0
+    }
+]

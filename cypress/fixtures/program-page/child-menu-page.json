@@ -1,0 +1,20 @@
+{
+    "bannerImage": {},
+    "buttons": [
+    ],
+    "paragraphs": [
+        {
+            "id": 9849,
+            "type": "childPageMenu",
+            "pagesInclude": "All child pages"
+        }
+    ],
+    "summary": "Program Page test for child menu",
+    "type": "programPage",
+    "title": "Program Page Test",
+    "id": 2976,
+    "updated": 1543241928,
+    "created": 1505248383,
+    "langCode": "en",
+    "url": "/partners/lenders"
+}
