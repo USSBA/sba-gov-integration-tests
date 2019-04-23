@@ -17,7 +17,7 @@ describe('Blog Page', function () {
         cy.fixture("blog/blog-page.json").as("BlogPage")
         cy.fixture("blog/blog-author.json").as("BlogAuthor")
     })
-    
+
     it('displays a basic blog for a valid blog', function() {
         cy.server()
         this.BlogPage.author = this.validBlogAuthor
@@ -40,6 +40,21 @@ describe('Blog Page', function () {
         cy.get("@AuthorCard").find("[data-testid=read-more]")
             .should('contain', "Read More")
             .find('a').should("has.attr", "href", this.BlogAuthor.url)
+    })
+
+    it.only("displays an author card with an image", function () {
+        cy.server()
+        cy.fixture('blog/images/test.jpg').as("AuthorPicture")
+        this.BlogPage.author = this.validBlogAuthor
+        this.BlogAuthor.highResolutionPhoto = "/sites/default/files/2019-02/test.jpg"
+        cy.route("GET", `/api/content/node/${ this.validBlogId }.json`, "@BlogPage" )
+        cy.route("GET", `/api/content/node/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
+        cy.route("GET", `/sites/default/files/2019-02/test.jpg`, "@AuthorPicture").as("AuthorPictureRequest")
+        cy.visit(`/blog/${ this.validBlogUrl }`)
+        expect("@AuthorPictureRequest").to.be.called
+        cy.wait("@AuthorPictureRequest")
+        cy.get("[data-testid=authorCard]").find("[data-testid=picture]")
+
     })
 
     it('displays an error for an invalid blog', function() {
