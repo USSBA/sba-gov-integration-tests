@@ -42,7 +42,7 @@ describe('Blog Page', function () {
             .find('a').should("has.attr", "href", this.BlogAuthor.url)
     })
 
-    it.only("displays an author card with an image", function () {
+    it("displays an author card with an image", function () {
         cy.server()
         cy.fixture('blog/images/test.jpg').as("AuthorPicture")
         this.BlogPage.author = this.validBlogAuthor
@@ -51,10 +51,8 @@ describe('Blog Page', function () {
         cy.route("GET", `/api/content/node/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
         cy.route("GET", `/sites/default/files/2019-02/test.jpg`, "@AuthorPicture").as("AuthorPictureRequest")
         cy.visit(`/blog/${ this.validBlogUrl }`)
-        expect("@AuthorPictureRequest").to.be.called
         cy.wait("@AuthorPictureRequest")
         cy.get("[data-testid=authorCard]").find("[data-testid=picture]")
-
     })
 
     it('displays an error for an invalid blog', function() {
