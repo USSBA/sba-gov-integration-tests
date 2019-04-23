@@ -55,16 +55,34 @@ describe('Blog Page', function () {
         cy.get("[data-testid=authorCard]").find("[data-testid=picture]")
     })
 
-    it('displays an error for an invalid blog', function() {
+    it('displays a "fake" 404 when an author cannot be retireved', function(){
+        cy.server()
+        this.BlogPage.author = this.validBlogAuthor
+        cy.route("GET", `/api/content/node/${ this.validBlogId }.json`, "@BlogPage" )
+        cy.route({
+            method: "GET",
+            force404: true,
+            response: { things: "thing" },
+            status: '404',
+            url: `/api/content/node/${ this.validBlogAuthor }.json`
+        }
+        ).as("AuthorRequest")
+        cy.visit(`/blog/${ this.validBlogUrl }`)
+        cy.get('[data-testid=blog-error]')
+        cy.contains("404")
+    })
+
+    it('displays a "fake" 404 when a blog cannot be retrieved', function() {
         cy.server()
         cy.route({
             method: "GET",
             force404: true,
             response: { things: "thing" },
             status: '404',
-            url: "/api/content/node/**"
+            url: `/api/content/node/${ this.validBlogId }.json`
         }
         ).as("BlogRequest")
+        cy.route("GET", `/api/content/node/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
         cy.visit(`/blog/${ this.validBlogUrl }`)
         cy.get('[data-testid=blog-error]')
         cy.contains("404")
