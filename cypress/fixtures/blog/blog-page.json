@@ -1,0 +1,27 @@
+{
+    "author": 9999,
+    "blogBody": [
+        {
+            "id": 19930,
+            "type": "blogPost",
+            "blogSectionImage": {
+                "url": "/sites/default/files/2019-04/Screen%20Shot%202019-04-15%20at%203.11.07%20PM.png",
+                "alt": "yo this is an image",
+                "width": 160,
+                "height": 190
+            },
+            "blogSectionText": "<p>test</p>\r\n"
+        }
+    ],
+    "blogCategory": "News and Views",
+    "blogTags": "Contracting",
+    "office": {},
+    "summary": "Test Blog BCD",
+    "type": "blog",
+    "title": "Test Blog BCD",
+    "id": 1234,
+    "updated": 1555434492,
+    "created": 1546344732,
+    "langCode": "en",
+    "url": "/blog/test-blog-bcd"
+}
