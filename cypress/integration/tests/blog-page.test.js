@@ -40,6 +40,7 @@ describe('Blog Page', function () {
         cy.get("@AuthorCard").find("[data-testid=read-more]")
             .should('contain', "Read More")
             .find('a').should("has.attr", "href", this.BlogAuthor.url)
+        cy.get("[data-testid=picture]").should("not.exist")
     })
 
     it("displays an author card with an image", function () {
