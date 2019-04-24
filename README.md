@@ -14,43 +14,32 @@ Cypress can run in a few ways.
 
 `npm install`
 
-#### To run cypress normally
-`./node_modules/.bin/cypress open`
+### Run cypress normally
+`npx cypress open`
 
-#### To run cypress similar to automated runs
-* `environment`: base environment name like "mint"
-* `username`: drupal username
-* `password`: drupal password
+or...
 
-This will run Cypress using the `cypress open` command to use the Cypress UI for local testing and development
+### Run cypress w/ environment variables to run the drupal tests
 
-`./run-local.sh <environment> <username> <password>`
+`./run-cypress.sh <environment> <drupal-username> <drupal-password>` 
 
-### Docker Run - Running Cypress in a docker container
+This will run Cypress using the `cypress open` command to use the Cypress UI for local testing and development.
+
+## Docker Run - Running cypress in a Docker container
+This is how the automatic runs are executed.
+* `environment`: base environment name like "mint", "avery"
+* `param-store-name`: the name of the aws param store to use to get drupal username and password
+* `file`: specific test file to run
+
 **Please make sure to run this before checking in code to ensure that it will run remotely**
-#### To Build the Docker Container
+
+`./run-cypress-docker.sh <environment> <param-store-name> [file]`
+
+### To Build the Docker Container
 `./build.sh`
 
-#### To run in Docker container
-Runs the docker container locally with provided credentials
-* `environment`: base environment name like "mint"
-* `username`: drupal username
-* `password`: drupal password
-
-
-`./run-local-docker.sh <environment> <username> <password>`
-
-#### To run in Docker container (with AWS param store credentials)
-
-This uses the parameter store values in the AWS Account. 
-
-* `environment`: base environment like "mint"
-* `param-store-name`: the leading name of the param store like "mint"
-`./run-param-store.sh <environment> <param-store-name>`
-
-
-### To download the latest test results
-`aws s3 sync s3://sbagovlower-test-results/cypress/<env>/latest/ .`
+## Download the latest test results
+`aws s3 sync s3://sbagovlower-test-results/cypress/<environment>/latest/ .`
 
 ### To Deploy
 `git tag latest -f && git push origin latest -f`
