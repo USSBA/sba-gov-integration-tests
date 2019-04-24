@@ -5,8 +5,8 @@ The suite of in-browser UI tests SBA.gov
 ## Running Cypress
 Cypress can run in a few ways.  
 
-1. Local Run - Cypress can be run locally to aid in test creation and development
-1. Docker Run - Cypress can be run in a container to be used for development, scheduled testing, testing linked to builds in the deployment pipeline
+1. Local Run - Cypress can be run locally to aid in test creation and development.  This is the typical way cypress is run during development and is an interactive mode that aids in development.
+2. Docker Run - Cypress can be run in a container to be used for scheduled testing or testing linked to builds in the deployment pipeline
 
 ### Local Run - Running cypress locally with the UI
 
@@ -19,7 +19,8 @@ Cypress can run in a few ways.
 
 or...
 
-### Run cypress w/ environment variables to run the drupal tests
+### Run cypress w/ environment variables
+This is required to run the drupal tests with credentials to log in to drupal and test drupal functionality
 
 `./run-cypress.sh <environment> <drupal-username> <drupal-password>` 
 
@@ -28,20 +29,26 @@ This will run Cypress using the `cypress open` command to use the Cypress UI for
 ## Docker Run - Running cypress in a Docker container
 This is how the automatic runs are executed.
 * `environment`: base environment name like "mint", "avery"
-* `param-store-name`: the name of the aws param store to use to get drupal username and password
-* `file`: specific test file to run
+* `param-store-name`: the name of the aws param store to use to get drupal username and password.  This is usually the same as the environment name like "amy" or "pat"
+* `file` (optional): specific test file to run
 
 **Please make sure to run this before checking in code to ensure that it will run remotely**
 
 `./run-cypress-docker.sh <environment> <param-store-name> [file]`
 
+This will build the container and run the tests against the provided environment using the credentials from the param store provided.
+
 ### To Build the Docker Container
 `./build.sh`
+
+Builds the docker container using the current repository.  First thime this run can take a bit of time.  Subsequent builds should go quickly as long as the installation has not changed. 
 
 ## Download the latest test results
 `aws s3 sync s3://sbagovlower-test-results/cypress/<environment>/latest/ .`
 
-### To Deploy
+Gets the latest test results from the S3 bucket.  Must have access to this AWS instance to pull down this data.
+
+## To Deploy
 `git tag latest -f && git push origin latest -f`
 
 # Using Cypress
