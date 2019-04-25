@@ -3,7 +3,7 @@ describe('Person lookup page', function () {
     cy.fixture('persons/persons.json').as('persons')
   })
 
-  it.only('has fields for filtering and sorting', function () {
+  it('has fields for filtering and sorting', function () {
     cy.server()
     cy.route('GET', '/api/content/search/persons.json', '@persons')
 
