@@ -5,7 +5,7 @@ describe('Person lookup page', function () {
 
   it('has fields for filtering and sorting', function () {
     cy.server()
-    cy.route('GET', '/api/content/persons.json', '@persons')
+    cy.route('GET', '/api/content/search/persons.json', '@persons')
 
     cy.visit('/person')
 
@@ -18,7 +18,9 @@ describe('Person lookup page', function () {
       .find('.Select-value')
       .should('have.text', 'All')
     cy.get('@office')
+      .find('.Select-control > .Select-arrow-zone ')
       .click()
+    cy.get('@office')
       .find('.Select-menu-outer')
       .should('contain', 'All')
       // first office
@@ -32,8 +34,10 @@ describe('Person lookup page', function () {
       .find('.Select-value')
       .should('have.text', 'Name A-Z')
     cy.get('@sortBy')
+      .find('.Select-control > .Select-arrow-zone ')
       .click()
-      .find('.Select-menu-outer')
+    cy.get('@sortBy')
+      .get('.Select-menu-outer')
       .should('contain', 'Name A-Z')
       .and('contain', 'Name Z-A')
 
@@ -54,7 +58,7 @@ describe('Person lookup page', function () {
 
   it(`displays 12 cards with person details by default`, function () {
     cy.server()
-    cy.route('GET', '/api/content/persons.json', '@persons')
+    cy.route('GET', '/api/content/search/persons.json', '@persons')
 
     cy.visit('/person')
 
@@ -64,7 +68,7 @@ describe('Person lookup page', function () {
 
   it('opens the person detail page url when the person\'s name is clicked', function () {
     cy.server()
-    cy.route('GET', '/api/content/persons.json', '@persons')
+    cy.route('GET', '/api/content/search/persons.json', '@persons')
 
     cy.visit('/person')
 
@@ -86,7 +90,7 @@ describe('Person lookup page', function () {
     const expectedEmail = 'sabrina.abousaleh@sba.gov'
 
     cy.server()
-    cy.route('GET', '/api/content/persons.json', '@persons')
+    cy.route('GET', '/api/content/search/persons.json', '@persons')
 
     cy.visit('/person')
 
@@ -103,7 +107,7 @@ describe('Person lookup page', function () {
 
   it('displays a message when no search results are found', function () {
     cy.server()
-    cy.route('GET', '/api/content/persons.json', [])
+    cy.route('GET', '/api/content/search/persons.json', [])
     cy.visit('person')
 
     cy.get('[data-cy="no-results"]').should('exist')
@@ -114,7 +118,7 @@ describe('Person lookup page', function () {
     const secondExpectedName = 'Alex Kohls'
 
     cy.server()
-    cy.route('GET', '/api/content/persons.json', '@persons')
+    cy.route('GET', '/api/content/search/persons.json', '@persons')
 
     cy.visit('/person')
 
@@ -137,7 +141,7 @@ describe('Person lookup page', function () {
     const expectedOffice = 'St. Louis District Office'
 
     cy.server()
-    cy.route('GET', '/api/content/persons.json', '@persons')
+    cy.route('GET', '/api/content/search/persons.json', '@persons')
 
     cy.visit('/person')
 
@@ -153,7 +157,7 @@ describe('Person lookup page', function () {
     const expectedCount = 2
 
     cy.server()
-    cy.route('GET', '/api/content/persons.json', '@persons')
+    cy.route('GET', '/api/content/search/persons.json', '@persons')
 
     cy.visit('/person')
 
@@ -178,7 +182,7 @@ describe('Person lookup page', function () {
 
   it('displays people in descending last name order when Name Z-A is selected', function () {
     cy.server()
-    cy.route('GET', '/api/content/persons.json', '@persons')
+    cy.route('GET', '/api/content/search/persons.json', '@persons')
 
     cy.visit('/person')
 

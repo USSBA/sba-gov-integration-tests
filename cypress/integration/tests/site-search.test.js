@@ -51,7 +51,7 @@ describe('Site Search', () => {
 
     it('displays a loading message while search results have not returned', () => {
         cy.server({delay: 5000})
-        cy.route("GET", "/api/content/search.json**", "SearchRequest")
+        cy.route("GET", "/api/content/search/search.json**", "SearchRequest")
         cy.visit('/search/?p=1&q=thispageshouldneverexistandnoresultsshouldbefound')
         cy.contains('.results-message', "loading...",)
     })
