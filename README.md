@@ -5,8 +5,8 @@ The suite of in-browser UI tests SBA.gov
 ## Running Cypress
 Cypress can run in a few ways.  
 
-1. Local Run - Cypress can be run locally to aid in test creation and development
-1. Docker Run - Cypress can be run in a container to be used for development, scheduled testing, testing linked to builds in the deployment pipeline
+1. Local Run - Cypress can be run locally to aid in test creation and development.  This is the typical way cypress is run during development and is an interactive mode that aids in development.
+2. Docker Run - Cypress can be run in a container to be used for scheduled testing or testing linked to builds in the deployment pipeline
 
 ### Local Run - Running cypress locally with the UI
 
@@ -14,45 +14,41 @@ Cypress can run in a few ways.
 
 `npm install`
 
-#### To run cypress normally
-`./node_modules/.bin/cypress open`
+### Run cypress normally
+`npx cypress open`
 
-#### To run cypress similar to automated runs
-* `environment`: base environment name like "mint"
-* `username`: drupal username
-* `password`: drupal password
+or...
 
-This will run Cypress using the `cypress open` command to use the Cypress UI for local testing and development
+### Run cypress w/ environment variables
+This is required to run the drupal tests with credentials to log in to drupal and test drupal functionality
 
-`./run-local.sh <environment> <username> <password>`
+`./run-cypress.sh <environment> <drupal-username> <drupal-password>` 
 
-### Docker Run - Running Cypress in a docker container
+This will run Cypress using the `cypress open` command to use the Cypress UI for local testing and development.
+
+## Docker Run - Running cypress in a Docker container
+This is how the automatic runs are executed.
+* `environment`: base environment name like "mint", "avery"
+* `param-store-name`: the name of the aws param store to use to get drupal username and password.  This is usually the same as the environment name like "amy" or "pat"
+* `file` (optional): specific test file to run
+
 **Please make sure to run this before checking in code to ensure that it will run remotely**
-#### To Build the Docker Container
+
+`./run-cypress-docker.sh <environment> <param-store-name> [file]`
+
+This will build the container and run the tests against the provided environment using the credentials from the param store provided.
+
+### To Build the Docker Container
 `./build.sh`
 
-#### To run in Docker container
-Runs the docker container locally with provided credentials
-* `environment`: base environment name like "mint"
-* `username`: drupal username
-* `password`: drupal password
+Builds the docker container using the current repository.  First thime this run can take a bit of time.  Subsequent builds should go quickly as long as the installation has not changed. 
 
+## Download the latest test results
+`aws s3 sync s3://sbagovlower-test-results/cypress/<environment>/latest/ .`
 
-`./run-local-docker.sh <environment> <username> <password>`
+Gets the latest test results from the S3 bucket.  Must have access to this AWS instance to pull down this data.
 
-#### To run in Docker container (with AWS param store credentials)
-
-This uses the parameter store values in the AWS Account. 
-
-* `environment`: base environment like "mint"
-* `param-store-name`: the leading name of the param store like "mint"
-`./run-param-store.sh <environment> <param-store-name>`
-
-
-### To download the latest test results
-`aws s3 sync s3://sbagovlower-test-results/cypress/<env>/latest/ .`
-
-### To Deploy
+## To Deploy
 `git tag latest -f && git push origin latest -f`
 
 # Using Cypress
