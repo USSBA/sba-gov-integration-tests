@@ -10,5 +10,7 @@
     "TEST_USER": "@@TEST_USER@@",
     "TEST_PASSWORD": "@@TEST_PASSWORD@@"
   },
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "viewportHeight": 800,
+  "viewportWidth": 1280
 }

@@ -22,7 +22,7 @@ describe("Document", function(){
         it("displays an icon in the version list", function(){
             cy.server()
             cy.fixture("document/document-versions.json").as("Document")
-            cy.route("GET", "/api/content/node/**", "@Document").as("NodeLookup")
+            cy.route("GET", /\/api\/content\/\d+\.json/, "@Document").as("NodeLookup")
             cy.visit("/document/report--agency-financial-report")
             cy.wait("@NodeLookup")
             cy.get(".document-article-title").should("have.text", "Agency Financial Report")
