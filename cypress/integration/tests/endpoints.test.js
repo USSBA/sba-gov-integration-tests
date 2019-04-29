@@ -1,30 +1,57 @@
 describe("Content Endpoint", function(){
 
-    // To Do:  Include counsellorCta and search - these are both returning bad errors
-   const endpoints = [
-       'announcements', 
-        'articles', 
-        'contacts',
-        // 'counsellorCta',  // broken and seemingly not used anywhere
-        'course', 
-        'courses', 
-        'disaster', 
-        'documents',
-        'mainMenu', 
-        // 'nodes',  // very large file in some envs - not used?
-        'offices',
-        'officesRaw',
-        'persons', 
-        'siteMap',
-        'taxonomys',
-        'events']
+    describe("Search Endpoints", function () {
+        const endpoints = [
+            'announcements', 
+            'articles',
+            'blogs', 
+            'contacts',
+            'course', 
+            'courses', 
+            'disaster', 
+            'documents',
+            'mainMenu', 
+            'offices',
+            'officesRaw',
+            'persons', 
+            'siteMap',
+            'taxonomys',
+            'events'
+        ]
+     
+         endpoints.forEach((endpoint) => {
+         it(`${endpoint} endpoint returns 200`, function(){
+             cy.request(`/api/content/search/${endpoint}.json`).its("status").should('equal',200)
+         })})
+    })
 
-    endpoints.forEach((endpoint) => {
-    it(`${endpoint} endpoint returns 200`, function(){
-        cy.request(`/api/content/search/${endpoint}.json`).its("status").should('equal',200)
-    })})
+    describe("S3 Endpoints", function () {
+        const endpoints = [
+            'announcements', 
+            'articles',
+            'blog', 
+            'contacts',
+            // 'course',       // not in S3
+            'courses', 
+            'disaster', 
+            'documents',
+            'mainMenu', 
+            'nodes', 
+            'offices',
+            //'officesRaw',    // not in s3
+            'persons', 
+            'siteMap',
+            'taxonomys'
+            //'events'         // not in S3
+            ]
+     
+         endpoints.forEach((endpoint) => {
+         it(`${endpoint} endpoint returns 200`, function(){
+             cy.request(`/api/content/${endpoint}.json`).its("status").should('equal',200)
+         })})
+    })
 
-    it("search endpoint returns 200", function(){
+    it("search endpoint with query parameters returns 200", function(){
         // requires a search term query parameter
         cy.request(`/api/content/search/search.json?term=test`).its("status").should('equal',200)
     })
