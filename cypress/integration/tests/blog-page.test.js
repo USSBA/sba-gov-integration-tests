@@ -21,8 +21,8 @@ describe('Blog Page', function () {
     it('displays a basic blog for a valid blog', function() {
         cy.server()
         this.BlogPage.author = this.validBlogAuthor
-        cy.route("GET", `/api/content/node/${ this.validBlogId }.json`, "@BlogPage" )
-        cy.route("GET", `/api/content/node/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
+        cy.route("GET", `/api/content/${ this.validBlogId }.json`, "@BlogPage" )
+        cy.route("GET", `/api/content/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
 
         cy.visit(`/blog/${ this.validBlogUrl }`)
 
@@ -47,8 +47,8 @@ describe('Blog Page', function () {
         cy.server()
         this.BlogPage.author = this.validBlogAuthor
         this.BlogAuthor.highResolutionPhoto = "/sites/default/files/2019-02/steven-lancellotta.jpg"
-        cy.route("GET", `/api/content/node/${ this.validBlogId }.json`, "@BlogPage" )
-        cy.route("GET", `/api/content/node/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
+        cy.route("GET", `/api/content/${ this.validBlogId }.json`, "@BlogPage" )
+        cy.route("GET", `/api/content/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
         cy.visit(`/blog/${ this.validBlogUrl }`)
         cy.get("[data-testid=authorCard]").find("[data-testid=picture]")
             .find("img").should("have.attr", "src", this.BlogAuthor.highResolutionPhoto )
@@ -57,13 +57,13 @@ describe('Blog Page', function () {
     it('displays a "fake" 404 when an author cannot be retireved', function(){
         cy.server()
         this.BlogPage.author = this.validBlogAuthor
-        cy.route("GET", `/api/content/node/${ this.validBlogId }.json`, "@BlogPage" )
+        cy.route("GET", `/api/content/${ this.validBlogId }.json`, "@BlogPage" )
         cy.route({
             method: "GET",
             force404: true,
             response: { things: "thing" },
             status: '404',
-            url: `/api/content/node/${ this.validBlogAuthor }.json`
+            url: `/api/content/${ this.validBlogAuthor }.json`
         }
         ).as("AuthorRequest")
         cy.visit(`/blog/${ this.validBlogUrl }`)
@@ -78,10 +78,10 @@ describe('Blog Page', function () {
             force404: true,
             response: { things: "thing" },
             status: '404',
-            url: `/api/content/node/${ this.validBlogId }.json`
+            url: `/api/content/${ this.validBlogId }.json`
         }
         ).as("BlogRequest")
-        cy.route("GET", `/api/content/node/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
+        cy.route("GET", `/api/content/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
         cy.visit(`/blog/${ this.validBlogUrl }`)
         cy.get('[data-testid=blog-error]')
         cy.contains("404")
@@ -89,7 +89,7 @@ describe('Blog Page', function () {
 
     it('displays a loader when the page is loading', function(){
         cy.server({delay: 10000})
-        cy.route("GET", "/api/content/node/**", { data: "things" }).as("BlogRequest")
+        cy.route("GET", `/api/content/${ this.validBlogId }.json`, { data: "things" }).as("BlogRequest")
         cy.visit(`/blog/${ this.validBlogUrl }`)
         cy.get('[data-testid=blog-loader]')
         cy.get('[data-cy=loader]')

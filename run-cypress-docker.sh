@@ -1,6 +1,7 @@
 #!/bin/bash
 ./build.sh
 docker run \
+--ipc=host \
 -e "BASE_URL=https://${1}.ussba.io" \
 -e "S3BUCKET=sbagovlower-test-results" \
 -e "TARGET_ENV=${1}" \
