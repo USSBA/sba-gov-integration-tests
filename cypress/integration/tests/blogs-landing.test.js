@@ -35,6 +35,7 @@ describe("Blogs landing page", function() {
       cy.get("[data-testid=category-subtitle]").should("have.text", newsAndViewsCategory.subtitle)
       cy.get("[data-testid=card]").should('have.length', 3)
       cy.get("[data-testid='see more button']").should("have.text", "SEE MORE POSTS")
+      cy.get("[data-testid='see more button']").should("have.attr","href", "/blogs/news-and-views")
     })
 
     cy.get("[data-testid='Industry Word posts']").within((IndustryWordCategory) => {
@@ -42,6 +43,7 @@ describe("Blogs landing page", function() {
       cy.get("[data-testid=category-subtitle]").should("have.text", industryWordCategory.subtitle)
       cy.get("[data-testid=card]").should('have.length', 3)
       cy.get("[data-testid='see more button']").should("have.text", "SEE MORE POSTS")
+      cy.get("[data-testid='see more button']").should("have.attr","href", "/blogs/industry-word")
     })
   })
       
