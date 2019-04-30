@@ -1,10 +1,10 @@
 describe('Blog Page', function () {
     before(function () {
-        cy.request("GET", "/api/content/blog.json")
+        cy.request("GET", "/api/content/search/blogs.json?end=1")
         .then((blog)=>{
-            cy.wrap(blog.body[blog.body.length-1].url.replace("/blog/", "")).as("validBlogUrl")
-            cy.wrap(blog.body[blog.body.length-1].id).as("validBlogId")
-            cy.wrap(blog.body[blog.body.length-1].author).as("validBlogAuthor")
+            cy.wrap(blog.body.blogs[blog.body.blogs.length-1].url.replace("/blog/", "")).as("validBlogUrl")
+            cy.wrap(blog.body.blogs[blog.body.blogs.length-1].id).as("validBlogId")
+            cy.wrap(blog.body.blogs[blog.body.blogs.length-1].author).as("validBlogAuthor")
         })
 
         cy.request("GET", "/api/content/persons.json")
@@ -49,6 +49,7 @@ describe('Blog Page', function () {
         this.BlogAuthor.highResolutionPhoto = "/sites/default/files/2019-02/steven-lancellotta-hires.jpg"
         this.BlogAuthor.picture.src = "/sites/default/files/2019-02/steven-lancellotta.jpg"
         this.BlogAuthor.picture.alt = "Author Name Alt Text"
+
         cy.route("GET", `/api/content/${ this.validBlogId }.json`, "@BlogPage" )
         cy.route("GET", `/api/content/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
         cy.visit(`/blog/${ this.validBlogUrl }`)
