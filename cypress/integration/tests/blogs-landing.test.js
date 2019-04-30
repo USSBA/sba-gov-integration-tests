@@ -1,4 +1,11 @@
+import moment from 'moment'
+
 describe("Blogs landing page", function() {
+  beforeEach(function() {
+    cy.fixture("blogs/news-and-views-blogs.json").as("NewsAndViewsBlogs")
+    cy.fixture("blogs/industry-word-blogs.json").as("IndustryWordBlogs")
+  })
+
   it('displays the blog landing page hero', function() {
     cy.visit("/blogs/")
     cy.get("[data-testid=blogs-hero]")
@@ -6,12 +13,8 @@ describe("Blogs landing page", function() {
 
   it('displays category information for both categories', function() {
     cy.server()
-    cy.fixture("blogs/news-and-views-blogs.json").as("NewsAndViewsBlogs").then(() => {
-      cy.route("GET", "/api/content/search/blogs.json?category=News and Views&end=3&order=desc", "@NewsAndViewsBlogs")
-    })
-    cy.fixture("blogs/industry-word-blogs.json").as("IndustryWordBlogs").then(() => {
-      cy.route("GET", "/api/content/search/blogs.json?category=Industry Word&end=3&order=desc", "@IndustryWordBlogs")
-    })
+    cy.route("GET", "/api/content/search/blogs.json?category=News and Views&end=3&order=desc", this.NewsAndViewsBlogs).as("NewsAndViewsRequest")
+    cy.route("GET", "/api/content/search/blogs.json?category=Industry Word&end=3&order=desc", this.IndustryWordBlogs).as("IndustryWordRequest")
 
     const newsAndViewsCategory = {
       title: 'SBA News & Views posts',
@@ -24,6 +27,8 @@ describe("Blogs landing page", function() {
     }
 
     cy.visit("/blogs/")
+    cy.wait("@NewsAndViewsRequest")
+    cy.wait("@IndustryWordRequest")
 
     cy.get("[data-testid='SBA News & Views posts']").within((NewsAndViewsCategory) => {
       cy.get("[data-testid=category-title]").should("have.text", newsAndViewsCategory.title)
@@ -37,6 +42,22 @@ describe("Blogs landing page", function() {
       cy.get("[data-testid=category-subtitle]").should("have.text", industryWordCategory.subtitle)
       cy.get("[data-testid=card]").should('have.length', 3)
       cy.get("[data-testid='see more button']").should("have.text", "SEE MORE POSTS")
+    })
+  })
+      
+  it("displays blog information on the card", function() {
+    cy.server()
+    cy.route("GET", "/api/content/search/blogs.json?category=News and Views&end=3&order=desc", "@NewsAndViewsBlogs").as("NewsAndViewsRequest")
+    cy.visit("/blogs/")
+    cy.wait("@NewsAndViewsRequest")
+
+    cy.get('[data-testid="card"]').eq(0).as("Card1").within(function(FirstBlogCard) {
+      const formattedDate = moment.unix(this.NewsAndViewsBlogs[0].created).format('MMMM D, YYYY')
+
+      cy.get('[data-testid="card title"]').should("have.text", this.NewsAndViewsBlogs[0].title)
+      cy.get('[data-testid="card italic text"]').should("have.text", formattedDate)
+      cy.get('[data-testid="card subtitle text"]').should("have.text", this.NewsAndViewsBlogs[0].summary)
+      cy.get('[data-testid="card link"]').should("have.text", "Read full post")
     })
   })
 })
