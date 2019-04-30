@@ -46,12 +46,15 @@ describe('Blog Page', function () {
     it("displays an author card with an image", function () {
         cy.server()
         this.BlogPage.author = this.validBlogAuthor
-        this.BlogAuthor.highResolutionPhoto = "/sites/default/files/2019-02/steven-lancellotta.jpg"
+        this.BlogAuthor.highResolutionPhoto = "/sites/default/files/2019-02/steven-lancellotta-hires.jpg"
+        this.BlogAuthor.picture.src = "/sites/default/files/2019-02/steven-lancellotta.jpg"
+        this.BlogAuthor.picture.alt = "Author Name Alt Text"
         cy.route("GET", `/api/content/${ this.validBlogId }.json`, "@BlogPage" )
         cy.route("GET", `/api/content/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
         cy.visit(`/blog/${ this.validBlogUrl }`)
-        cy.get("[data-testid=authorCard]").find("[data-testid=picture]")
-            .find("img").should("have.attr", "src", this.BlogAuthor.highResolutionPhoto )
+        cy.get("[data-testid=authorCard]").find("[data-testid=picture]").find("img").as("AuthorPicture")
+            .should("have.attr", "src", this.BlogAuthor.picture.src )
+            .and("have.attr", "alt", this.BlogAuthor.picture.alt )
     })
 
     it('displays a "fake" 404 when an author cannot be retireved', function(){
