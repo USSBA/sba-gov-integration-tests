@@ -51,11 +51,11 @@ describe("Blogs landing page", function() {
     cy.wait("@NewsAndViewsRequest")
 
     cy.get('[data-testid="card"]').eq(0).as("Card1").within(function(FirstBlogCard) {
-      const formattedDate = moment.unix(this.NewsAndViewsBlogs[0].created).format('MMMM D, YYYY')
+      const formattedDate = moment.unix(this.NewsAndViewsBlogs.blogs[0].created).format('MMMM D, YYYY')
 
-      cy.get('[data-testid="card title"]').should("have.text", this.NewsAndViewsBlogs[0].title)
+      cy.get('[data-testid="card title"]').should("have.text", this.NewsAndViewsBlogs.blogs[0].title)
       cy.get('[data-testid="card italic text"]').should("have.text", formattedDate)
-      cy.get('[data-testid="card subtitle text"]').should("have.text", this.NewsAndViewsBlogs[0].summary)
+      cy.get('[data-testid="card subtitle text"]').should("have.text", this.NewsAndViewsBlogs.blogs[0].summary)
       cy.get('[data-testid="card link"]').should("have.text", "Read full post")
     })
   })
