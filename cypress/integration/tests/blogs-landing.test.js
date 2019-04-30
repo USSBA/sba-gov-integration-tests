@@ -5,31 +5,28 @@ describe("Blogs landing page", function() {
     cy.fixture("blogs/news-and-views-blogs.json").as("NewsAndViewsBlogs")
     cy.fixture("blogs/industry-word-blogs.json").as("IndustryWordBlogs")
   })
-
-  it('displays the blog landing page hero', function() {
-    cy.visit("/blogs/")
-    cy.get("[data-testid=blogs-hero]")
-  })
-
-  it('displays category information for both categories', function() {
+  
+  it('displays all landing page elements', function() {
     cy.server()
     cy.route("GET", "/api/content/search/blogs.json?category=News and Views&end=3&order=desc", this.NewsAndViewsBlogs).as("NewsAndViewsRequest")
     cy.route("GET", "/api/content/search/blogs.json?category=Industry Word&end=3&order=desc", this.IndustryWordBlogs).as("IndustryWordRequest")
-
+    
     const newsAndViewsCategory = {
       title: 'SBA News & Views posts',
       subtitle: "Insights and updates from SBA's small business experts."
     }
-
+    
     const industryWordCategory = {
       title: 'Industry Word posts',
       subtitle: "Commentary and advice from leaders in the small business industry."
     }
-
+    
     cy.visit("/blogs/")
     cy.wait("@NewsAndViewsRequest")
     cy.wait("@IndustryWordRequest")
 
+    cy.get("[data-testid=blogs-hero]")
+    
     cy.get("[data-testid='SBA News & Views posts']").within((NewsAndViewsCategory) => {
       cy.get("[data-testid=category-title]").should("have.text", newsAndViewsCategory.title)
       cy.get("[data-testid=category-subtitle]").should("have.text", newsAndViewsCategory.subtitle)
