@@ -89,7 +89,7 @@ jobs:
            #docker tag ${CIRCLE_PROJECT_REPONAME}/${CIRCLE_SHA1} "${AMAZON_ECR_ENDPOINT_UPPER}/${AMAZON_ECR_REPO}:${1}"
            #docker push "${AMAZON_ECR_ENDPOINT_UPPER}/${AMAZON_ECR_REPO}:${1}"
          }
-         loginlower="$(export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} && aws ecr get-login --region us-east-1 --no-include-email)"
+         loginlower="$(aws ecr get-login --region us-east-1 --no-include-email)"
          tagpush ${CIRCLE_SHA1}
          tagpush ${CIRCLE_TAG}
          tagpush circle-${CIRCLE_BUILD_NUM}
