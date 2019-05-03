@@ -1,0 +1,103 @@
+{
+    "total": 7,
+    "blogs": [
+        {
+            "author": 1234,
+            "blogBody": [],
+            "blogCategory": "Industry Word",
+            "blogTags": "Starting a Business",
+            "summary": "Blog #1 - summary",
+            "type": "blog",
+            "title": "Test Blog Title 1",
+            "id": 18746,
+            "updated": 1556828290,
+            "created": 1556828259,
+            "langCode": "en",
+            "url": "/blog/test-blog-title-1"
+        },
+        {
+            "author": 1234,
+            "blogBody": [],
+            "blogCategory": "Industry Word",
+            "blogTags": "Government Contracting",
+            "summary": "Blog #2 - summary",
+            "type": "blog",
+            "title": "Test Blog Title 2",
+            "id": 18745,
+            "updated": 1556828241,
+            "created": 1556828206,
+            "langCode": "en",
+            "url": "/blog/test-blog-title-2"
+        },
+        {
+            "author": 1234,
+            "blogBody": [],
+            "blogCategory": "News and Views",
+            "blogTags": "International",
+            "summary": "Blog #3 - summary",
+            "type": "blog",
+            "title": "Test Blog Title 3",
+            "id": 18744,
+            "updated": 1556828191,
+            "created": 1556828061,
+            "langCode": "en",
+            "url": "/blog/test-blog-title-3"
+        },
+        {
+            "author": 1234,
+            "blogBody": [],
+            "blogCategory": "News and Views",
+            "blogTags": "Government Contracting",
+            "summary":"Blog #4 - summary",
+            "type": "blog",
+            "title": "Test Blog Title 4",
+            "id": 18743,
+            "updated": 1556827480,
+            "created": 1556827455,
+            "langCode": "en",
+            "url": "/blog/test-blog-title-4"
+        },
+        {
+            "author": 1234,
+            "blogBody": [],
+            "blogCategory": "Industry Word",
+            "blogTags": "Contracting",
+            "summary": "Blog #5 - summary",
+            "type": "blog",
+            "title": "Test Blog Title 5",
+            "id": 18742,
+            "updated": 1556827449,
+            "created": 1556827385,
+            "langCode": "en",
+            "url": "/blog/test-blog-title-5"
+        },
+        {
+            "author": 1234,
+            "blogBody": [],
+            "blogCategory": "News and Views",
+            "blogTags": "Disaster",
+            "summary": "Blog #6 - summary",
+            "type": "blog",
+            "title": "Test Blog Title 6",
+            "id": 18741,
+            "updated": 1556827377,
+            "created": 1556827306,
+            "langCode": "en",
+            "url": "/blog/test-blog-title-6"
+        },
+        {
+            "author": 1234,
+            "blogBody": [],
+            "blogCategory": "Industry Word",
+            "blogTags": "Business Laws",
+            "summary": "Blog #7 - summary",
+            "type": "blog",
+            "title": "Test Blog Title 7",
+            "id": 18740,
+            "updated": 1556827290,
+            "created": 1556826427,
+            "langCode": "en",
+            "url": "/blog/test-blog-title-7"
+        }
+    ]
+}
