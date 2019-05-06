@@ -7,10 +7,6 @@ describe("Footer", function () {
       cy.get("[data-testid=newsletter-form]")
         .should("have.length", 1)
       cy.get("[data-testid=newsletter-form]").contains("p", "Sign up for SBA email updates").should("exist")
-    })
-
-    it("doesn't render e-mail and zip code textboxes", function() {
-      cy.visit("/")
       cy.get("#newsletter-email-address-container").should("not.exist")
       cy.get("#newsletter-zip-code-container").should("not.exist")
     })
