@@ -48,10 +48,11 @@ describe("Newsletter Form", function () {
 
   it.only("Renders fail message with its elements when connection fails", function() {
     cy.server()
+    // cy.route("/actions/misc/gov-delivery", { force404: true })
     cy.route({
       method: "POST",
-      url: "/actions/misc/gov-delivery",
-      status: 412
+      status: '404',
+      url: "/actions/misc/gov-delivery"
     }).as("getUpdates")
     cy.visit("/updates")
     cy.wait(500)
