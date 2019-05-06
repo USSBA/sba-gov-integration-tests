@@ -20,7 +20,6 @@ describe("Footer", function () {
       const baseUrl = Cypress.config("baseUrl")
       cy.visit("/")
       cy.get("[data-testid=newsletter-form]").contains("Subscribe").click()
-      cy.url().should('include', '/updates')
       cy.url().should('eq', `${baseUrl}/updates`)
     })
   })
