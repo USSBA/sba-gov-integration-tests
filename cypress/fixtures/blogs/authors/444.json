@@ -1,0 +1,23 @@
+{
+    "bio": "<p>Bio</p>\r\n",
+    "emailAddress": {},
+    "fax": "444-444-4444",
+    "firstName": "Person First 444",
+    "highResolutionPhoto": "/sites/default/files/2019-02/shawn-pensoneau.jpg",
+    "lastName": "Person Last 444",
+    "office": 4444441,
+    "phone": "444-444-4444",
+    "picture": {
+        "alt": "Person 4",
+        "src": "/sites/default/files/2019-02/bio-shawn-pensoneau.jpg"
+    },
+    "shortBio": {},
+    "title": "Person 4",
+    "type": "person",
+    "url": "/person/person4",
+    "name": "Person 444",
+    "id": 444,
+    "updated": 1551199799,
+    "created": 1550689651,
+    "langCode": "en"
+}

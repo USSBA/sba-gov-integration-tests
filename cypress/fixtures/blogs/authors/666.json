@@ -1,0 +1,23 @@
+{
+    "bio": "<p>Bio</p>\r\n",
+    "emailAddress": {},
+    "fax": "666-666-6666",
+    "firstName": "Person First 666",
+    "highResolutionPhoto": "/sites/default/files/2019-02/shawn-pensoneau.jpg",
+    "lastName": "Person Last 666",
+    "office": 6666661,
+    "phone": "666-666-6666",
+    "picture": {
+        "alt": "Person 6",
+        "src": "/sites/default/files/2019-02/bio-shawn-pensoneau.jpg"
+    },
+    "shortBio": {},
+    "title": "Person 6",
+    "type": "person",
+    "url": "/person/person6",
+    "name": "Person 666",
+    "id": 666,
+    "updated": 1551199799,
+    "created": 1550689651,
+    "langCode": "en"
+}

@@ -14,8 +14,10 @@ describe("Blogs landing page", function() {
     // cy.viewport(500,1000)
     
     // Removing posts
-    // this.NewsAndViewsBlogs.pop()
-    // this.NewsAndViewsBlogs.pop()
+    this.NewsAndViewsBlogs.blogs.pop()
+    this.NewsAndViewsBlogs.blogs.pop()
+    this.NewsAndViewsBlogs.blogs.pop()
+    //this.NewsAndViewsBlogs.pop()
 
     // Adding multiple items
     // this.NewsAndViewsBlogs.push(this.NewsAndViewsBlogs[2])

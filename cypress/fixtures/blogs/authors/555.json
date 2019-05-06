@@ -1,0 +1,23 @@
+{
+    "bio": "<p>Bio</p>\r\n",
+    "emailAddress": {},
+    "fax": "555-555-5555",
+    "firstName": "Person First 555",
+    "highResolutionPhoto": "/sites/default/files/2019-02/shawn-pensoneau.jpg",
+    "lastName": "Person Last 555",
+    "office": 5555551,
+    "phone": "555-555-5555",
+    "picture": {
+        "alt": "Person 5",
+        "src": "/sites/default/files/2019-02/bio-shawn-pensoneau.jpg"
+    },
+    "shortBio": {},
+    "title": "Person 5",
+    "type": "person",
+    "url": "/person/person5",
+    "name": "Person 555",
+    "id": 555,
+    "updated": 1551199799,
+    "created": 1550689651,
+    "langCode": "en"
+}

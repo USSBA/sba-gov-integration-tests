@@ -1,0 +1,23 @@
+{
+    "bio": "<p>Bio</p>\r\n",
+    "emailAddress": {},
+    "fax": "222-222-2221",
+    "firstName": "Person First 222",
+    "highResolutionPhoto": "/sites/default/files/2019-02/shawn-pensoneau.jpg",
+    "lastName": "Person Last 222",
+    "office": 2222221,
+    "phone": "222-222-2222",
+    "picture": {
+        "alt": "Person 2",
+        "src": "/sites/default/files/2019-02/bio-shawn-pensoneau.jpg"
+    },
+    "shortBio": {},
+    "title": "Person 2",
+    "type": "person",
+    "url": "/person/person2",
+    "name": "Person 222",
+    "id": 222,
+    "updated": 1551199799,
+    "created": 1550689651,
+    "langCode": "en"
+}

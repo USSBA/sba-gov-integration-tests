@@ -1,0 +1,23 @@
+{
+    "bio": "<p>Bio</p>\r\n",
+    "emailAddress": {},
+    "fax": "333-333-3333",
+    "firstName": "Person First 333",
+    "highResolutionPhoto": "/sites/default/files/2019-02/shawn-pensoneau.jpg",
+    "lastName": "Person Last 333",
+    "office": 3333331,
+    "phone": "333-333-3333",
+    "picture": {
+        "alt": "Person 3",
+        "src": "/sites/default/files/2019-02/bio-shawn-pensoneau.jpg"
+    },
+    "shortBio": {},
+    "title": "Person 3",
+    "type": "person",
+    "url": "/person/person3",
+    "name": "Person 333",
+    "id": 333,
+    "updated": 1551199799,
+    "created": 1550689651,
+    "langCode": "en"
+}
