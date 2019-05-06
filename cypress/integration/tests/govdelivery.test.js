@@ -7,13 +7,13 @@ describe("Newsletter Form", function () {
     cy.get("[data-testid=newsletter-form]")
       .should("have.length", 2)
       .contains("button", "Subscribe")
-    cy.contains("p.caption-text", "Please enter your zip code to receive local news.")
+    cy.contains("p.caption-text", "Please enter your zip code to receive local news.").should("exist")
     cy.get("#newsletter-email-address-container").within(() => {
-      cy.get("label").contains("Email address")
+      cy.get("label").contains("Email address").should("exist")
       cy.get("input#newsletter-email-address").should("exist")
     })
     cy.get("#newsletter-zip-code-container").within(() => {
-      cy.get("label").contains("Zip code")
+      cy.get("label").contains("Zip code").should("exist")
       cy.get("input#newsletter-zip-code").should("exist")
     })
   })
@@ -29,7 +29,7 @@ describe("Newsletter Form", function () {
     cy.get("input#newsletter-email-address").type("test@.com")
     cy.get("input#newsletter-zip-code").type("12345")
     cy.get("[data-testid=newsletter-form]").contains("Subscribe").first().should("be.disabled")
-    cy.get("p#newsletter-email-address-error").contains("Enter a valid email address")
+    cy.get("p#newsletter-email-address-error").contains("Enter a valid email address").should("exist")
   })
 
   it("shows error message and disables Subscribe button when e-mail address is valid, but zip code is incomplete", function() {
@@ -37,7 +37,7 @@ describe("Newsletter Form", function () {
     cy.get("input#newsletter-zip-code").type("3456")
     cy.get("input#newsletter-email-address").type("test4@test4.com")
     cy.get("[data-testid=newsletter-form]").contains("Subscribe").first().should("be.disabled")
-    cy.get("p#newsletter-zip-code-error").contains("Enter a valid zip code")
+    cy.get("p#newsletter-zip-code-error").contains("Enter a valid zip code").should("exist")
   })
 
   it("Subscribe button is enabled and shows successful message with its elements when valid inputs have been entered and button is clicked", function() {
@@ -52,8 +52,8 @@ describe("Newsletter Form", function () {
       .click()
     cy.wait("@getUpdates").its("status").should("eq", 201)
     cy.get("[data-testid=newsletter-form]").find("i").should("have.class", "fa fa-check-circle")
-    cy.get("[data-testid=newsletter-form]").contains("h3", "You're all done here!")
-    cy.get("[data-testid=newsletter-form]").contains("p", "You're all signed up for the SBA newsletter.")
+    cy.get("[data-testid=newsletter-form]").contains("h3", "You're all done here!").should("exist")
+    cy.get("[data-testid=newsletter-form]").contains("p", "You're all signed up for the SBA newsletter.").should("exist")
     cy.get("[data-testid=newsletter-form]").contains("Refresh").should("exist")
   })
 
@@ -73,8 +73,12 @@ describe("Newsletter Form", function () {
       .click()
     cy.wait("@getUpdates")
     cy.get("[data-testid=newsletter-form]").find("i").should("have.class", "fa fa-times-circle")
-    cy.get("[data-testid=newsletter-form]").contains("h3", "Sorry, we're having issues")
-    cy.get("[data-testid=newsletter-form]").contains("p", "We are unable to subscribe you to the SBA newsletter. Please try again later.")
+    cy.get("[data-testid=newsletter-form]")
+      .contains("h3", "Sorry, we're having issues")
+      .should("exist")
+    cy.get("[data-testid=newsletter-form]")
+      .contains("p", "We are unable to subscribe you to the SBA newsletter. Please try again later.")
+      .should("exist")
     cy.get("[data-testid=newsletter-form]").contains("Refresh").should("exist")
   })
 
@@ -90,11 +94,11 @@ describe("Newsletter Form", function () {
     cy.wait("@getUpdates")
     cy.get("[data-testid=newsletter-form]").contains("Refresh").click()
     cy.get("#newsletter-email-address-container").within(() => {
-      cy.get("label").contains("Email address")
+      cy.get("label").contains("Email address").should("exist")
       cy.get("input#newsletter-email-address").should("exist")
     })
     cy.get("#newsletter-zip-code-container").within(() => {
-      cy.get("label").contains("Zip code")
+      cy.get("label").contains("Zip code").should("exist")
       cy.get("input#newsletter-zip-code").should("exist")
     })
   })
