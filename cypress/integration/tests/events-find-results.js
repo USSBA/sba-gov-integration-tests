@@ -5,9 +5,9 @@ describe("Event search results", function(){
     cy.route("GET", "/api/content/search/events.json**", "@EventResults")
     cy.visit("events/find")
 
-    cy.get("[data-cy= 'showing results text']").as("Pagination")
-    cy.get("[data-cy= 'previous button']").as("Prev")
-    cy.get("[data-cy= 'next button']").as("Next")
+    cy.get("[data-testid='showing results text']").as("Pagination")
+    cy.get("[data-testid='previous button']").as("Prev")
+    cy.get("[data-testid='next button']").as("Next")
     
     cy.get("[data-cy= 'event result']").should('have.length', 10)
     cy.get("@Pagination").contains("Showing 1 - 10 of ")
