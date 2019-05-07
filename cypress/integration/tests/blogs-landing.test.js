@@ -90,7 +90,12 @@ describe("Blogs landing page", function() {
       const expectedAuthors = [expectedAuthor]
       cy.server()
       cy.route("GET", "/api/content/search/authors.json", expectedAuthors).as("AuthorsRequest")
-      cy.route("GET", `/api/content/${expectedAuthor}.json`, {} ).as("AuthorRequest")
+      cy.route({
+        method: 'GET',
+        url: `/api/content/${expectedAuthor}.json`,
+        status: 404,
+        response: { 'null' : null }
+      }).as("AuthorRequest")
       cy.visit('/blogs')
       cy.wait("@AuthorsRequest")
       cy.wait("@AuthorRequest")
@@ -111,7 +116,7 @@ describe("Blogs landing page", function() {
         cy.get("[data-testid=name]").should("have.text", this.Author111.name)
         cy.get("[data-testid=title]").should("have.text", this.Author111.title)
         cy.get("[data-testid=bio]").should("have.text", this.Author111.shortBio)
-        cy.get("[data-testid=see-all-posts]").should("have.attr", "href", this.Author111.url)
+        cy.get("[data-testid=see-all-posts] a").should("have.attr", "href", this.Author111.url + '#posts')
       })
     })
 
