@@ -44,16 +44,42 @@ describe("Person Page", function () {
             })
         })
 
-        it.skip("paginates to the next and previous page of results", function() {
-            // load a page with multiple pages of results
-            // go forward, check pagination
-            // go backwards, check pagination
+        it("paginates to the next and previous page of results", function() {
+            cy.server()
+            cy.route("GET", "/api/content/search/blogs.json**", "@AuthorBlogs").as("BlogRequest")
+            cy.visit(this.validPersonUrl)
+            cy.wait("@BlogRequest")
+            cy.get("[data-testid='paginator']").eq(0)
+                .find("[data-testid='showing results text']").should("have.text", "Showing 1 - 6 of "+ this.AuthorBlogs.blogs.length)
+
+            // Next page navigation
+            cy.get("[data-testid='paginator']").eq(0)
+                .find("[data-testid='next button']").click()
+            cy.get("[data-testid='paginator']").eq(0)
+                .find("[data-testid='showing results text']").should("have.text", "Showing 7 - 7 of "+ this.AuthorBlogs.blogs.length)
+            
+            // Previous page navigation
+            cy.get("[data-testid='paginator']").eq(0)
+                .find("[data-testid='previous button']").click()
+            cy.get("[data-testid='paginator']").eq(0)
+                .find("[data-testid='showing results text']").should("have.text", "Showing 1 - 6 of "+ this.AuthorBlogs.blogs.length)
         })
 
-        it.skip("does not allow pagination navigation there are no more results", function () {
-            // load a page with only one page of results
-            // try to go forward and backwards
-            // check pagination
+        it("does not allow pagination navigation there are no more results", function () {
+            cy.server()
+            cy.fixture("blogs/author-blogs.json").then(function(singleBlogResult) {
+                singleBlogResult.blogs = singleBlogResult.blogs.slice(-1)
+                singleBlogResult.total = singleBlogResult.blogs.length
+                cy.route("GET", "/api/content/search/blogs.json**", singleBlogResult).as("BlogRequest")
+            })
+            cy.visit(this.validPersonUrl)
+            cy.wait("@BlogRequest")
+            cy.get("[data-testid='paginator']").eq(0)
+                .find("[data-testid='showing results text']").should("have.text", "Showing 1 - 1 of 1")
+            cy.get("[data-testid='paginator']").eq(0)
+                .find("[data-testid='next button']").click()
+            cy.get("[data-testid='paginator']").eq(0)
+                .find("[data-testid='showing results text']").should("have.text", "Showing 1 - 1 of 1")
         })
     })    
 })
