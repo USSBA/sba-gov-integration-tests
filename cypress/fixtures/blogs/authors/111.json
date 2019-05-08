@@ -14,7 +14,7 @@
     "shortBio": "Test short bio for person 1",
     "title": "Person 1",
     "type": "person",
-    "url": "/person/person1",
+    "url": "/person/person1/",
     "name": "Person 111",
     "id": 111,
     "updated": 1551199799,
