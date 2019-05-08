@@ -1,5 +1,6 @@
 {
   "baseUrl": "@@BASE_URL@@",
+  "numTestsKeptInMemory": 1,
   "reporter": "mochawesome",
   "reporterOptions": {
     "overwrite": false,
