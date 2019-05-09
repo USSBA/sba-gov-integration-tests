@@ -6,11 +6,23 @@
             "type": "blogPost",
             "blogSectionImage": {
                 "url": "/sites/default/files/2019-04/Screen%20Shot%202019-04-15%20at%203.11.07%20PM.png",
-                "alt": "yo this is an image",
+                "alt": "Image 1",
                 "width": 160,
                 "height": 190
             },
-            "blogSectionText": "<p>test</p>\r\n"
+            "blogSectionText": "<p>Section 1</p>\r\n"
+        },
+
+        {
+            "id": 19931,
+            "type": "blogPost",
+            "blogSectionImage": {
+                "url": "/sites/default/files/2019-04/Screen%20Shot%202019-04-15%20at%203.11.07%20PM.png",
+                "alt": "Image 2",
+                "width": 160,
+                "height": 190
+            },
+            "blogSectionText": "<p>Section 2</p>\r\n"
         }
     ],
     "blogCategory": "News and Views",
