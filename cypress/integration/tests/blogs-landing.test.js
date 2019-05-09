@@ -116,7 +116,7 @@ describe("Blogs landing page", function() {
         cy.get("[data-testid=name]").should("have.text", this.Author111.name)
         cy.get("[data-testid=title]").should("have.text", this.Author111.title)
         cy.get("[data-testid=bio]").should("have.text", this.Author111.shortBio)
-        cy.get("[data-testid=see-all-posts] a").should("have.attr", "href", this.Author111.url + '#posts')
+        cy.get("[data-testid=see-all-posts] a").should("have.attr", "href", this.Author111.url + '/#posts')
       })
     })
 
