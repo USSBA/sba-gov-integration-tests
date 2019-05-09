@@ -31,6 +31,16 @@ describe('Blog Page', function () {
         cy.get("[data-testid=postAuthor]").contains(this.BlogAuthor.name)
         cy.get("[data-testid=postDate]").should('contain', "01/01/2019")
         cy.get("[data-testid=postCategory]").should('contain', this.BlogPage.blogCategory)
+        cy.get("[data-testid=title]")
+        cy.get("[data-testid=summary]")
+
+        // Sections
+        cy.get("data-testid=blog-section").each((section, index) => {
+            section.find("[data-testid=blog-text]")
+                .should("have.text", this.BlogPage.blogBody[index].blogSectionText)
+            section.find("[data-testid=blog-image]")
+                .should("have.attr", "src", this.BlogPage.blogBody[index].blogSectionImage.url)
+        })
 
         // Author Card
         cy.get("[data-testid=authorCard]").as("AuthorCard")
