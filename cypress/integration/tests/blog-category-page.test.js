@@ -119,4 +119,14 @@ describe("Blog Category Page", function () {
         cy.get('[data-testid=blog-top-paginator]')
             .should("have.text", "Showing 13 - 18 of 18")
     })
+
+    it("displays a blog page 404 that redirects to the blog landing", function(){
+        cy.visit("/blogs/thispageshouldneverexist", { failOnStatusCode: false })
+        cy.get("[data-cy='error-page-title']")
+            .should("have.text", '404')
+        cy.get("[data-cy='error-page-message']")
+            .should("contain", 'blogs page')
+        cy.get("[data-cy='error-page-message'] > a")
+            .should("have.attr", 'href', "/blogs")
+    })
 })
