@@ -1,57 +1,49 @@
-//import moment from 'moment'
+describe("Blogs landing page", function () {
 
-describe("Blogs landing page", function() {
-  beforeEach(function() {
-    cy.fixture("blogs/news-and-views-blogs.json").as("NewsAndViewsBlogs")
-    cy.fixture("blogs/industry-word-blogs.json").as("IndustryWordBlogs")
-  })
-
-  it('displays with whatever I want!', function() {
+  it('display blogs in the correct categories', function () {
     cy.server()
-
-    const expectedAuthors = [ 123412341234, 182121341]
 
     const NewsAndViewsResponse = {
       "total": 226,
       "blogs": [
-      {
-      "author": 1111,
-      "blogBody": [],
-      "blogCategory": "News and Views",
-      "blogTags": "Managing a Business",
-      "summary": "Summary: News and Views",
-      "type": "blog",
-      "title": "Title: News and Views",
-      "id": 18965,
-      "updated": 1557245538,
-      "created": 1556726992,
-      "langCode": "en",
-      "url": "/blog/news-and-views-page"
-      }
-    ]
+        {
+          "author": 1111,
+          "blogBody": [],
+          "blogCategory": "News and Views",
+          "blogTags": "Managing a Business",
+          "summary": "Summary: News and Views",
+          "type": "blog",
+          "title": "Title: News and Views",
+          "id": 18965,
+          "updated": 1557245538,
+          "created": 1556726992,
+          "langCode": "en",
+          "url": "/blog/news-and-views-page"
+        }
+      ]
     }
 
-    const IndustryWordResponse = 
+    const IndustryWordResponse =
     {
       "total": 226,
       "blogs": [
-      {
-      "author": 2222,
-      "blogBody": [],
-      "blogCategory": "Industry Word",
-      "blogTags": "Managing a Business",
-      "summary": "Summary: Industry Word",
-      "type": "blog",
-      "title": "Title: Industry Word",
-      "id": 18965,
-      "updated": 1557245538,
-      "created": 1556726992,
-      "langCode": "en",
-      "url": "/blog/industry-word-page"
-      }
-    ]
+        {
+          "author": 2222,
+          "blogBody": [],
+          "blogCategory": "Industry Word",
+          "blogTags": "Managing a Business",
+          "summary": "Summary: Industry Word",
+          "type": "blog",
+          "title": "Title: Industry Word",
+          "id": 18965,
+          "updated": 1557245538,
+          "created": 1556726992,
+          "langCode": "en",
+          "url": "/blog/industry-word-page"
+        }
+      ]
     }
-    
+
     cy.route(
       {
         method: "GET",
@@ -59,7 +51,7 @@ describe("Blogs landing page", function() {
         delay: 1000,
         response: NewsAndViewsResponse
       }
-     ).as("NewsAndViewsRequest")
+    ).as("NewsAndViewsRequest")
 
     cy.route(
       {
@@ -67,9 +59,16 @@ describe("Blogs landing page", function() {
         url: "/api/content/search/blogs.json?category=Industry Word&end=3&order=desc",
         response: IndustryWordResponse
       }
-     ).as("IndustryWordRequest")
+    ).as("IndustryWordRequest")
 
     cy.visit("/blogs/")
-
+    cy.wait("@NewsAndViewsRequest")
+    cy.wait("@IndustryWordRequest")
+    cy.get("[data-testid='Industry Word posts']")
+      .find("[data-testid='card title']")
+      .should("have.text", IndustryWordResponse.blogs[0].title)
+    cy.get("[data-testid='SBA News & Views posts']")
+      .find("[data-testid='card title']")
+      .should("have.text", NewsAndViewsResponse.blogs[0].title)
   })
 })
