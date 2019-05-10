@@ -48,7 +48,7 @@ describe("Blogs landing page", function () {
       {
         method: "GET",
         url: "/api/content/search/blogs.json?category=News and Views&end=3&order=desc",
-        delay: 1000,
+        delay: 10000,
         response: NewsAndViewsResponse
       }
     ).as("NewsAndViewsRequest")
