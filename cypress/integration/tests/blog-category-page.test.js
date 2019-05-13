@@ -8,7 +8,7 @@ describe("Blog Category Page", function () {
 
     const blogCategories = [
         {
-            name: "News and Views",
+            name: "SBA News and Views",
             title: "SBA News and Views",
             url: "/blogs/news-and-views",
             subtitle: "Insights and updates from SBA's small business experts.",
