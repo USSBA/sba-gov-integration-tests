@@ -17,7 +17,7 @@
                     "blogSectionText": '<p>{{lorem(5,"sentences")}}/r/n</p>'
                 }
             ],
-            "blogCategory": "News and Views",
+            "blogCategory": "SBA News and Views",
             "blogTags": "Starting a Business",
             "office": {},
         "summary": 'Summary News & Views {{index()}} - {{lorem(1, "sentences")}}',
