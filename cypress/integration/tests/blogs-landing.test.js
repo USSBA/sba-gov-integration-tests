@@ -60,7 +60,7 @@ describe("Blogs landing page", function() {
       
   it("displays blog information on the card", function() {
     cy.server()
-    cy.route("GET", "/api/content/search/blogs.json?category=SBAs and Views&end=3&order=desc", "@NewsAndViewsBlogs").as("NewsAndViewsRequest")
+    cy.route("GET", "/api/content/search/blogs.json?category=SBA News and Views&end=3&order=desc", "@NewsAndViewsBlogs").as("NewsAndViewsRequest")
     cy.visit("/blogs/")
     cy.wait("@NewsAndViewsRequest")
 

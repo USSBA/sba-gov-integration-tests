@@ -9,7 +9,7 @@ describe("Blogs landing page", function () {
         {
           "author": 1111,
           "blogBody": [],
-          "blogCategory": "News and Views",
+          "blogCategory": "SBA News and Views",
           "blogTags": "Managing a Business",
           "summary": "Summary: News and Views",
           "type": "blog",
@@ -47,7 +47,7 @@ describe("Blogs landing page", function () {
     cy.route(
       {
         method: "GET",
-        url: "/api/content/search/blogs.json?category=News and Views&end=3&order=desc",
+        url: "/api/content/search/blogs.json?category=SBA News and Views&end=3&order=desc",
         delay: 10000,
         response: NewsAndViewsResponse
       }
