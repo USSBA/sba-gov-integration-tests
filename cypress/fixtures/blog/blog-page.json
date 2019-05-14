@@ -5,20 +5,32 @@
             "id": 19930,
             "type": "blogPost",
             "blogSectionImage": {
-                "url": "/sites/default/files/2019-04/Screen%20Shot%202019-04-15%20at%203.11.07%20PM.png",
-                "alt": "yo this is an image",
+                "url": "/build/e0e199acd15b2c54a17de6be507cf7f7.png",
+                "alt": "Image 1",
                 "width": 160,
                 "height": 190
             },
-            "blogSectionText": "<p>test</p>\r\n"
+            "blogSectionText": "<p>Section 1</p>\n"
+        },
+
+        {
+            "id": 19931,
+            "type": "blogPost",
+            "blogSectionImage": {
+                "url": "/build/e0e199acd15b2c54a17de6be507cf7f7.png",
+                "alt": "Image 2",
+                "width": 160,
+                "height": 190
+            },
+            "blogSectionText": "<p>Section 2</p>\n"
         }
     ],
     "blogCategory": "News and Views",
     "blogTags": "Contracting",
     "office": {},
-    "summary": "Test Blog BCD",
+    "summary": "Test Blog Summary",
     "type": "blog",
-    "title": "Test Blog BCD",
+    "title": "Test Blog Title",
     "id": 1234,
     "updated": 1555434492,
     "created": 1546344732,

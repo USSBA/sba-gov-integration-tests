@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 describe('Blog Page', function () {
     before(function () {
         cy.request("GET", "/api/content/search/blogs.json?end=1")
@@ -21,6 +23,9 @@ describe('Blog Page', function () {
     it('displays a basic blog for a valid blog', function() {
         cy.server()
         this.BlogPage.author = this.validBlogAuthor
+        this.BlogPage.blogCategory = "SBA News and Views"
+        const expectedBlogCategoryUrl = "/blogs/news-and-views"
+
         cy.route("GET", `/api/content/${ this.validBlogId }.json`, "@BlogPage" )
         cy.route("GET", `/api/content/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
 
@@ -28,9 +33,29 @@ describe('Blog Page', function () {
 
         // Header Content
         cy.get("[data-testid=blog-content]")
-        cy.get("[data-testid=postAuthor]").contains(this.BlogAuthor.name)
-        cy.get("[data-testid=postDate]").should('contain', "01/01/2019")
-        cy.get("[data-testid=postCategory]").should('contain', this.BlogPage.blogCategory)
+        cy.get("[data-testid=postAuthor]")
+            .should('contain', this.BlogAuthor.name)
+        cy.get("[data-testid=postDate]")
+            .should('contain', moment.unix(this.BlogPage.created).format('MMMM DD, YYYY'))
+        cy.get("[data-testid=postCategory]")
+            .should('contain', this.BlogPage.blogCategory)
+            .find('a').should('have.attr', 'href', expectedBlogCategoryUrl)
+        cy.get("[data-testid=postTitle]")
+            .should("have.text", this.BlogPage.title)
+        cy.get("[data-testid=postSummary]")
+            .should("have.text", this.BlogPage.summary)
+        cy.get("[data-testid=postBlogBody]").within(() => {
+            cy.get("[data-testid=postBlogSection]")
+                .should("have.length", this.BlogPage.blogBody.length)
+            // Sections
+            cy.get("[data-testid=postBlogSection]").each(($section, index) => {
+                cy.wrap($section).find("[data-testid=postSectionText]")
+                    .should("have.html", this.BlogPage.blogBody[index].blogSectionText)
+                cy.wrap($section).find("[data-testid=postSectionImage]")
+                    .should("have.attr", "src", this.BlogPage.blogBody[index].blogSectionImage.url)
+                    .and("have.attr", "alt", this.BlogPage.blogBody[index].blogSectionImage.alt)
+            })
+        })
 
         // Author Card
         cy.get("[data-testid=authorCard]").as("AuthorCard")
@@ -41,6 +66,27 @@ describe('Blog Page', function () {
             .should('contain', "Read More")
             .find('a').should("has.attr", "href", this.BlogAuthor.url)
         cy.get("[data-testid=picture]").should("not.exist")
+    })
+
+    it("displays a blog section without an image", function () {
+        const sectionIndexWithoutImage = 0
+        cy.server()
+        this.BlogPage.author = this.validBlogAuthor
+        this.BlogPage.blogBody[sectionIndexWithoutImage].blogSectionImage = {}
+        cy.route("GET", `/api/content/${ this.validBlogId }.json`, "@BlogPage" )
+        cy.route("GET", `/api/content/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
+
+        cy.visit(`/blog/${ this.validBlogUrl }`)
+
+        cy.get("[data-testid=postBlogBody]").within(() => {
+            // Section
+            cy.get("[data-testid=postBlogSection]").eq(sectionIndexWithoutImage).within(($section) =>{
+                cy.get("[data-testid=postSectionText]")
+                    .should("have.html", this.BlogPage.blogBody[sectionIndexWithoutImage].blogSectionText)
+                cy.get("[data-testid=postSectionImage]")
+                    .should("not.exist")
+            })
+        })
     })
 
     it("displays an author card with an image", function () {
