@@ -3,19 +3,26 @@ describe("Footer", function () {
 
     it("renders correct elements", function() {
       cy.visit("/")
-      cy.get("[data-testid=newsletter-form]").parent().parent().should('have.id', 'sba-footer')
-      cy.get("[data-testid=newsletter-form]")
+      cy.get("#sba-footer").find("[data-testid=newsletter-form]")
         .should("have.length", 1)
-      cy.get("[data-testid=newsletter-form]").contains("p", "Sign up for SBA email updates").should("exist")
-      cy.get("#newsletter-email-address-container").should("not.exist")
-      cy.get("#newsletter-zip-code-container").should("not.exist")
+        .parent().parent()
+        .should('have.id', 'sba-footer')
+      cy.get("#sba-footer").find("[data-testid=newsletter-form]")
+        .contains("p", "Sign up for SBA email updates")
+      cy.get("#sba-footer").find("[data-testid=newsletter-form]")
+        .should("not.have.id", "div#newsletter-email-address-container")
+      cy.get("#sba-footer").find("[data-testid=newsletter-form]")
+        .should("not.have.id", "div#newsletter-zip-code-container")
     })
 
     it("Subscribe button redirects to /updates", function() {
       // elements and functionalities in /updates page is tested in govdelivery.test.js file
       const baseUrl = Cypress.config("baseUrl")
       cy.visit("/")
-      cy.get("[data-testid=newsletter-form]").contains("Subscribe").click()
+      cy.get("#sba-footer").find("[data-testid=newsletter-form]")
+        .contains("Subscribe")
+        .should('have.attr', 'href', '/updates')
+        .click()
       cy.url().should('eq', `${baseUrl}/updates`)
     })
   })
