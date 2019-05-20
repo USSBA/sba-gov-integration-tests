@@ -49,7 +49,7 @@ describe('Blog Page', function () {
                 .should("have.length", this.BlogPage.blogBody.length)
             // Sections
             cy.get("[data-testid=postBlogSection]").each(($section, index) => {
-                cy.wrap($section).find("[data-testid=postSectionText]")
+                cy.wrap($section).find("[data-testid='text section']")
                     .should("have.html", this.BlogPage.blogBody[index].blogSectionText)
                 cy.wrap($section).find("[data-testid=postSectionImage]")
                     .should("have.attr", "src", this.BlogPage.blogBody[index].blogSectionImage.url)
@@ -81,12 +81,37 @@ describe('Blog Page', function () {
         cy.get("[data-testid=postBlogBody]").within(() => {
             // Section
             cy.get("[data-testid=postBlogSection]").eq(sectionIndexWithoutImage).within(($section) =>{
-                cy.get("[data-testid=postSectionText]")
+                cy.get("[data-testid='text section']")
                     .should("have.html", this.BlogPage.blogBody[sectionIndexWithoutImage].blogSectionText)
                 cy.get("[data-testid=postSectionImage]")
                     .should("not.exist")
             })
         })
+    })
+
+    it('opens the leaving sba modal when clicking external link', function(){
+        cy.server()
+        const sectionWithLink = 0
+        const externalUrl = "https://externallink.com"
+
+        // sets blog post text containing an external link
+        this.BlogPage.blogBody[sectionWithLink].blogSectionText = `<p>Here is an <a href=${externalUrl}>External Link</a> with surrounding text.</p>`
+
+        this.BlogPage.author = this.validBlogAuthor
+        cy.route("GET", `/api/content/${ this.validBlogId }.json`, "@BlogPage" )
+        cy.route("GET", `/api/content/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
+        cy.visit(`/blog/${ this.validBlogUrl }`)
+
+        cy.get("[data-testid=postBlogBody]").within(() => {
+            // Section
+            cy.get("[data-testid=postBlogSection]").eq(sectionWithLink).within(() =>{
+                // click external link
+                cy.get("[data-testid='text section']").contains("External Link").click()
+            })
+        })
+
+        // check link diplaying on leaving sba module
+        cy.get("[data-cy='external url']").should("contain", externalUrl)
     })
 
     it("displays an author card with an image", function () {
