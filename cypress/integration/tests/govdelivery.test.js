@@ -57,7 +57,6 @@ describe("Newsletter Form", function () {
       status: "201",
       url: "/actions/misc/gov-delivery"
     }).as("getUpdates")
-    // cy.route("POST", "/actions/misc/gov-delivery").as("getUpdates")
     cy.visit("/updates")
     cy.get("[data-testid=newsletter-email-address]").type("test@test.com")
     cy.get("[data-testid=newsletter-zip-code]").type("12345")
@@ -112,7 +111,6 @@ describe("Newsletter Form", function () {
       status: "201",
       url: "/actions/misc/gov-delivery"
     }).as("getUpdates")
-    // cy.route("POST", "/actions/misc/gov-delivery").as("getUpdates")
     cy.visit("/updates")
     cy.get("[data-testid=newsletter-email-address]").type("test3@test3.com")
     cy.get("[data-testid=newsletter-zip-code]").type("34567")
