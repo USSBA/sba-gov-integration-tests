@@ -121,7 +121,7 @@ describe("Newsletter Form", function () {
       .click()
     cy.wait("@getUpdates")
     cy.get("@form")
-      .contains("[data-testid=newsletter-refresh-link]")
+      .contains("[data-testid=newsletter-refresh-link]", "Refresh")
       .click()
     cy.get("[data-testid=newsletter-email-address-container]").within(() => {
       cy.get("[data-testid=newsletter-email-address-label]").contains("Email address")
