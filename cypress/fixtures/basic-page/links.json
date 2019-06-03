@@ -1,0 +1,27 @@
+{
+    "paragraphs": [
+        {
+            "id": 8,
+            "type": "textSection",
+            "text": "<p><a href='https://time.gov'>External .gov link</a></p>\r\n"
+        },
+        {
+            "id": 9,
+            "type": "textSection",
+            "text": "<p><a href='https://www.google.gov'>External non-.gov link</a></p>\r\n"
+        },
+        {
+            "id": 10,
+            "type": "textSection",
+            "text": "<p><a href='/business-guide'>Internal relative link</a></p>\r\n"
+        }
+    ],
+    "summary": "This is a page for testing modal links",
+    "type": "page",
+    "title": "Test page",
+    "id": 5,
+    "updated": 1543608621,
+    "created": 1491413578,
+    "langCode": "en",
+    "url": "/business-guide/launch-your-business/choose-your-business-name"
+}
