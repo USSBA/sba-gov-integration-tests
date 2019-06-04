@@ -1,19 +1,24 @@
 {
     "paragraphs": [
         {
-            "id": 8,
-            "type": "textSection",
-            "text": "<p><a href='https://time.gov'>External .gov link</a></p>\r\n"
-        },
-        {
             "id": 9,
             "type": "textSection",
-            "text": "<p><a href='https://www.google.gov'>External non-.gov link</a></p>\r\n"
+            "text": "<p><a href='https://www.google.com'>External non-.gov link</a></p>\r\n"
         },
         {
             "id": 10,
             "type": "textSection",
             "text": "<p><a href='/business-guide'>Internal relative link</a></p>\r\n"
+        },
+        {
+            "id": 11,
+            "type": "textSection",
+            "text": "<p><a href='https://www.sba.gov'>External .gov link</a></p>\r\n"
+        },
+        {
+            "id": 12,
+            "type": "textSection",
+            "text": "<p><a href='https://www.sba.gov/size-standards'>External .gov link with path</a></p>\r\n"
         }
     ],
     "summary": "This is a page for testing modal links",
