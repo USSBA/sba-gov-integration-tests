@@ -11,6 +11,8 @@ describe("Component", function () {
             cy.contains("You're leaving the Small Business Administration website.")
             cy.get("[data-cy='close button']")
                 .should('have.attr', "aria-label", "Close this modal.")
+            cy.get('button').contains("CONTINUE")
+            cy.get('button').contains("CANCEL")
         })
 
         it("closes with the escape button", function () {
