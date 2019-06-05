@@ -10,7 +10,7 @@ describe("Newsletter Form", function () {
       .contains("Subscribe")
     cy.get("@form")
       .find("[data-testid=caption-text]")
-      .contains("Please enter your zip code to receive local news.")
+      .contains("Please enter your zip code to get information about business news and events in your area.")
     cy.get("@form")
       .find("[data-testid=newsletter-email-address-container]").within(() => {
         cy.get("[data-testid=newsletter-email-address-label]").contains("Email address")
@@ -71,7 +71,7 @@ describe("Newsletter Form", function () {
     cy.get("@form")
       .contains("[data-testid=newsletter-success-title]", "You're all done here!")
     cy.get("@form")
-      .contains("[data-testid=newsletter-success-message]", "You're all signed up for the SBA newsletter.")
+      .contains("[data-testid=newsletter-success-message]", "You're all signed up for the SBA e-Newsletter.")
     cy.get("@form")
       .contains("[data-testid=newsletter-refresh-link]", "Refresh")
   })
