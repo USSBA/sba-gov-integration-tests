@@ -70,8 +70,9 @@ describe("Events search", function() {
   it("displays an error for non-numeric zip codes", function(){
     cy.visit("/events/find")
     cy.get("[data-cy='zip']").type("abcde")
-    cy.get('#events-primary-search-bar-search-button').click()
+    cy.get("[data-testid='keyword-search']").click()
     cy.get('#zip-error')
+    cy.get('#events-primary-search-bar-search-button').should("be.disabled")
   })
 
   it("enabled distance dropdown when zip code is entered", function(){
