@@ -90,6 +90,7 @@ describe("Events search", function() {
     cy.get("[data-cy='zip']").type("6")
     cy.get('#events-primary-search-bar-search-button').should("be.disabled")
     cy.get('#zip-error')
+    cy.get('#events-primary-search-bar-search-button').should("be.disabled")
   })
 
   it("enabled distance dropdown when zip code is entered", function(){
