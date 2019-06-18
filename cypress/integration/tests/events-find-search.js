@@ -69,10 +69,27 @@ describe("Events search", function() {
 
   it("displays an error for non-numeric zip codes", function(){
     cy.visit("/events/find")
+    cy.get('#events-primary-search-bar-search-button').should("be.enabled")
+    cy.get('#zip-error').should('not.exist')
     cy.get("[data-cy='zip']").type("abcde")
     cy.get("[data-testid='keyword-search']").click()
     cy.get('#zip-error')
     cy.get('#events-primary-search-bar-search-button').should("be.disabled")
+  })
+
+  it("displays an error for invalid zip codes", function(){
+    cy.visit("/events/find")
+    cy.get('#events-primary-search-bar-search-button').should("be.enabled")
+    cy.get('#zip-error').should('not.exist')
+    cy.get("[data-cy='zip']").type("1")
+    cy.get('#zip-error')
+    cy.get('#events-primary-search-bar-search-button').should("be.disabled")
+    cy.get("[data-cy='zip']").type("2345")
+    cy.get('#events-primary-search-bar-search-button').should("be.enabled")
+    cy.get('#zip-error').should('not.exist')
+    cy.get("[data-cy='zip']").type("6")
+    cy.get('#events-primary-search-bar-search-button').should("be.disabled")
+    cy.get('#zip-error')
   })
 
   it("enabled distance dropdown when zip code is entered", function(){
