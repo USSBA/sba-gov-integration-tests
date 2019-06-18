@@ -26,6 +26,10 @@ This is required to run the drupal tests with credentials to log in to drupal an
 
 This will run Cypress using the `cypress open` command to use the Cypress UI for local testing and development.
 
+To point to a specific environment, a `baseUrl` variable needs to be added to the --config command line argument. For example:
+
+`./run-cypress.sh avery --config baseUrl=https://avery.ussba.io`
+	
 ## Docker Run - Running cypress in a Docker container
 This is how the automatic runs are executed.
 * `environment`: base environment name like "mint", "avery"
