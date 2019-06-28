@@ -100,7 +100,7 @@ describe("Event details page", function(){
         cy.route("GET", "/api/content/search/event/**.json", "@event").as("EventDetailRoute")
         cy.visit(`/event/${this.validEventId}`)
         cy.get('[data-cy="registration"]')
-        cy.get('button').contains("REGISTER").click()
+        cy.get('button').contains("Register").click()
         cy.get("[data-cy='external url']").should("have.text", expectedUrl)
     })
 
