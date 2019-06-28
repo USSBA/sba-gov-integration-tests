@@ -5,9 +5,11 @@ describe('Person lookup page', function () {
 
   it('has fields for filtering and sorting', function () {
     cy.server()
-    cy.route('GET', '/api/content/search/persons.json', '@persons')
+    cy.route('GET', '/api/content/search/persons.json', '@persons').as("PersonsRequest")
 
     cy.visit('/person')
+
+    cy.wait("@PersonsRequest")
 
     cy.get('label[for="search"]').should('have.text', 'Search')
     cy.get('[data-cy="search"]')
