@@ -27,7 +27,7 @@ describe("Event search results", function(){
     const expectedTitle = "Chuck Norris Business Classes (now with more roundhouse)"
     const expectedLocation = "Deep In The Heart O, Texas"
     const expectedCost = "13.37"
-    const expectedRegistrationLabel = "REGISTER"
+    const expectedRegistrationLabel = "Register"
 
     cy.server()
     cy.fixture("event/search-results.json").as("EventResults").then(event => {
