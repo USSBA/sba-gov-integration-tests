@@ -83,7 +83,7 @@ describe("Component", function () {
         })
     })
 
-    describe.only("document quick links", function () {
+    describe("document quick links", function () {
         beforeEach(function() {
             cy.server()
             cy.route("GET", "/api/content/search/documents.json**").as("DocumentQuicklinksRequest")
