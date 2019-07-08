@@ -82,4 +82,115 @@ describe("Component", function () {
             cy.contains("You're leaving the Small Business Administration website.").should("not.exist")
         })
     })
+
+    describe("document quick links", function () {
+        beforeEach(function() {
+            cy.server()
+            cy.route("GET", "/api/content/search/documents.json**").as("DocumentQuicklinksRequest")
+            cy.fixture("program-page/quicklinks.json").then((page) => {
+                page.paragraphs[0].typeOfLinks[0].sectionHeaderText = ""
+                page.paragraphs[0].typeOfLinks[0].documentActivity =  []
+                page.paragraphs[0].typeOfLinks[0].documentOffice = null
+                page.paragraphs[0].typeOfLinks[0].documentProgram = []
+                page.paragraphs[0].typeOfLinks[0].documentType = []
+            }).as("page")
+            cy.fixture("document/search-result-complete.json").as("DocumentSearchResults")
+        })
+
+        it("displays a basic quick links section", function () {
+            const expectedQuicklinksTitle = "Custom Lookup"
+            this.page.paragraphs[0].typeOfLinks[0].sectionHeaderText = expectedQuicklinksTitle
+            cy.route("GET", "/api/content/2936.json", this.page).as("ProgramPage")
+            cy.route("GET", "/api/content/search/documents.json**", "@DocumentSearchResults").as("DocumentQuicklinksRequestCustom")
+
+            cy.visit("/partners/lenders/7a-loan-program")
+
+            cy.wait("@ProgramPage")
+            cy.wait("@DocumentQuicklinksRequestCustom").its("url")
+                .should('contain',"program=all")
+                .and('contain', 'sortBy=Last Updated')
+                .and('contain', 'activity=all')
+                .and('contain', 'type=all')
+                .and('contain', 'start=0')
+                .and('contain', 'end=3')
+                .and('not.contain', `office=`)
+            cy.get(`#quickLinks-0 h4`).contains(expectedQuicklinksTitle)
+            cy.get("#quickLinks-0 a:first-of-type").should('have.attr', 'href', '/document?&')
+            cy.get("a").contains(this.DocumentSearchResults.items[0].title)
+            cy.get("a").contains(this.DocumentSearchResults.items[1].title)
+            cy.get("a").contains(this.DocumentSearchResults.items[2].title)
+        })
+
+        it("filters for offices", function () {
+            const expectedOffice = 9999
+            this.page.paragraphs[0].typeOfLinks[0].documentOffice = expectedOffice
+            cy.route("GET", "/api/content/2936.json", this.page).as("ProgramPage")
+            
+            cy.visit("/partners/lenders/7a-loan-program")
+
+            cy.wait("@ProgramPage")
+            cy.wait("@DocumentQuicklinksRequest").its("url")
+                .should('contain',"program=all")
+                .and('contain', 'sortBy=Last Updated')
+                .and('contain', 'activity=all')
+                .and('contain', 'type=all')
+                .and('contain', 'start=0')
+                .and('contain', 'end=3')
+                .and('contain', `office=${expectedOffice}`)
+        })
+
+        it("filters for document type", function () {
+            const expectedDocumentType = "Information notice"
+            this.page.paragraphs[0].typeOfLinks[0].documentType = [expectedDocumentType]
+            cy.route("GET", "/api/content/2936.json", this.page).as("ProgramPage")
+
+            cy.visit("/partners/lenders/7a-loan-program")
+
+            cy.wait("@ProgramPage")
+            cy.wait("@DocumentQuicklinksRequest").its("url")
+                .should('contain',"program=all")
+                .and('contain', 'sortBy=Last Updated')
+                .and('contain', `activity=all`)
+                .and('contain', `type=${expectedDocumentType}`)
+                .and('contain', 'start=0')
+                .and('contain', 'end=3')
+                .and('not.contain', `office=`)
+        })
+
+        it("filters for document program", function () {
+            const expectedDocumentProgram = "7(a)"
+            this.page.paragraphs[0].typeOfLinks[0].documentProgram = [expectedDocumentProgram]
+            cy.route("GET", "/api/content/2936.json", this.page).as("ProgramPage")
+
+            cy.visit("/partners/lenders/7a-loan-program")
+
+            cy.wait("@ProgramPage")
+            cy.wait("@DocumentQuicklinksRequest").its("url")
+                .should('contain',`program=${expectedDocumentProgram}`)
+                .and('contain', 'sortBy=Last Updated')
+                .and('contain', `activity=all`)
+                .and('contain', `type=all`)
+                .and('contain', 'start=0')
+                .and('contain', 'end=3')
+                .and('not.contain', `office=`)
+        })
+
+        it("filters for document activity", function () {
+            const expectedDocumentActivity = "General"
+            this.page.paragraphs[0].typeOfLinks[0].documentActivity = [expectedDocumentActivity]
+            cy.route("GET", "/api/content/2936.json", this.page).as("ProgramPage")
+
+            cy.visit("/partners/lenders/7a-loan-program")
+
+            cy.wait("@ProgramPage")
+            cy.wait("@DocumentQuicklinksRequest").its("url")
+                .should('contain',`program=all`)
+                .and('contain', 'sortBy=Last Updated')
+                .and('contain', `activity=${expectedDocumentActivity}`)
+                .and('contain', `type=all`)
+                .and('contain', 'start=0')
+                .and('contain', 'end=3')
+                .and('not.contain', `office=`)
+        })
+    })
 })
