@@ -83,7 +83,7 @@ describe("Component", function () {
         })
     })
 
-    describe("document quick links", function () {
+    describe.only("document quick links", function () {
         beforeEach(function() {
             cy.server()
             cy.route("GET", "/api/content/search/documents.json**").as("DocumentQuicklinksRequest")
@@ -113,7 +113,7 @@ describe("Component", function () {
                 .and('contain', 'type=all')
                 .and('contain', 'start=0')
                 .and('contain', 'end=3')
-                .and('not.contain', `office=`)
+                .and('contain', `office=all`)
             cy.get(`#quickLinks-0 h4`).contains(expectedQuicklinksTitle)
             cy.get("#quickLinks-0 a:first-of-type").should('have.attr', 'href', '/document?&')
             cy.get("a").contains(this.DocumentSearchResults.items[0].title)
@@ -154,7 +154,7 @@ describe("Component", function () {
                 .and('contain', `type=${expectedDocumentType}`)
                 .and('contain', 'start=0')
                 .and('contain', 'end=3')
-                .and('not.contain', `office=`)
+                .and('contain', `office=all`)
         })
 
         it("filters for document program", function () {
@@ -172,7 +172,7 @@ describe("Component", function () {
                 .and('contain', `type=all`)
                 .and('contain', 'start=0')
                 .and('contain', 'end=3')
-                .and('not.contain', `office=`)
+                .and('contain', `office=all`)
         })
 
         it("filters for document activity", function () {
@@ -190,7 +190,7 @@ describe("Component", function () {
                 .and('contain', `type=all`)
                 .and('contain', 'start=0')
                 .and('contain', 'end=3')
-                .and('not.contain', `office=`)
+                .and('contain', `office=all`)
         })
     })
 })
