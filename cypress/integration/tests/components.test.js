@@ -115,10 +115,13 @@ describe("Component", function () {
                 .and('contain', 'end=3')
                 .and('contain', `office=all`)
             cy.get(`#quickLinks-0 h4`).contains(expectedQuicklinksTitle)
-            cy.get("#quickLinks-0 a:first-of-type").should('have.attr', 'href', '/document?&')
+            cy.get("#quickLinks-0 a:first-of-type").should('have.attr', 'href', '/document?&&office=all')
             cy.get("a").contains(this.DocumentSearchResults.items[0].title)
+                .and('have.attr', 'href', this.DocumentSearchResults.items[0].url)
             cy.get("a").contains(this.DocumentSearchResults.items[1].title)
+                .and('have.attr', 'href', this.DocumentSearchResults.items[1].url)
             cy.get("a").contains(this.DocumentSearchResults.items[2].title)
+                .and('have.attr', 'href', this.DocumentSearchResults.items[2].url)
         })
 
         it("filters for offices", function () {
