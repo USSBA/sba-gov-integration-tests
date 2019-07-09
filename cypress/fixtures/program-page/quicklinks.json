@@ -1,0 +1,45 @@
+{
+    "bannerImage": {
+        "id": 565,
+        "type": "bannerImage",
+        "image": {
+            "url": "/sites/default/files/2017-05/sbic-hero-min%20%281%29.jpg",
+            "alt": "A man presents at a business meeting.",
+            "width": 1920,
+            "height": 1280
+        },
+        "captionText": null,
+        "link": {}
+    },
+    "buttons": [
+        {
+            "url": "#paragraph-11",
+            "title": "Find investors"
+        }
+    ],
+    "paragraphs": [
+        {
+            "id": 123,
+            "type": "quickLinks",
+            "typeOfLinks": [
+                {
+                    "id": 12345,
+                    "type": "documentLookup",
+                    "documentActivity": [],
+                    "documentOffice": null,
+                    "documentProgram": [],
+                    "documentType": [],
+                    "sectionHeaderText": "Generic Custom Lookup"
+                }
+            ]
+        }
+    ],
+    "summary": "Find an investor for your business through a Small Business Investment Company (SBIC) licensed by the Small Business Administration (SBA).",
+    "type": "programPage",
+    "title": "Investment capital",
+    "id": 58,
+    "updated": 1541695730,
+    "created": 1493211010,
+    "langCode": "en",
+    "url": "/funding-programs/investment-capital"
+}

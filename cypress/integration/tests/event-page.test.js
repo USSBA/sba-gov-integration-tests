@@ -1,7 +1,7 @@
 describe("Event details page", function(){
 
     before(function(){
-        cy.request("GET", 'https://mint.ussba.io/api/content/search/events.json')
+        cy.request("GET", '/api/content/search/events.json')
         .then((result) => {
             cy.wrap(result.body.items[0].id).as("validEventId")
         })
