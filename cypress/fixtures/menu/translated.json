@@ -1,0 +1,21 @@
+[
+    {
+        "linkTitle": "English Menu Item",
+        "link": "/english/page",
+        "children": [
+            {
+                "linkTitle": "English Child Item",
+                "link": "/english/child/test",
+                "children": [],
+                "spanishTranslation": {
+                    "linkTitle": "Spanish Child Item",
+                    "link": "/spanish/child/test"
+                }
+            }
+        ],
+        "spanishTranslation": {
+            "linkTitle": "Spanish Menu Item",
+            "link": "/spanish/page"
+        }
+    }
+]

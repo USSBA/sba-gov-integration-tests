@@ -1,0 +1,48 @@
+{
+    "bannerImage": {},
+    "buttons": [
+        {
+            "url": "#paragraph-5",
+            "title": "English Page Button"
+        }
+    ],
+    "paragraphs": [
+        {
+            "id": 8060,
+            "type": "sectionHeader",
+            "text": "English Page"
+        }
+    ],
+    "summary": "English page summary",
+    "type": "programPage",
+    "title": "English page title",
+    "id": 6010,
+    "updated": 1542290830,
+    "created": 1518456734,
+    "langCode": "en",
+    "url": "/federal-contracting/contracting-guide",
+    "spanishTranslation": {
+        "bannerImage": {},
+        "buttons": [
+            {
+                "url": "#paragraph-5",
+                "title": "Spanish Page Button"
+            }
+        ],
+        "paragraphs": [
+            {
+                "id": 8060,
+                "type": "sectionHeader",
+                "text": "Spanish Page"
+            }
+        ],
+        "summary": "Spanish page summary",
+        "type": "programPage",
+        "title": "Spanish page title",
+        "id": "6010-es",
+        "updated": 1542290830,
+        "created": 1541611773,
+        "langCode": "es",
+        "url": "/contratacion-federal/guia-sobre-contratacion"
+    }
+}
