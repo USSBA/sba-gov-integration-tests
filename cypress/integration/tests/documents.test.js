@@ -1,5 +1,6 @@
 describe("Document", function(){
     describe("Search Page", function () {
+
         beforeEach(function () {
             cy.fixture('office/sbaOffices.json').as("SBAOffices")
         })
@@ -24,6 +25,7 @@ describe("Document", function(){
             })
         })
     })
+
     describe("Search", function(){
         beforeEach(function () {
             cy.fixture('office/sbaOffices.json').as("SBAOffices")
@@ -61,11 +63,9 @@ describe("Document", function(){
                 cy.get("@OfficeOptions").contains(this.SBAOffices[0].title).click()
             })
             cy.get("[data-testid='button']").contains("Apply").click()
-            
             cy.wait(1000)
             cy.get("@DocumentSearchQuery.all").should('have.length', 1)
         })
-
     })
 
     describe("Detail Page", function(){
