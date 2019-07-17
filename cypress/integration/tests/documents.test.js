@@ -1,34 +1,5 @@
 describe("Document", function(){
-    describe("Search Page", function () {
-        beforeEach(function () {
-            cy.fixture('office/sbaOffices.json').as("SBAOffices")
-        })
-
-        it("displays fields for searching", function () {
-            cy.server()
-            cy.route("GET", "/api/content/sbaOffices.json", "@SBAOffices").as("OfficeListRequest")
-
-            cy.visit("/document")
-            cy.wait("@OfficeListRequest")
-
-            cy.get("[data-cy='office']").as("OfficeDropdown").within((dropdown) => {
-                cy.get("label").should("have.text", "Office")
-                cy.get('.Select-arrow-zone').click()
-                cy.get("div.Select-menu-outer").as("OfficeOptions")
-                cy.get("@OfficeOptions")
-                    .should("contain", "All")
-                cy.wrap(this.SBAOffices).each((office, index, offices) => {
-                    cy.get("@OfficeOptions")
-                        .should("contain", office.title)
-                 })
-            })
-        })
-    })
     describe("Search", function(){
-        beforeEach(function () {
-            cy.fixture('office/sbaOffices.json').as("SBAOffices")
-        })
-
         it("contains a pdf icon when the document is pdf", function(){
             cy.server()
             cy.fixture("document/search-result.json").as("SearchResult")
@@ -45,27 +16,6 @@ describe("Document", function(){
                 .find('a').contains("Download zip").as("DownloadZipLink")
             cy.get("@DownloadZipLink").siblings("i").should("not.exist")
         })
-
-        it("passes an office id as a query param when an office is selected", function(){
-            const officeIndex = 0
-            const officeId = this.SBAOffices[officeIndex].id
-            cy.server()
-            cy.route("GET", "/api/content/sbaOffices.json", "@SBAOffices").as("OfficeListRequest")
-            cy.route("GET", `/api/content/search/documents.json**&office=${officeId}**`).as("DocumentSearchQuery")
-
-            cy.visit("/document")
-            cy.wait("@OfficeListRequest")
-            cy.get("[data-cy='office']").as("OfficeDropdown").within((dropdown) => {
-                cy.get('.Select-arrow-zone').click()
-                cy.get("div.Select-menu-outer").as("OfficeOptions")
-                cy.get("@OfficeOptions").contains(this.SBAOffices[0].title).click()
-            })
-            cy.get("[data-testid='button']").contains("Apply").click()
-            
-            cy.wait(1000)
-            cy.get("@DocumentSearchQuery.all").should('have.length', 1)
-        })
-
     })
 
     describe("Detail Page", function(){
