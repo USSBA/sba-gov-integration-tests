@@ -4,29 +4,32 @@ describe("Document", function(){
         beforeEach(function () {
             cy.fixture('office/sbaOffices.json').as("SBAOffices")
         })
-
+        
         it("displays fields for searching", function () {
             cy.server()
             cy.route("GET", "/api/content/sbaOffices.json", "@SBAOffices").as("OfficeListRequest")
-
+            
             cy.visit("/document")
             cy.wait("@OfficeListRequest")
-
+            
             cy.get("[data-cy='office']").as("OfficeDropdown").within((dropdown) => {
                 cy.get("label").should("have.text", "Office")
                 cy.get('.Select-arrow-zone').click()
                 cy.get("div.Select-menu-outer").as("OfficeOptions")
                 cy.get("@OfficeOptions")
-                    .should("contain", "All")
+                .should("contain", "All")
                 cy.wrap(this.SBAOffices).each((office, index, offices) => {
                     cy.get("@OfficeOptions")
-                        .should("contain", office.title)
-                 })
+                    .should("contain", office.title)
+                })
             })
         })
     })
-
+    
     describe("Search", function(){
+        beforeEach(function () {
+            cy.fixture('office/sbaOffices.json').as("SBAOffices")
+        })
         it("contains a pdf icon when the document is pdf", function(){
             cy.server()
             cy.fixture("document/search-result.json").as("SearchResult")
@@ -69,7 +72,7 @@ describe("Document", function(){
             cy.server()
             cy.fixture("document/document-versions.json").as("Document")
             cy.route("GET", /\/api\/content\/\d+\.json/, "@Document").as("NodeLookup")
-            cy.visit("/document/report--agency-financial-report")
+            cy.visit("/document/policy-guidance--dcoi-strategic-plan")
             cy.wait("@NodeLookup")
             cy.get(".document-article-title").should("have.text", "Agency Financial Report")
 
