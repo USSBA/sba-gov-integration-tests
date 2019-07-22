@@ -62,6 +62,8 @@ describe("Document", function(){
                 cy.get("@OfficeOptions").contains(this.SBAOffices[0].title).click()
             })
             cy.get("[data-testid='button']").contains("Apply").click()
+            
+            // TODO: This next line checks for only one call to the documents endpoint, broken for now
             cy.wait(1000)
             cy.get("@DocumentSearchQuery.all").should('have.length', 1)
         })

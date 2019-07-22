@@ -34,7 +34,10 @@ This is how the automatic runs are executed.
 
 **Please make sure to run this before checking in code to ensure that it will run remotely**
 
-`./run-cypress-docker.sh <environment> <param-store-name> [file]`
+`./run-cypress-docker.sh <environment> [param-store-name] [file]`
+* `<environment>`: defaults to `mint` if not provided
+* `[param-store-name]`: Optional parameter.  If not provided uses the same value as `environment`  
+* `[file]`: Optional.  Path to what test file to run.  Must provide other parameters if this is provided.
 
 This will build the container and run the tests against the provided environment using the credentials from the param store provided.
 
