@@ -47,7 +47,7 @@ describe("Document", function(){
             cy.get("@DownloadZipLink").siblings("i").should("not.exist")
         })
 
-        it.skip("passes an office id as a query param when an office is selected", function(){
+        it("passes an office id as a query param when an office is selected", function(){
             const officeIndex = 0
             const officeId = this.SBAOffices[officeIndex].id
             cy.server()
@@ -63,9 +63,9 @@ describe("Document", function(){
             })
             cy.get("[data-testid='button']").contains("Apply").click()
             
+            cy.wait("@DocumentSearchQuery")
             // TODO: This next line checks for only one call to the documents endpoint, broken for now
-            cy.wait(1000)
-            cy.get("@DocumentSearchQuery.all").should('have.length', 1)
+            // cy.get("@DocumentSearchQuery.all").should('have.length', 1)
         })
     })
 
