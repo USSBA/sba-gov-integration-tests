@@ -47,7 +47,7 @@ describe("Document", function(){
             cy.get("@DownloadZipLink").siblings("i").should("not.exist")
         })
 
-        it("passes an office id as a query param when an office is selected", function(){
+        it.skip("passes an office id as a query param when an office is selected", function(){
             const officeIndex = 0
             const officeId = this.SBAOffices[officeIndex].id
             cy.server()
