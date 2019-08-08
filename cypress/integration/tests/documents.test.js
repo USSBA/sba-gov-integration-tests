@@ -17,7 +17,7 @@ describe("Document", function(){
                 cy.get('.Select-arrow-zone').click()
                 cy.get("div.Select-menu-outer").as("OfficeOptions")
                 cy.get("@OfficeOptions")
-                .should("contain", "All2")
+                .should("contain", "All")
                 cy.wrap(this.SBAOffices).each((office, index, offices) => {
                     cy.get("@OfficeOptions")
                     .should("contain", office.title)
