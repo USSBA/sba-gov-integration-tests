@@ -8,7 +8,7 @@ describe("District Office Page", function () {
 
     it("loads and pulls an office for content", function () {
         cy.server()
-        cy.route("GET", `/api/content/${this.validOffice.id}`).as("OfficeRequest")
+        cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
         cy.visit(`/offices/district/${this.validOffice.id}`)
         cy.wait("@OfficeRequest")
         cy.contains(this.validOffice.title)
