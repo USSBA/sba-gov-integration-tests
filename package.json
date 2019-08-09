@@ -4,7 +4,8 @@
   "description": "for sba.gov integration tests",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx cypress open",
+    "test:docker": "./run-cypress-docker.sh"
   },
   "repository": {
     "type": "git",
