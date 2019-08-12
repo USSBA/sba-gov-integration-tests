@@ -1,5 +1,5 @@
 describe("District Office Page", function () {
-    before(function(){
+    beforeEach(function(){
         cy.request("GET", '/api/content/sbaOffices.json')
         .then((result) => {
             cy.wrap(result.body[0]).as("validOffice")
@@ -12,6 +12,17 @@ describe("District Office Page", function () {
         cy.visit(`/offices/district/${this.validOffice.id}`)
         cy.wait("@OfficeRequest")
         cy.contains(this.validOffice.title)
+    })
+
+    it("displays a CTA for a district office page", function() {
+        cy.server()
+        cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+        cy.visit(`/offices/district/${this.validOffice.id}`)
+        cy.get("[data-testid='call-to-action']")
+            .find('a')
+                .should("has.attr", "data-testid", 'button')
+                .should('contain', "Search Nearby")
+                .should("has.attr", "href", '/local-assistance/find')
     })
 
     it("displays a 404 for a non existing office page", function() {
