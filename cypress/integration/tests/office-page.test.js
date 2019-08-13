@@ -49,7 +49,7 @@ describe("District Office Page", function () {
         cy.get("[data-testid=newsletter-email-address]")
           .type("test4@test4.com")
         cy.get("[data-testid=newsletter-form]")
-          .find("[data-testid=button]").first()
+          .find("[data-testid=button]")
           .should("not.be.disabled")
       })
     
@@ -61,7 +61,7 @@ describe("District Office Page", function () {
 
         cy.get("[data-testid=newsletter-email-address]").type("test@.com")
         cy.get("[data-testid=newsletter-zip-code]").type("12345")
-        cy.get("[data-testid=newsletter-form]").contains("Subscribe").first().should("be.disabled")
+        cy.get("[data-testid=newsletter-form]").contains("Subscribe").should("be.disabled")
         cy.get("[data-testid=newsletter-email-address-error]").contains("Enter a valid email address")
       })
     
