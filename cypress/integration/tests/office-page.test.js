@@ -14,6 +14,17 @@ describe("District Office Page", function () {
         cy.contains(this.validOffice.title)
     })
 
+    it("displays a CTA for a district office page", function() {
+        cy.server()
+        cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+        cy.visit(`/offices/district/${this.validOffice.id}`)
+        cy.get("[data-testid='call-to-action']")
+            .find('a')
+                .should("has.attr", "data-testid", 'button')
+                .should('contain', "Search Nearby")
+                .should("has.attr", "href", '/local-assistance/find')
+    })
+
     it("displays the newsletter signup", function () {
         cy.server()
         cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
