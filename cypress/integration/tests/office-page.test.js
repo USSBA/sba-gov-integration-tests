@@ -94,7 +94,10 @@ describe("District Office Page", function () {
         cy.visit(`/offices/district/${this.validOffice.id}`)
         cy.wait("@OfficeRequest")
 
-        cy.get("[data-testid=office-lender-match]").find('a').should('contain', "Learn More").should("has.attr", "href", '/lendermatch')
+        cy.get("[data-testid=office-lender-match]")
+            .find('a')
+                .should('contain', "Learn More")
+                .should("has.attr", "href", '/lendermatch')
     })
 
     it("displays a 404 for a non existing office page", function() {
