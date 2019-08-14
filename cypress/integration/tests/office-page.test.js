@@ -64,7 +64,7 @@ describe("District Office Page", function () {
           .should("not.be.disabled")
       })
     
-      it("shows error message and disables Subscribe button when e-mail address is invalid", function() {
+    it("shows error message and disables Subscribe button when e-mail address is invalid", function() {
         cy.server()
         cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
         cy.visit(`/offices/district/${this.validOffice.id}`)
@@ -74,9 +74,9 @@ describe("District Office Page", function () {
         cy.get("[data-testid=newsletter-zip-code]").type("12345")
         cy.get("[data-testid=newsletter-form]").contains("Subscribe").should("be.disabled")
         cy.get("[data-testid=newsletter-email-address-error]").contains("Enter a valid email address")
-      })
-    
-      it("shows error message and disables Subscribe button when e-mail address is valid, but zip code is incomplete", function() {
+    })
+
+    it("shows error message and disables Subscribe button when e-mail address is valid, but zip code is incomplete", function() {
         cy.server()
         cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
         cy.visit(`/offices/district/${this.validOffice.id}`)
@@ -86,7 +86,16 @@ describe("District Office Page", function () {
         cy.get("[data-testid=newsletter-email-address]").type("test4@test4.com")
         cy.get("[data-testid=newsletter-form]").contains("Subscribe").first().should("be.disabled")
         cy.get("[data-testid=newsletter-zip-code-error]").contains("Enter a valid zip code")
-      })
+    })
+
+    it("shows the lender match link component", function() {
+        cy.server()
+        cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+        cy.visit(`/offices/district/${this.validOffice.id}`)
+        cy.wait("@OfficeRequest")
+
+        cy.get("[data-testid=office-lender-match]").find('a').should('contain', "Learn More").should("has.attr", "href", '/lendermatch')
+    })
 
     it("displays a 404 for a non existing office page", function() {
         cy.visit("/offices/district/1", { failOnStatusCode: false }) // not a valid office
