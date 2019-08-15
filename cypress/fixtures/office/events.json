@@ -1,0 +1,166 @@
+{
+  "count": 21,
+  "items": [
+    {
+      "title": "First Steps to Starting a Business - Free Online Course ",
+      "type": "event",
+      "description": "This free, interactive, online class will help you explore your business idea and assess your entrepreneurial readiness as well as identify your own strengths and weaknesses as a business owner.  Discover what information you need and where to find it.\r\n\r\nThis interactive online class includes downloadable worksheets, hands on exercises, local entrepreneur stories, and additional resources to determine your next steps.\r\n\r\nYou will learn how to answer these questions:\r\n\r\n    Do you have the right personality, skills and life situation to start and manage a business?\r\n    Do you have a realistic business idea?\r\n    Is your business idea well thought out?\r\n    Are you financially ready to start a business?\r\n    What are your next steps?\r\n",
+      "id": "1633526",
+      "registrationUrl": "https://firststeps.sbdc.wisc.edu",
+      "startDate": "2019-08-15T00:30:00Z",
+      "endDate": "2019-08-15T23:00:00Z",
+      "timezone": "CDT",
+      "cost": "0.00",
+      "locationType": "Online",
+      "location": {},
+      "contact": {
+        "name": null,
+        "email": "sbdc@bus.wisc.edu",
+        "phone": null
+      },
+      "sponsor": {
+        "type": "District Office",
+        "sponsorName": "Wisconsin"
+      },
+      "organizer": "UW-Madison SBDC",
+      "recurring": "Yes",
+      "recurringType": "Recurs monthly (same day of month)"
+    },
+    {
+      "title": "2019 Federal Small Business Summit at New Mexico State University-NASA's Office of Small Business Programs ",
+      "type": "event",
+      "description": "NASA is actively engaged in integrating all small businesses into the competitive base of contractors that pioneer the future of space exploration, scientific discovery, and aeronautics research.\r\nThe Agency has 10 centers, and one Laboratory, across the United States whom all support NASA's mission in various ways. This Federal Small Business Summit will include various sessions on How to Do Business with NASA, in addition to multiple Federal Government Agencies.  Speakers/panelists will feature Small Business Specialists from different NASA Centers and Small Business Liaisons whom will discuss upcoming small business opportunities across the various Agencies. If you are a small business and would like to understand How to Do Business with the Federal Government, please join us! There is no cost to attend!  Sign up link is at the bottom of the email. \r\n \r\nMATCHMAKING:\r\nIn order to maximize each matchmaking appointment, we encourage reviewing the agency/organization’s website to gauge an understanding of the mission and available opportunities in advance.  This will enable both parties to discuss, in greater detail, the best way forward to find opportunities for both entities.\r\n \r\nA link for each agency/organization’s website can be found below.  The following Agencies/Prime Contractors/Small Businesses are available for matchmaking appointments:\r\n \r\n•\tNational Aeronautics & Space Administration’s Small Business Specialists: (https://www.osbp.nasa.gov/business.html):\r\n•\tAmes Research Center - Invited\r\n•\tArmstrong Flight Research Center\r\n•\tJet Propulsion Laboratory\r\n•\tLangley Research Center\r\n•\tNASA Managemet Office\r\n•\tNASA Office of Small Business Programs\r\n•\tNational Aeronautics & Space Administration’s SBIR/STTR Program (https://sbir.nasa.gov/)\r\n•\tNational Aeronautics & Space Administration’s Minority University Research and Education Project (https://www.nasa.gov/offices/education/programs/national/murep/home/index.html)\r\n\r\nPrime Contractors:\r\n                 \r\n•\tSierra Nevada Corporation (https://www.sncorp.com/)\r\n•\tJet Propulsion Laboratory (https://www.jpl.nasa.gov/acquisition/business/)\r\n•\tKBRWyle (https://kbrsupplier.com/Supplier/Supplier_Faq.aspx)\r\n•\tSAIC (http://www.saic.com/suppliers-and-small-business)\r\n\t \r\nSmall Business Partners:\r\n \r\n•\tLogical Innovations (http://logical-i2.com/)\r\n•\tBay Systems Consulting, Inc. (www.baysystemsinc.com)\r\n",
+      "id": "1645891",
+      "registrationUrl": "https://nasafederalsbsummitnm.eventbrite.com",
+      "startDate": "2019-08-15T07:30:00Z",
+      "endDate": "2019-08-15T17:00:00Z",
+      "timezone": "MDT",
+      "cost": "0.00",
+      "locationType": "In Person",
+      "location": {
+        "name": "Corbett Center Ballroom, NMSU Campus",
+        "address": "1600 International Mall ",
+        "address_additional": "",
+        "city": "Las Cruces",
+        "zipcode": "88003",
+        "state": "New Mexico",
+        "latitude": "32.279944",
+        "longitude": "-106.754100"
+      },
+      "contact": {
+        "name": null,
+        "email": "Suzanne.aguirre@sba.gov",
+        "phone": null
+      },
+      "sponsor": {
+        "type": "District Office",
+        "sponsorName": "Texas (El Paso)"
+      },
+      "organizer": null,
+      "recurring": "No",
+      "recurringType": null
+    },
+    {
+      "title": "Seattle-Understanding Financial Statements ",
+      "type": "event",
+      "description": "Learn how to read and understand financial statements. Understand how they apply to your business situation and what the various parts of the Balance Sheet and Income Statement mean. Learn how to evaluate the financial health of your business through the analysis of the Balance Sheet and Income Statement.\r\n ",
+      "id": "1645974",
+      "registrationUrl": "http://events.r20.constantcontact.com/register/event?llr=6znl8dcab&oeidk=a07egh2mw4wf748f7b6",
+      "startDate": "2019-08-15T08:00:00Z",
+      "endDate": "2019-08-15T12:00:00Z",
+      "timezone": "PDT",
+      "cost": "50.00",
+      "locationType": "In Person",
+      "location": {
+        "name": "SCORE Greater Seattle",
+        "address": "2401 4th Ave. Suite 450",
+        "address_additional": "",
+        "city": "Seattle ",
+        "zipcode": "98121",
+        "state": "Washington",
+        "latitude": "47.614870",
+        "longitude": "-122.345780"
+      },
+      "contact": {
+        "name": "SCORE Greater Seattle",
+        "email": "greaterseattle@scorevolunteer.org",
+        "phone": "206.553.7320"
+      },
+      "sponsor": {
+        "type": "District Office",
+        "sponsorName": "Washington (Seattle)"
+      },
+      "organizer": "SCORE Greater Seattle ",
+      "recurring": "No",
+      "recurringType": null
+    },
+    {
+      "title": "Export Seminar: Trends and Opportunities in Japan",
+      "type": "event",
+      "description": "Come learn about the current state of doing business in Japan from Oregon’s Japan Representative Office (JRO).\r\nThe seminar will cover:\r\n• Market overview and key Industries\r\n• Demographic trends and new government initiatives\r\n• Grants, export finance and more\r\n• Success stories of Oregon companies\r\n• Upcoming trade events and missions to Japan\r\n** Business Oregon’s trade specialists will also be available to assist with industry specifics related to medical products, advanced manufacturing, and outdoor gear/apparel, wood products, food/bev/ag, software and hi-tech.",
+      "id": "1646179",
+      "registrationUrl": "https://www.sba.gov/sites/default/files/resource_files/Japan-Oregon_Export_Seminar_Portland_-_FINAL.pdf",
+      "startDate": "2019-08-15T08:00:00Z",
+      "endDate": "2019-08-15T09:30:00Z",
+      "timezone": "PDT",
+      "cost": "0.00",
+      "locationType": "In Person",
+      "location": {
+        "name": "K&amp;L Gates",
+        "address": "One SW Columbia St.",
+        "address_additional": "Ste. 1900",
+        "city": "Portland",
+        "zipcode": "97204",
+        "state": "Oregon",
+        "latitude": "45.518540",
+        "longitude": "-122.675500"
+      },
+      "contact": {
+        "name": null,
+        "email": null,
+        "phone": null
+      },
+      "sponsor": {
+        "type": "District Office",
+        "sponsorName": "Oregon (Portland)"
+      },
+      "organizer": "Business Oregon",
+      "recurring": "No",
+      "recurringType": null
+    },
+    {
+      "title": "8(a) Application Workshop ",
+      "type": "event",
+      "description": "No fee, Pre-registration Required, 8(a) – A business development program created to help small disadvantaged businesses compete in the American economy and access the federal procurement market.  ",
+      "id": "1646428",
+      "registrationUrl": null,
+      "startDate": "2019-08-15T08:00:00Z",
+      "endDate": "2019-08-15T10:00:00Z",
+      "timezone": "PDT",
+      "cost": "0.00",
+      "locationType": "In Person",
+      "location": {
+        "name": "SBA Orange County /Inland Empire District Office",
+        "address": "5 Hutton Center Drive",
+        "address_additional": "Training Room",
+        "city": "Santa Ana",
+        "zipcode": "92707",
+        "state": "California",
+        "latitude": "33.719118",
+        "longitude": "-117.871430"
+      },
+      "contact": {
+        "name": "Sandra Anguiano",
+        "email": "sandra.anguiano@sba.gov",
+        "phone": "714.560.7446"
+      },
+      "sponsor": {
+        "type": "District Office",
+        "sponsorName": "California (Santa Ana)"
+      },
+      "organizer": "SBA Orange County / Inland Empire District Office",
+      "recurring": "No",
+      "recurringType": null
+    }
+  ]
+}
