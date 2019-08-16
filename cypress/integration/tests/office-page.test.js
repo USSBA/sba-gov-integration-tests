@@ -33,7 +33,7 @@ describe("District Office Page", function () {
         cy.visit(`/offices/district/${this.validOffice.id}`)
         cy.get("[data-testid='events']")
         cy.get("[data-cy='event result']").should('have.length', 5)
-        cy.get("[data-testid='events-button']").find('a').should("has.attr", "href", '/events/')
+        cy.get("[data-testid='events-button']").find('a').should("has.attr", "href", '/events/find/')
     })
 
     describe("Newsletter sign up section", () => {
