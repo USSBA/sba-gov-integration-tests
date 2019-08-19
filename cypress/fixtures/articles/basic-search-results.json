@@ -1,0 +1,62 @@
+{
+    "items": [
+        {
+            "articleId": {},
+            "category": {},
+            "mediaContact": {},
+            "office": 111,
+            "officeLink": {},
+            "file": {},
+            "programs": [
+                "Contracting"
+            ],
+            "summary": "First test article result",
+            "type": "article",
+            "title": "Article Search Result 1",
+            "id": 19159,
+            "updated": 1561663856,
+            "created": 1561663619,
+            "langCode": "en",
+            "url": "/article/2019/jun/27/sbrea-online-notice"
+        },
+        {
+            "articleId": {},
+            "category": {},
+            "mediaContact": {},
+            "office": 7426,
+            "officeLink": {},
+            "file": "/sites/default/files/2019-05/SBIC%20Quarterly%20Report%20as%20of%20March%2031%202019_0.pdf",
+            "programs": [
+                "SBIC"
+            ],
+            "summary": "Second tet article result",
+            "type": "article",
+            "title": "Article Search Result 2",
+            "id": 19046,
+            "updated": 1558016760,
+            "created": 1558016360,
+            "langCode": "en",
+            "url": "/article/2019/may/16/quarterly-data-march-31-2019"
+        },
+        {
+            "articleId": {},
+            "category": {},
+            "mediaContact": {},
+            "office": {},
+            "officeLink": {},
+            "file": {},
+            "programs": [
+                "NSBW"
+            ],
+            "summary": {},
+            "type": "article",
+            "title": "Article Search Result 3",
+            "id": 18833,
+            "updated": 1557151539,
+            "created": 1557151187,
+            "langCode": "en",
+            "url": "/article/2019/may/06/nsbw-virtual-conference-challenge-terms"
+        }
+    ],
+    "count": 112
+}
