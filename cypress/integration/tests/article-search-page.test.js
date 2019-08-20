@@ -48,7 +48,7 @@ describe("Article Search Page", function () {
         })
     })
 
-    it("displays results for a search that has results", function() {
+    it("displays search results by default on page load", function() {
         cy.server()
         cy.route("GET", "/api/content/search/articles.json**", "@ArticleSearchResults").as("ArticleSearch")
         cy.visit("/article")
@@ -86,7 +86,6 @@ describe("Article Search Page", function () {
         cy.server()
         cy.route("GET", `/api/content/search/articles.json?**&office=${expectedOfficeOption.id}**`, "@ArticleSpecialSearchResults").as("ArticleSearch")
         cy.route("GET", "/api/content/sbaOffices.json", "@SBAOffices").as("OfficeListRequest")
-
         cy.visit("/article")
         cy.wait("@OfficeListRequest")
         cy.get("[data-cy='office']").as("OfficeDropdown").within((dropdown) => {
