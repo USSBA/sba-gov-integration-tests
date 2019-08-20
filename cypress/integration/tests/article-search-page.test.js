@@ -114,4 +114,18 @@ describe("Article Search Page", function () {
         cy.get('[data-testid=lookup-field-section]')
         cy.get("[data-testid=office]").should("not.exist")       
     })
+
+    it("does not display office dropdown when non-array is returned", function(){
+        cy.server()
+        cy.route({
+            method: "GET",
+            url: "/api/content/sbaOffices.json",
+            status: 200,
+            response: "{}"
+        }).as("OfficeListRequest")
+        cy.visit("/article")
+        cy.wait("@OfficeListRequest")
+        cy.get('[data-testid=lookup-field-section]')
+        cy.get("[data-testid=office]").should("not.exist")       
+    })
 })
