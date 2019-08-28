@@ -1,0 +1,97 @@
+{
+    "alternateLocations": [
+        17054,
+        15869,
+        15979
+    ],
+    "areasServed": "Serving, State 1, State2, State3",
+    "bannerImage": {
+        "id": 21544,
+        "type": "bannerImage",
+        "image": {
+            "url": "/sites/default/files/2019-08/Screen%20Shot%202019-01-10%20at%2010.38.27%20AM.png",
+            "alt": "Screen reader text",
+            "width": 1618,
+            "height": 664
+        },
+        "captionText": "Check out our new banner!",
+        "link": {
+            "url": "/blog/what-are-business-plan-events",
+            "title": "Link text for business plan"
+        }
+    },
+    "hoursOfOperation": "Open M - F 24 hours\r\nClosed weekend",
+    "location": [
+        {
+            "id": 21546,
+            "type": "location",
+            "city": "City 1",
+            "email": "location-email@fearless.tech",
+            "fax": "222-222-2222",
+            "geocode": {
+                "id": 21545,
+                "type": "geocode",
+                "latitude": "39.9587315",
+                "longitude": "-75.1624727"
+            },
+            "hoursOfOperation": "location hours of operation 1-2pm",
+            "name": "Location 1 Name",
+            "phoneNumber": "238764522983",
+            "state": "MD",
+            "streetAddress": "123 Street Address",
+            "zipCode": 21215
+        },
+        {
+            "id": 21548,
+            "type": "location",
+            "city": "City 2",
+            "email": "location2-email@fearless.tech",
+            "fax": "333-333-3333",
+            "geocode": {
+                "id": 21547,
+                "type": "geocode",
+                "latitude": "39.9987315",
+                "longitude": "-95.1624727"
+            },
+            "hoursOfOperation": "las\r\nahljd\r\njghlsakrde\r\nahglsikre",
+            "name": "Location 2 Name",
+            "phoneNumber": "111-111-1111",
+            "state": "DC",
+            "streetAddress": "345 Street Address",
+            "zipCode": 32783
+        }
+    ],
+    "mediaContact": 7058,
+    "office": 11111,
+    "officeLeadership": [
+        1234,
+        2345,
+        3456
+    ],
+    "officeService": [
+        "Advocacy",
+        "Mentoring",
+        "Networking",
+        "Training"
+    ],
+    "officeServices": "<ul>\r\n\t<li>Free counseling, advice and information on starting, better operating or expanding a small business</li>\r\n\t<li>Assistance to businesses owned and controlled by socially and economically disadvantaged individuals</li>\r\n\t<li>Women’s Business Ownership Representatives are available to advise women business owners.</li>\r\n\t<li>If you’re a veteran, you can get business counseling and information about SBA guaranteed loans</li>\r\n\t<li>Counseling for small businesses engaged in exporting or exploring international trade should contact the U.S. Export Assistance Center in Miami</li>\r\n\t<li>We serve food</li>\r\n</ul>\r\n",
+    "officeType": "SBA District Office",
+    "pims": {
+        "id": null,
+        "type": "pims",
+        "location": null
+    },
+    "relatedDisaster": {},
+    "summary": "We do things here",
+    "twitterLink": "http://officeontwitter.com",
+    "website": {
+        "url": "http://testoffice.com",
+        "title": ""
+    },
+    "type": "office",
+    "title": "Test Office 1",
+    "id": 99999,
+    "updated": 1566846485,
+    "created": 1566488122,
+    "langCode": "en"
+}
