@@ -14,6 +14,36 @@ describe("District Office Page", function () {
         cy.contains(this.validOffice.title)
     })
 
+    describe("news releases secion",  () => {
+        it("displays the correct news releases when news releases exist",  function () {
+            cy.server()
+            cy.fixture("office/newsReleases.json").as("NewsReleaseResults")
+            cy.route("GET", "/api/content/search/articles.json**", "@NewsReleaseResults").as("NewsRequest")
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@NewsRequest")
+            cy.get("[data-testid='news-cards']")
+            cy.get("[data-testid='news-more-button']")
+                .find('a')
+                    .should('contain', "View All")
+                    .should("has.attr", "href", `/article?office=${this.validOffice.id}&articleCategory=News Releases`)
+        })
+        
+        it("does NOT display the news release component when NO news releases exist",  function () {
+            cy.server()
+            cy.fixture("office/noNewsReleases.json").as("NewsReleaseResults")
+            cy.route("GET", "/api/content/search/articles.json**", "@NewsReleaseResults").as("NewsRequest")
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@NewsRequest")
+            cy.get("[data-testid='news-cards']").should('not.exist')
+            cy.get("[data-testid='news-more-button']").should('not.exist')
+        })
+    })
+
+
     it("displays a CTA for a district office page", function() {
         cy.server()
         cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
@@ -112,10 +142,10 @@ describe("District Office Page", function () {
                     .should("has.attr", "href", '/lendermatch')
         })
 
-        it("displays a 404 for a non existing office page", function() {
-            cy.visit("/offices/district/1", { failOnStatusCode: false }) // not a valid office
-            cy.get("[data-cy='error-page-title']").should("have.text", '404')
-            cy.get("[data-cy='error-page-message']").should("contain", 'local assistance page')
-        })
+    })
+    it("displays a 404 for a non existing office page", function() {
+        cy.visit("/offices/district/1", { failOnStatusCode: false }) // not a valid office
+        cy.get("[data-cy='error-page-title']").should("have.text", '404')
+        cy.get("[data-cy='error-page-message']").should("contain", 'local assistance page')
     })
 })
