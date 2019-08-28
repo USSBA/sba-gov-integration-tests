@@ -24,6 +24,7 @@ describe("District Office Page", function () {
             cy.wait("@OfficeRequest")
             cy.wait("@NewsRequest")
             cy.get("[data-testid='news-cards']")
+                .find("[data-testid=']")
             cy.get("[data-testid='news-more-button']")
                 .find('a')
                     .should('contain', "View All")
