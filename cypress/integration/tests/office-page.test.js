@@ -18,7 +18,10 @@ describe("District Office Page", function () {
         it("displays the correct news releases when news releases exist",  function () {
             cy.server()
             cy.fixture("office/newsReleases.json").as("NewsReleaseResults")
-            cy.route("GET", `/api/content/search/articles.json?office=${this.validOffice.id}&articleCategory=News Releases&sortBy=Last Updated&start=0&end=3`, "@NewsReleaseResults").as("NewsRequest")
+            cy.route("GET",
+                     `/api/content/search/articles.json?office=${this.validOffice.id}&articleCategory=News Releases&sortBy=Last Updated&start=0&end=3`,
+                     "@NewsReleaseResults")
+                .as("NewsRequest")
             cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
@@ -37,7 +40,10 @@ describe("District Office Page", function () {
         it("displays the correct news releases when ONLY 1 news releases exist",  function () {
             cy.server()
             cy.fixture("office/oneNewsReleases.json").as("NewsReleaseResults")
-            cy.route("GET", `/api/content/search/articles.json?office=${this.validOffice.id}&articleCategory=News Releases&sortBy=Last Updated&start=0&end=3`, "@NewsReleaseResults").as("NewsRequest")
+            cy.route("GET",
+                     `/api/content/search/articles.json?office=${this.validOffice.id}&articleCategory=News Releases&sortBy=Last Updated&start=0&end=3`,
+                     "@NewsReleaseResults")
+                .as("NewsRequest")
             cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
@@ -55,7 +61,10 @@ describe("District Office Page", function () {
         it("does NOT display the news release component when NO news releases exist",  function () {
             cy.server()
             cy.fixture("office/noNewsReleases.json").as("NewsReleaseResults")
-            cy.route("GET", `/api/content/search/articles.json?office=${this.validOffice.id}&articleCategory=News Releases&sortBy=Last Updated&start=0&end=3`, "@NewsReleaseResults").as("NewsRequest")
+            cy.route("GET",
+                    `/api/content/search/articles.json?office=${this.validOffice.id}&articleCategory=News Releases&sortBy=Last Updated&start=0&end=3`,
+                     "@NewsReleaseResults")
+                .as("NewsRequest")
             cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
