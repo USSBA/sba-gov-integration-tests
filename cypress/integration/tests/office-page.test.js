@@ -118,4 +118,29 @@ describe("District Office Page", function () {
             cy.get("[data-cy='error-page-message']").should("contain", 'local assistance page')
         })
     })
+
+    describe("Office Leadership Section", function () {
+        it("displays when people are assigned as office leadership", function () {
+            const expectedLeaders = [111, 222, 333]
+            cy.server()
+            cy.fixture("office/district-office.json").as("DistrictOffice").then((office) => {
+                office.title = "My Test Office"
+                office.officeLeadership = expectedLeaders
+                cy.route("GET", `/api/content/${this.validOffice.id}.json`, office).as("OfficeRequest")
+            })
+            cy.route("GET",`/api/content/${expectedLeaders[0]}.json`).as("Leader1")
+            cy.route("GET",`/api/content/${expectedLeaders[1]}.json`).as("Leader2")
+            cy.route("GET",`/api/content/${expectedLeaders[2]}.json`).as("Leader3")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@Leader1")
+            cy.wait("@Leader2")
+            cy.wait("@Leader3")
+            cy.get("[data-testid='office-leadership']")
+        })
+
+        it("does not display when there are no office leadership people assigned", function () {
+
+        })
+    })
 })
