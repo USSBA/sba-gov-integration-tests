@@ -13,6 +13,7 @@ describe("District Office Page", function () {
         cy.wait("@OfficeRequest")
         cy.contains(this.validOffice.title)
     })
+
     describe("office services provided section", () => {
         it("displays the correct information when office service information exists", function () {
             cy.server()
