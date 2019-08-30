@@ -13,6 +13,33 @@ describe("District Office Page", function () {
         cy.wait("@OfficeRequest")
         cy.contains(this.validOffice.title)
     })
+    describe("office services provided section", () => {
+        it("displays the correct information when office service information exists", function () {
+            cy.server()
+            cy.fixture("office/services/officeWithServices.json").as("OfficeResponse")
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, "@OfficeResponse").as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.get("[data-testid='office-services-section'")
+                .should('contain', "Some content")
+        })
+        it("does NOT display the office service section when no information is present", function () {
+            cy.server()
+            cy.fixture("office/services/officeWithNoServices.json").as("OfficeResponse")
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, "@OfficeResponse").as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.get("[data-testid='office-services-section'").should('not.exist')
+        })
+        it("does NOT display the office service section when the information is not in a String data", function () {
+            cy.server()
+            cy.fixture("office/services/officeWithServiceObject.json").as("OfficeResponse")
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, "@OfficeResponse").as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.get("[data-testid='office-services-section'").should('not.exist')
+        })
+    })
 
     describe("news releases secion",  () => {
         it("displays the correct news releases when news releases exist",  function () {
