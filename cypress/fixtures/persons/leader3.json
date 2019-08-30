@@ -1,0 +1,23 @@
+{
+    "bio": "Leader Bio 3\r\n",
+    "emailAddress": {},
+    "fax": {},
+    "firstName": "Leader-First-3",
+    "highResolutionPhoto": "/sites/default/files/2019-03/David%20Glaccum%20AA%20OIT.jpg",
+    "lastName": "Leader-Last-3",
+    "office": 1111,
+    "phone": {},
+    "picture": {
+        "alt": "Leader 3",
+        "src": "/sites/default/files/2019-03/David%20Glaccum%20AA%20OIT_0.jpg"
+    },
+    "shortBio": "Ldr Bio 3",
+    "title": "Leader",
+    "type": "person",
+    "url": "/person/david-m-glaccum",
+    "name": "Leader Three",
+    "id": 11111,
+    "updated": 1557411332,
+    "created": 1552057343,
+    "langCode": "en"
+}

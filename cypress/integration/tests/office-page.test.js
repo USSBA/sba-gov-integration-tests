@@ -124,23 +124,93 @@ describe("District Office Page", function () {
             const expectedLeaders = [111, 222, 333]
             cy.server()
             cy.fixture("office/district-office.json").as("DistrictOffice").then((office) => {
-                office.title = "My Test Office"
                 office.officeLeadership = expectedLeaders
                 cy.route("GET", `/api/content/${this.validOffice.id}.json`, office).as("OfficeRequest")
             })
-            cy.route("GET",`/api/content/${expectedLeaders[0]}.json`).as("Leader1")
-            cy.route("GET",`/api/content/${expectedLeaders[1]}.json`).as("Leader2")
-            cy.route("GET",`/api/content/${expectedLeaders[2]}.json`).as("Leader3")
+            cy.fixture("persons/leader1.json").as("LeaderPerson1")
+            cy.fixture("persons/leader2.json").as("LeaderPerson2")
+            cy.fixture("persons/leader3.json").as("LeaderPerson3")
+            cy.route("GET",`/api/content/${expectedLeaders[0]}.json`, "@LeaderPerson1").as("Leader1")
+            cy.route("GET",`/api/content/${expectedLeaders[1]}.json`, "@LeaderPerson2").as("Leader2")
+            cy.route("GET",`/api/content/${expectedLeaders[2]}.json`, "@LeaderPerson3").as("Leader3")
+            
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
             cy.wait("@Leader1")
             cy.wait("@Leader2")
             cy.wait("@Leader3")
-            cy.get("[data-testid='office-leadership']")
+
+            cy.get("[data-testid='office-leadership']").within(() =>{
+                cy.get('[data-testid=authorCard]').should('have.length', 3)
+                cy.get('[data-testid=authorCard]').eq(0).should('contain', "Leader One")
+                cy.get('[data-testid=authorCard]').eq(1).should('contain', "Leader Two")
+                cy.get('[data-testid=authorCard]').eq(2).should('contain', "Leader Three")
+            })
         })
 
         it("does not display when there are no office leadership people assigned", function () {
+            cy.server()
+            cy.fixture("office/district-office.json").as("DistrictOffice").then((office) => {
+                delete office.officeLeadership
+                cy.route("GET", `/api/content/${this.validOffice.id}.json`, office).as("OfficeRequest")
+            })
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
 
+            cy.get("[data-testid=office-leadership]").should('not.exist')
+        })
+
+        it.only("only displays 3 leaders even if more are listed", function () {
+            const expectedLeaders = [111, 222, 333, 444]
+            cy.server()
+            cy.fixture("office/district-office.json").as("DistrictOffice").then((office) => {
+                office.officeLeadership = expectedLeaders
+                cy.route("GET", `/api/content/${this.validOffice.id}.json`, office).as("OfficeRequest")
+            })
+            cy.fixture("persons/leader1.json").as("LeaderPerson1")
+            cy.route("GET",`/api/content/${expectedLeaders[0]}.json`, "@LeaderPerson1").as("Leader1")
+            cy.route("GET",`/api/content/${expectedLeaders[1]}.json`, "@LeaderPerson1").as("Leader2")
+            cy.route("GET",`/api/content/${expectedLeaders[2]}.json`, "@LeaderPerson1").as("Leader3")
+            cy.route("GET",`/api/content/${expectedLeaders[3]}.json`, "@LeaderPerson1").as("Leader4")
+            
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@Leader1")
+            cy.wait("@Leader2")
+            cy.wait("@Leader3")
+            cy.wait("@Leader4")
+
+            cy.get("[data-testid='office-leadership']").within(() =>{
+                cy.get('[data-testid=authorCard]').should('have.length', 3)
+            })
+        })
+
+        it.only("displays leaders even if one fails", function () {
+            const expectedLeaders = [111, 222, 333]
+            cy.server()
+            cy.fixture("office/district-office.json").as("DistrictOffice").then((office) => {
+                office.officeLeadership = expectedLeaders
+                cy.route("GET", `/api/content/${this.validOffice.id}.json`, office).as("OfficeRequest")
+            })
+            cy.fixture("persons/leader1.json").as("LeaderPerson1")
+            cy.route("GET",`/api/content/${expectedLeaders[0]}.json`, "@LeaderPerson1").as("Leader1")
+            cy.route("GET",`/api/content/${expectedLeaders[1]}.json`, "@LeaderPerson1").as("Leader2")
+
+            cy.route({
+                method: "GET",
+                url: `/api/content/${expectedLeaders[2]}.json`,
+                status: "404",
+                response: "{}"
+            }).as("Leader3")
+            
+            cy.visit(`/offices/district/${this.validOffice.id}`, {failOnStatusCode: false})
+            cy.wait("@OfficeRequest")
+            cy.wait("@Leader1")
+            cy.wait("@Leader2")
+
+            cy.get("[data-testid='office-leadership']").within(() =>{
+                cy.get('[data-testid=authorCard]').should('have.length', 2)
+            })
         })
     })
 })
