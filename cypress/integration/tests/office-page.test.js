@@ -4,6 +4,7 @@ describe("District Office Page", function () {
         .then((result) => {
             cy.wrap(result.body[0]).as("validOffice")
         })
+        cy.fixture("office/genericOffice.json").as("GenericOffice")
     })
 
     it("loads and pulls an office for content", function () {
@@ -12,6 +13,40 @@ describe("District Office Page", function () {
         cy.visit(`/offices/district/${this.validOffice.id}`)
         cy.wait("@OfficeRequest")
         cy.contains(this.validOffice.title)
+    })
+
+    describe.only("social media section", function() {
+        it("displays social media text and image link when twitter link exists", function() {
+            const expectedHeaderText = 'Follow us'
+            const expectedAltText = 'link to twitter'
+            const expectedTwitterLink = 'http://twitter.com/sbagov'
+            this.GenericOffice.twitterLink = expectedTwitterLink
+
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+
+            cy.get("[data-testid=social-media-section]").within(()=>{
+                cy.get('h4').should('contain', expectedHeaderText)
+
+                cy.get('> span > a > img')
+                    .should('have.attr', 'alt', expectedAltText)
+                    .click()
+            })
+            cy.get('[data-cy="external url"]').should('contain', expectedTwitterLink)
+        })
+
+        it("does NOT display social media section when twitter link does NOT exist", function() {
+            delete this.GenericOffice.twitterLink
+
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+
+            cy.get("[data-testid=social-media-section]").should('not.exist')
+        })
     })
 
     describe("news releases secion",  () => {
@@ -174,6 +209,7 @@ describe("District Office Page", function () {
         })
 
     })
+
     it("displays a 404 for a non existing office page", function() {
         cy.visit("/offices/district/1", { failOnStatusCode: false }) // not a valid office
         cy.get("[data-cy='error-page-title']").should("have.text", '404')
