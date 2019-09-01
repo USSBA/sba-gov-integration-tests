@@ -15,7 +15,7 @@ describe("District Office Page", function () {
         cy.contains(this.validOffice.title)
     })
 
-    describe.only("social media section", function() {
+    describe("social media section", function() {
         it("displays social media text and image link when twitter link exists", function() {
             const expectedHeaderText = 'Follow us'
             const expectedAltText = 'link to twitter'
