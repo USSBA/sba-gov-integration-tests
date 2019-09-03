@@ -1,3 +1,5 @@
+import { findByTestId } from "@testing-library/dom";
+
 describe("District Office Page", function () {
     beforeEach(function(){
         cy.request("GET", '/api/content/sbaOffices.json')
@@ -103,7 +105,6 @@ describe("District Office Page", function () {
             cy.get("[data-testid='news-more-button']").should('not.exist')
         })
     })
-
 
     it("displays a CTA for a district office page", function() {
         cy.server()
@@ -292,8 +293,8 @@ describe("District Office Page", function () {
             cy.wait("@OfficeRequest")
             cy.wait("@DocumentsRequest")
             cy.getByTestId("quick-links").within(() => {
-                cy.getByTestId("documents-card")
                 cy.getByTestId("documents-card").within(() => {
+                    cy.getAllByTestId("document-link").should('have.length', 3)
                     cy.getAllByTestId("document-link").eq(0)
                         .should('contain', expectedTitle1)
                         .and('have.attr', 'href', `${this.OfficeDocuments.items[0].url}`)
@@ -304,6 +305,64 @@ describe("District Office Page", function () {
                         .should('contain', expectedTitle3)
                         .and('have.attr', 'href', `${this.OfficeDocuments.items[2].url}`)
                 })
+            })
+            cy.getByTestId("see-all-link")
+                .should("have.text", "See all")
+                .and("have.attr", "href", `/document?office=${this.validOffice.id}`)
+        })
+
+        it("does not display the quicklinks section when no results are returned", function () {
+            this.OfficeDocuments.count = 0
+            this.OfficeDocuments.items = []
+            cy.server()
+            cy.route("GET", 
+                `/api/content/search/documents.json?sortBy=Last Updated&type=all&program=all&activity=all&office=${this.validOffice.id}&start=0&end=3`,
+                this.OfficeDocuments)
+                .as("DocumentsRequest")
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@DocumentsRequest")
+            cy.queryByTestId("quick-links").should('not.exist')
+        })
+
+        it("displays all quick links beyond the default 3", function () {
+            // adding one extra office, default is normally 3
+            this.OfficeDocuments.items.push(this.OfficeDocuments.items[0])
+            this.OfficeDocuments.count = this.OfficeDocuments.items.length
+
+            cy.server()
+            cy.route("GET", 
+                `/api/content/search/documents.json?sortBy=Last Updated&type=all&program=all&activity=all&office=${this.validOffice.id}&start=0&end=3`,
+                this.OfficeDocuments)
+                .as("DocumentsRequest")
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@DocumentsRequest")
+            cy.queryByTestId("quick-links").within(()=>{
+                cy.getAllByTestId("document-link")
+                .should('have.length', this.OfficeDocuments.count)
+            })
+        })
+
+        it("displays all quicklinks when fewer than 3 are returned", function(){
+            // remove an item, should be 2
+            this.OfficeDocuments.items.pop()
+            this.OfficeDocuments.count = this.OfficeDocuments.items.length
+
+            cy.server()
+            cy.route("GET", 
+                `/api/content/search/documents.json?sortBy=Last Updated&type=all&program=all&activity=all&office=${this.validOffice.id}&start=0&end=3`,
+                this.OfficeDocuments)
+                .as("DocumentsRequest")
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@DocumentsRequest")
+            cy.queryByTestId("quick-links").within(()=>{
+                cy.getAllByTestId("document-link")
+                .should('have.length', this.OfficeDocuments.count)
             })
         })
     })
