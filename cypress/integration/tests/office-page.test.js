@@ -271,6 +271,24 @@ describe("District Office Page", function () {
             })
         })
 
+        describe("document quicklinks section", function () {
+            it.only("is displayed when there are documents associated with the office", function () {
+                cy.fixture('document/office-docs.json').as("OfficeDocuments")
+                cy.server()
+                cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+                cy.route("GET", `/api/content/search/document.json?office=${this.validOffice.id}&start=0&end=0`).as("DocumentsRequest")
+                
+                cy.visit(`/offices/district/${this.validOffice.id}`)
+
+                cy.wait("@OfficeRequest")
+                //cy.wait("@DocumentsRequest")
+
+                cy.getByTestId("hero")
+
+
+            })
+        })
+
         it("does not display a button when there is no banner link", function () {
             delete this.GenericOffice.bannerImage.link.url
 
