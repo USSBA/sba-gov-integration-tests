@@ -230,7 +230,5 @@ describe("District Office Page", function () {
                 cy.get('[data-testid=authorCard]').should('have.length', 2)
             })
         })
-
-
     })
 })
