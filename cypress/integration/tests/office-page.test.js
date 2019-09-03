@@ -210,6 +210,73 @@ describe("District Office Page", function () {
 
     })
 
+    describe("hero section", function () {
+        it("displays essential components", function () {
+            const expectedTitle = "Test Title"
+            const expectedSummary = "Test blurb about office"
+            const expectedImageUrl = "/sites/default/files/2017-05/Grants_Hero.jpeg"
+            const expectedAltText = "Alt Image Text"
+            const expectedButtonUrl = "https://google.com"
+
+            this.GenericOffice.title = expectedTitle
+            this.GenericOffice.summary = expectedSummary
+            this.GenericOffice.bannerImage.image.url = expectedImageUrl
+            this.GenericOffice.bannerImage.image.alt = expectedAltText
+            this.GenericOffice.bannerImage.link.url = expectedButtonUrl
+
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+
+            cy.get("[data-testid=hero]").within(()=>{
+                cy.get("[data-testid=title]")
+                    .should('have.text',expectedTitle)
+                cy.get("[data-testid=message]")
+                    .should('have.text', expectedSummary)
+                cy.get("[data-testid=button]")
+                    .contains("Learn More")
+                    .and('has.attr', "href", expectedButtonUrl)
+                cy.get("div")
+                    .should('have.css', 'background-image', `url("${Cypress.config().baseUrl}${expectedImageUrl}")`)
+                    .and('have.attr', 'aria-label', expectedAltText)
+            })
+        })
+
+        it("does not display a button when there is no banner link", function () {
+            delete this.GenericOffice.bannerImage.link.url
+
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+
+            cy.get("[data-testid=hero]").within(()=>{
+                cy.get("[data-testid=button]").should('not.exist')
+            })
+        })
+
+        it("still displays the hero with no banner content", function() {
+            delete this.GenericOffice.bannerImage
+            const expectedTitle = "Test Title"
+            const expectedSummary = "Test blurb about office"
+            this.GenericOffice.title = expectedTitle
+            this.GenericOffice.summary = expectedSummary
+
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+
+            cy.get("[data-testid=hero]").within(()=>{
+                cy.get("[data-testid=title]")
+                    .should('have.text',expectedTitle)
+                cy.get("[data-testid=message]")
+                    .should('have.text', expectedSummary)
+            })
+        })
+    })
+
     it("displays a 404 for a non existing office page", function() {
         cy.visit("/offices/district/1", { failOnStatusCode: false }) // not a valid office
         cy.get("[data-cy='error-page-title']").should("have.text", '404')
