@@ -160,7 +160,7 @@ describe("District Office Page", function () {
             cy.get("[data-testid=office-leadership]").should('not.exist')
         })
 
-        it.only("only displays 3 leaders even if more are listed", function () {
+        it("only displays 3 leaders even if more are listed", function () {
             const expectedLeaders = [111, 222, 333, 444]
             cy.server()
             cy.fixture("office/district-office.json").as("DistrictOffice").then((office) => {
@@ -185,7 +185,7 @@ describe("District Office Page", function () {
             })
         })
 
-        it.only("displays leaders even if one fails", function () {
+        it("displays leaders even if one fails", function () {
             const expectedLeaders = [111, 222, 333]
             cy.server()
             cy.fixture("office/district-office.json").as("DistrictOffice").then((office) => {
