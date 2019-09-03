@@ -178,10 +178,28 @@ describe("District Office Page", function () {
             cy.wait("@Leader1")
             cy.wait("@Leader2")
             cy.wait("@Leader3")
-            cy.wait("@Leader4")
 
             cy.get("[data-testid='office-leadership']").within(() =>{
                 cy.get('[data-testid=authorCard]').should('have.length', 3)
+            })
+        })
+
+        it("displays when there are fewer than 3 leaders", function () {
+            const expectedLeaders = [111]
+            cy.server()
+            cy.fixture("office/district-office.json").as("DistrictOffice").then((office) => {
+                office.officeLeadership = expectedLeaders
+                cy.route("GET", `/api/content/${this.validOffice.id}.json`, office).as("OfficeRequest")
+            })
+            cy.fixture("persons/leader1.json").as("LeaderPerson1")
+            cy.route("GET",`/api/content/${expectedLeaders[0]}.json`, "@LeaderPerson1").as("Leader1")
+            
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@Leader1")
+
+            cy.get("[data-testid='office-leadership']").within(() =>{
+                cy.get('[data-testid=authorCard]').should('have.length', 1)
             })
         })
 
@@ -212,5 +230,7 @@ describe("District Office Page", function () {
                 cy.get('[data-testid=authorCard]').should('have.length', 2)
             })
         })
+
+
     })
 })
