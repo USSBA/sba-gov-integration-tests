@@ -1,0 +1,44 @@
+{
+  "leadership": null,
+  "location": [
+    {
+      "id": 10055,
+      "type": "location",
+      "city": "Harlingen",
+      "email": null,
+      "fax": "956-427-8537",
+      "geocode": {
+        "id": 19614,
+        "type": "geocode",
+        "latitude": "26.1893877",
+        "longitude": "-97.67036820000001"
+      },
+      "hoursOfOperation": "Monday through Friday from 8 a.m. to 4:30 p.m.",
+      "name": null,
+      "phoneNumber": "956-427-8533",
+      "state": "TX",
+      "streetAddress": "2422 E Tyler Ave Suite E",
+      "zipCode": 78550
+    }
+  ],
+  "mediaContact": {},
+  "officeServices": "<p>Some content</p>",
+  "officeType": "SBA District Office",
+  "pims": {
+    "id": null,
+    "type": "pims",
+    "location": null
+  },
+  "relatedDisaster": {},
+  "summary": {},
+  "website": {
+    "url": "/offices/district/tx/harlingen",
+    "title": ""
+  },
+  "type": "office",
+  "title": "Lower Rio Grande Valley District Office",
+  "id": 6430,
+  "updated": 1560370618,
+  "created": 1526920951,
+  "langCode": "en"
+}
