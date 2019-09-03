@@ -1,0 +1,111 @@
+{
+    "count": 10,
+    "items": [
+        {
+            "activitys": [
+                "Authorization"
+            ],
+            "documentIdNumber": "5000-17010",
+            "documentIdType": "Information notice",
+            "files": [
+                {
+                    "id": 7140,
+                    "type": "docFile",
+                    "effectiveDate": "2017-10-16",
+                    "expirationDate": "2018-10-01",
+                    "fileUrl": "/sites/default/files/2017-10/5000-17010.pdf",
+                    "version": null
+                }
+            ],
+            "officeLink": {
+                "url": "/offices/headquarters/ofa/",
+                "title": "Office of Financial Assistance"
+            },
+            "ombNumber": {},
+            "programs": [
+                "7(a)",
+                "CDC/504",
+                "Microlending",
+                "Community Advantage"
+            ],
+            "summary": "IRS has issued a revised Form 4506-T (Rev. 7-2017). This revised Form must be used to request IRS tax transcripts from the IRS Service Centers.",
+            "type": "document",
+            "title": "Revised IRS Form 4506-T and Updated Internal Revenue Service (IRS) Contact Information",
+            "id": 5260,
+            "updated": 1549041288,
+            "created": 1509030674,
+            "langCode": "en",
+            "url": "/document/information-notice-5000-17010-revised-irs-form-4506-t-updated-internal-revenue-service-irs-contact-information"
+        },
+        {
+            "activitys": [
+                "General"
+            ],
+            "documentIdNumber": "5000-17013",
+            "documentIdType": "Information notice",
+            "files": [
+                {
+                    "id": 7322,
+                    "type": "docFile",
+                    "effectiveDate": "2017-10-27",
+                    "expirationDate": "2018-10-01",
+                    "fileUrl": "/sites/default/files/2017-11/Notice%205000-17013%20-%20Lender%20Website%20Updates.pdf",
+                    "version": null
+                }
+            ],
+            "officeLink": {
+                "url": "/offices/headquarters/ofa/",
+                "title": "Office of Financial Assistance"
+            },
+            "ombNumber": {},
+            "programs": [
+                "7(a)",
+                "CDC/504",
+                "Microlending",
+                "Community Advantage"
+            ],
+            "summary": "The SBA has recently updated its webpages for SBA Lenders. Unfortunately, we’ve been experiencing some technical difficulties.",
+            "type": "document",
+            "title": "Website Updates for Lenders",
+            "id": 5418,
+            "updated": 1522425955,
+            "created": 1509999466,
+            "langCode": "en",
+            "url": "/document/information-notice-5000-17013-website-updates-lenders"
+        },
+        {
+            "activitys": {},
+            "documentIdNumber": "9000-1793",
+            "documentIdType": "Information notice",
+            "files": [
+                {
+                    "id": 9701,
+                    "type": "docFile",
+                    "effectiveDate": "2009-04-07",
+                    "expirationDate": null,
+                    "fileUrl": "/sites/default/files/2018-03/oig_9000_1793%281%29%20%281%29.doc",
+                    "version": null
+                }
+            ],
+            "officeLink": {
+                "url": "/office-of-inspector-general",
+                "title": "Office of Inspector General"
+            },
+            "ombNumber": {},
+            "programs": [
+                "7(a)",
+                "CDC/504",
+                "Microlending",
+                "Community Advantage"
+            ],
+            "summary": "This Notice provides information, tips and recommendations to detect and deter fraud in the Small Business Administration (SBA) business loan programs.",
+            "type": "document",
+            "title": "Detecting Fraud in Small Business Administration Lending Programs",
+            "id": 6342,
+            "updated": 1522074350,
+            "created": 1522074112,
+            "langCode": "en",
+            "url": "/document/information-notice-9000-1793-detecting-fraud-small-business-administration-lending-programs"
+        }
+    ]
+}
