@@ -1,0 +1,54 @@
+{
+    "alternateLocations": {},
+    "areasServed": {},
+    "bannerImage": {},
+    "buttons": {},
+    "hoursOfOperation": {},
+    "leadership": null,
+    "location": [
+        {
+            "id": 9881,
+            "type": "location",
+            "city": "Birmingham",
+            "email": "alabama@sba.gov",
+            "fax": "205-290-7404",
+            "geocode": {
+                "id": 19752,
+                "type": "geocode",
+                "latitude": "33.5133658",
+                "longitude": "-86.8057535"
+            },
+            "hoursOfOperation": "Monday through Friday from 8 a.m. to 4:30 p.m.",
+            "name": "Birmingham District Office",
+            "phoneNumber": "205-290-7101",
+            "state": "AL",
+            "streetAddress": "2 North 20th Street Suite #325",
+            "zipCode": 35203
+        }
+    ],
+    "mediaContact": 6381,
+    "office": {},
+    "officeLeadership": {},
+    "officeService": {},
+    "officeServices": {},
+    "officeType": "SBA District Office",
+    "paragraphs": [],
+    "pims": {
+        "id": null,
+        "type": "pims",
+        "location": null
+    },
+    "relatedDisaster": {},
+    "summary": {},
+    "twitterLink": {},
+    "website": {
+        "url": "/offices/district/al/birmingham",
+        "title": ""
+    },
+    "type": "office",
+    "title": "Alabama District Office",
+    "id": 6386,
+    "updated": 1551471539,
+    "created": 1526587109,
+    "langCode": "en"
+}
