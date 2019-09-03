@@ -5,6 +5,7 @@ describe("District Office Page", function () {
             cy.wrap(result.body[0]).as("validOffice")
         })
         cy.fixture("office/genericOffice.json").as("GenericOffice")
+        cy.fixture('document/office-docs.json').as("OfficeDocuments")
     })
 
     it("loads and pulls an office for content", function () {
@@ -22,7 +23,7 @@ describe("District Office Page", function () {
             cy.route("GET", `/api/content/${this.validOffice.id}.json`, "@OfficeResponse").as("OfficeRequest")
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
-            cy.get("[data-testid='office-services-section'")
+            cy.getByTestId("office-services-section")
                 .should('contain', "Some content")
         })
         it("does NOT display the office service section when no information is present", function () {
@@ -31,7 +32,7 @@ describe("District Office Page", function () {
             cy.route("GET", `/api/content/${this.validOffice.id}.json`, "@OfficeResponse").as("OfficeRequest")
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
-            cy.get("[data-testid='office-services-section'").should('not.exist')
+            cy.queryByTestId("office-services-section").should('not.exist')
         })
         it("does NOT display the office service section when the information is not in a String data", function () {
             cy.server()
@@ -39,7 +40,7 @@ describe("District Office Page", function () {
             cy.route("GET", `/api/content/${this.validOffice.id}.json`, "@OfficeResponse").as("OfficeRequest")
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
-            cy.get("[data-testid='office-services-section'").should('not.exist')
+            cy.queryByTestId("office-services-section").should('not.exist')
         })
     })
 
@@ -237,24 +238,6 @@ describe("District Office Page", function () {
             })
         })
 
-        describe("document quicklinks section", function () {
-            it.only("is displayed when there are documents associated with the office", function () {
-                cy.fixture('document/office-docs.json').as("OfficeDocuments")
-                cy.server()
-                cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
-                cy.route("GET", `/api/content/search/document.json?office=${this.validOffice.id}&start=0&end=0`).as("DocumentsRequest")
-                
-                cy.visit(`/offices/district/${this.validOffice.id}`)
-
-                cy.wait("@OfficeRequest")
-                //cy.wait("@DocumentsRequest")
-
-                cy.getByTestId("hero")
-
-
-            })
-        })
-
         it("does not display a button when there is no banner link", function () {
             delete this.GenericOffice.bannerImage.link.url
 
@@ -288,6 +271,43 @@ describe("District Office Page", function () {
             })
         })
     })
+
+    describe("document quicklinks section", function () {
+        it("is displayed when there are documents associated with the office", function () {
+            const expectedTitle1 = "Office Doc 1"
+            const expectedTitle2 = "Office Doc 2"
+            const expectedTitle3 = "Office Doc 3"
+            this.OfficeDocuments.items[0].title = expectedTitle1
+            this.OfficeDocuments.items[1].title = expectedTitle2
+            this.OfficeDocuments.items[2].title = expectedTitle3
+
+            cy.server()
+            cy.route("GET", 
+                `/api/content/search/documents.json?sortBy=Last Updated&type=all&program=all&activity=all&office=${this.validOffice.id}&start=0&end=3`,
+                this.OfficeDocuments)
+                .as("DocumentsRequest")
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@DocumentsRequest")
+            cy.getByTestId("quick-links").within(() => {
+                cy.getByTestId("documents-card")
+                cy.getByTestId("documents-card").within(() => {
+                    cy.getAllByTestId("document-link").eq(0)
+                        .should('contain', expectedTitle1)
+                        .and('have.attr', 'href', `${this.OfficeDocuments.items[0].url}`)
+                    cy.getAllByTestId("document-link").eq(1)
+                        .should('contain', expectedTitle2)
+                        .and('have.attr', 'href', `${this.OfficeDocuments.items[1].url}`)
+                    cy.getAllByTestId("document-link").eq(2)
+                        .should('contain', expectedTitle3)
+                        .and('have.attr', 'href', `${this.OfficeDocuments.items[2].url}`)
+                })
+            })
+        })
+    })
+
     it("displays a 404 for a non existing office page", function() {
         cy.visit("/offices/district/1", { failOnStatusCode: false }) // not a valid office
         cy.get("[data-cy='error-page-title']").should("have.text", '404')
