@@ -77,6 +77,67 @@ describe("District Office Page", function () {
         })
     })
 
+    describe('location information section', function () {
+        it('displays the main office location with all location information', function () {
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+
+            const mainLocation = this.GenericOffice.location[0]
+
+            cy.get("[data-testid=location-info]").within(()=>{
+                cy.get("[data-testid=main-location]").within(()=>{
+                    cy.get("[data-testid='contact card title']").should('have.text', mainLocation.name)
+                    cy.get("[data-testid='contact phone']").should('have.text', mainLocation.phoneNumber)
+                    cy.get("[data-testid='contact fax']").should('have.text', mainLocation.fax)
+                    cy.get("[data-testid='contact email']").should('have.text', mainLocation.email)
+                    cy.get("[data-testid='contact address']").should('contain', mainLocation.streetAddress)
+                        .and('contain', mainLocation.city)
+                        .and('contain', mainLocation.state)
+                        .and('contain', mainLocation.zipCode)
+                    cy.get("[data-testid='hours of operation']").should('have.text', mainLocation.hoursOfOperation)
+                })
+            })
+        })
+
+        it('does NOT display the location section when there is no location in the office data', function () {
+            delete this.GenericOffice.location
+
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+
+            cy.get("[data-testid=location-info]").should('not.exist')
+        })
+
+        it('does NOT display the corresponding section when it does not exist in the office data', function () {
+            delete this.GenericOffice.location[0].name
+            delete this.GenericOffice.location[0].phoneNumber
+            delete this.GenericOffice.location[0].fax
+            delete this.GenericOffice.location[0].email
+            delete this.GenericOffice.location[0].streetAddress
+            delete this.GenericOffice.location[0].hoursOfOperation
+
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+
+            cy.get("[data-testid=location-info]").within(()=>{
+                cy.get("[data-testid=main-location]").within(()=>{
+                    cy.get("[data-testid='contact card title']").should('not.have.text')
+                    cy.get("[data-testid='contact phone']").should('not.exist')
+                    cy.get("[data-testid='contact fax']").should('not.exist')
+                    cy.get("[data-testid='contact email']").should('not.exist')
+                    cy.get("[data-testid='contact address']").should('not.exist')
+                    cy.get("[data-testid='hours of operation']").should('not.exist')
+                })
+            })
+        })
+    })
+
     describe("news releases secion",  () => {
         it("displays the correct news releases when news releases exist",  function () {
             cy.server()
