@@ -1,0 +1,68 @@
+{
+  "alternateLocations": {},
+  "areasServed": "Serving all the wonderful wizards of Oz",
+  "bannerImage": {
+    "id": 21544,
+    "type": "bannerImage",
+    "image": {
+      "url": "/sites/default/files/2019-08/Baltimore.jpg",
+      "alt": "Baltimore skyline",
+      "width": 1254,
+      "height": 837
+    },
+    "captionText": "Check out our new banner!",
+    "link": {
+      "url": "/blog/what-are-business-plan-events",
+      "title": "Link text for business plan"
+    }
+  },
+  "buttons": {},
+  "hoursOfOperation": {},
+  "leadership": null,
+  "location": [
+    {
+      "id": 9881,
+      "type": "location",
+      "city": "Oz",
+      "email": "regional@sba.gov",
+      "fax": "777-777-7000",
+      "geocode": {
+        "id": 19752,
+        "type": "geocode",
+        "latitude": "33.5133658",
+        "longitude": "-86.8057535"
+      },
+      "hoursOfOperation": "by appointment only",
+      "name": "Regional Office",
+      "phoneNumber": "123-456-7890",
+      "state": "ME",
+      "streetAddress": "6 Yellow Brick Rd",
+      "zipCode": 99900
+    }
+  ],
+  "mediaContact": 6381,
+  "office": {},
+  "officeLeadership": {},
+  "officeService": {},
+  "officeServices": {},
+  "officeType": "SBA District Office",
+  "paragraphs": [],
+  "pims": {
+    "id": null,
+    "type": "pims",
+    "location": null
+  },
+  "relatedDisaster": {},
+  "summary": {},
+  "twitterLink": {},
+  "website": {
+    "url": "/offices/district/al/birmingham",
+    "title": ""
+  },
+  "type": "office",
+  "title": "Generic Office",
+  "id": 9999,
+  "updated": 1551471539,
+  "created": 1526587109,
+  "langCode": "en"
+}

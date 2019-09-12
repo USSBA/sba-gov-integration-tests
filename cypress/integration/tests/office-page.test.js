@@ -78,6 +78,11 @@ describe("District Office Page", function () {
     })
 
     describe('location information section', function () {
+        beforeEach(function(){
+            cy.fixture("office/alternateOffice.json").as("AlternateOffice")
+            cy.fixture("office/regionalOffice.json").as("RegionalOffice")
+        })
+
         it('displays the main office location with all location information', function () {
             cy.server()
             cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
@@ -101,8 +106,84 @@ describe("District Office Page", function () {
             })
         })
 
+        it('displays an alternate office location', function () {
+            this.GenericOffice.alternateLocations = [111]
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.route("GET", `/api/content/${this.GenericOffice.alternateLocations[0]}.json`, this.AlternateOffice).as("AlternateOfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@AlternateOfficeRequest")
+
+            cy.findByTestId("location-info").within(()=>{
+                cy.findAllByTestId("alternate-location")
+                    .should('have.length', 1)
+            })
+        })
+
+        it('displays a maximum of two alternate office locations when there are multiple alternate locations', function () {
+            this.GenericOffice.alternateLocations = [111, 222, 333]
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.route("GET", `/api/content/${this.GenericOffice.alternateLocations[0]}.json`, this.AlternateOffice).as("AlternateOfficeRequest")
+            cy.route("GET", `/api/content/${this.GenericOffice.alternateLocations[1]}.json`, this.AlternateOffice).as("AlternateOfficeRequest")
+            cy.route("GET", `/api/content/${this.GenericOffice.alternateLocations[2]}.json`, this.AlternateOffice).as("AlternateOfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@AlternateOfficeRequest")
+
+            cy.findByTestId("location-info").within(()=>{
+                cy.findAllByTestId("alternate-location")
+                    .should('have.length', 2)
+            })
+        })
+
+        it('displays region location with "Serving..." text when there are is a regional office', function () {
+            const regionalOfficeId = this.GenericOffice.office = 444
+            this.RegionalOffice.areasServed = 'Serving anyone who follows the yellow brick road.'
+
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.route("GET", `/api/content/${regionalOfficeId}.json`, this.RegionalOffice).as("RegionalOfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@RegionalOfficeRequest")
+
+            cy.findByTestId("location-info").within(()=>{
+                cy.findByTestId("region-location").within(() => {
+                    cy.findByTestId("message").should('have.text', this.RegionalOffice.areasServed)
+                })
+            })
+        })
+
+        it('does NOT display "Serving..." text for main location or alternate locations', function () {
+            this.GenericOffice.alternateLocations = [111]
+            const alternateOfficeId = this.GenericOffice.alternateLocations[0]
+
+            this.GenericOffice.areasServed = 'Serving near our main office.'
+            this.AlternateOffice.areasServed = 'Serving near our alternate office.'
+
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.route("GET", `/api/content/${alternateOfficeId}.json`, this.AlternateOffice).as("AlternateOfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@AlternateOfficeRequest")
+
+            cy.findByTestId("location-info").within(()=>{
+                cy.findByTestId("main-location").within(() => {
+                    cy.findByTestId("message").should('not.exist')
+                })
+                cy.findByTestId("alternate-location").within(() => {
+                    cy.findByTestId("message").should('not.exist')
+                })
+            })
+        })
+
         it('does NOT display the location section when there is no location in the office data', function () {
             delete this.GenericOffice.location
+            delete this.GenericOffice.alternateLocations
+            delete this.GenericOffice.office
 
             cy.server()
             cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
