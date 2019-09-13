@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/USSBA/sba-gov-integration-tests#readme",
   "dependencies": {
-    "@testing-library/cypress": "^4.2.0",
+    "@testing-library/cypress": "^5.0.0",
     "cypress": "^3.3.2",
     "mocha": "^5.2.0",
     "mochawesome": "^3.1.1",

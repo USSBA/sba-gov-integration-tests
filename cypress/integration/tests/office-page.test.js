@@ -30,7 +30,7 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
 
-            cy.get("[data-testid=social-media-section]").within(()=>{
+            cy.findByTestId("social-media-section").within(()=>{
                 cy.get('h4').should('contain', expectedHeaderText)
 
                 cy.get('> span > a > img')
@@ -48,7 +48,7 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
 
-            cy.get("[data-testid=social-media-section]").should('not.exist')
+            cy.findByTestId("social-media-section").should('not.exist')
         })
     })
 
@@ -59,7 +59,7 @@ describe("District Office Page", function () {
             cy.route("GET", `/api/content/${this.validOffice.id}.json`, "@OfficeResponse").as("OfficeRequest")
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
-            cy.getByTestId("office-services-section")
+            cy.findByTestId("office-services-section")
                 .should('contain', "Some content")
         })
         it("does NOT display the office service section when no information is present", function () {
@@ -68,7 +68,7 @@ describe("District Office Page", function () {
             cy.route("GET", `/api/content/${this.validOffice.id}.json`, "@OfficeResponse").as("OfficeRequest")
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
-            cy.queryByTestId("office-services-section").should('not.exist')
+            cy.findByTestId("office-services-section").should('not.exist')
         })
         it("does NOT display the office service section when the information is not in a String data", function () {
             cy.server()
@@ -76,7 +76,68 @@ describe("District Office Page", function () {
             cy.route("GET", `/api/content/${this.validOffice.id}.json`, "@OfficeResponse").as("OfficeRequest")
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
-            cy.queryByTestId("office-services-section").should('not.exist')
+            cy.findByTestId("office-services-section").should('not.exist')
+        })
+    })
+
+    describe('location information section', function () {
+        it('displays the main office location with all location information', function () {
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+
+            const mainLocation = this.GenericOffice.location[0]
+
+            cy.findByTestId("location-info").within(()=>{
+                cy.findByTestId("main-location").within(()=>{
+                    cy.findByTestId("contact card title").should('have.text', mainLocation.name)
+                    cy.findByTestId("contact phone").should('have.text', mainLocation.phoneNumber)
+                    cy.findByTestId("contact fax").should('have.text', mainLocation.fax)
+                    cy.findByTestId("contact email").should('have.text', mainLocation.email)
+                    cy.findByTestId("contact address").should('contain', mainLocation.streetAddress)
+                        .and('contain', mainLocation.city)
+                        .and('contain', mainLocation.state)
+                        .and('contain', mainLocation.zipCode)
+                    cy.findByTestId("hours of operation").should('have.text', mainLocation.hoursOfOperation)
+                })
+            })
+        })
+
+        it('does NOT display the location section when there is no location in the office data', function () {
+            delete this.GenericOffice.location
+
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+
+            cy.findByTestId("location-info").should('not.exist')
+        })
+
+        it('does NOT display the corresponding section when it does not exist in the office data', function () {
+            delete this.GenericOffice.location[0].name
+            delete this.GenericOffice.location[0].phoneNumber
+            delete this.GenericOffice.location[0].fax
+            delete this.GenericOffice.location[0].email
+            delete this.GenericOffice.location[0].streetAddress
+            delete this.GenericOffice.location[0].hoursOfOperation
+
+            cy.server()
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`, this.GenericOffice).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+
+            cy.findByTestId("location-info").within(()=>{
+                cy.findByTestId("main-location").within(()=>{
+                    cy.findByTestId("contact card title").should('not.have.text')
+                    cy.findByTestId("contact phone").should('not.exist')
+                    cy.findByTestId("contact fax").should('not.exist')
+                    cy.findByTestId("contact email").should('not.exist')
+                    cy.findByTestId("contact address").should('not.exist')
+                    cy.findByTestId("hours of operation").should('not.exist')
+                })
+            })
         })
     })
 
@@ -85,58 +146,58 @@ describe("District Office Page", function () {
             cy.server()
             cy.fixture("office/newsReleases.json").as("NewsReleaseResults")
             cy.route("GET",
-                     `/api/content/search/articles.json?office=${this.validOffice.id}&articleCategory=News Releases&sortBy=Last Updated&start=0&end=3`,
+                     `/api/content/search/articles.json?office=${this.validOffice.id}&articleCategory=Press release&sortBy=Last Updated&start=0&end=3`,
                      "@NewsReleaseResults")
                 .as("NewsRequest")
             cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
             cy.wait("@NewsRequest")
-            cy.get("[data-testid='news-cards']")
+            cy.findByTestId("news-cards")
                 .find("[data-cy='detail-card-collection-container']")
                 .should('have.length', 3).first()
                 .and('contain',"First Article")
                 .and('contain', "Another example of a news release")
-            cy.get("[data-testid='news-more-button']")
+            cy.findByTestId("news-more-button")
                 .find('a')
                     .should('contain', "View All")
-                    .and("has.attr", "href", `/article?office=${this.validOffice.id}&articleCategory=News Releases`)
+                    .and("has.attr", "href", `/article?office=${this.validOffice.id}&articleCategory=Press release`)
         })
 
         it("displays the correct news releases when ONLY 1 news releases exist",  function () {
             cy.server()
             cy.fixture("office/oneNewsReleases.json").as("NewsReleaseResults")
             cy.route("GET",
-                     `/api/content/search/articles.json?office=${this.validOffice.id}&articleCategory=News Releases&sortBy=Last Updated&start=0&end=3`,
+                     `/api/content/search/articles.json?office=${this.validOffice.id}&articleCategory=Press release&sortBy=Last Updated&start=0&end=3`,
                      "@NewsReleaseResults")
                 .as("NewsRequest")
             cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
             cy.wait("@NewsRequest")
-            cy.get("[data-testid='news-cards']")
+            cy.findByTestId("news-cards")
                 .find("[data-cy='detail-card-collection-container']")
                 .should('have.length', 1)
                 .and('contain',"First Article")
-            cy.get("[data-testid='news-more-button']")
+            cy.findByTestId("news-more-button")
                 .find('a')
                     .should('contain', "View All")
-                    .and("has.attr", "href", `/article?office=${this.validOffice.id}&articleCategory=News Releases`)
+                    .and("has.attr", "href", `/article?office=${this.validOffice.id}&articleCategory=Press release`)
         })
         
         it("does NOT display the news release component when NO news releases exist",  function () {
             cy.server()
             cy.fixture("office/noNewsReleases.json").as("NewsReleaseResults")
             cy.route("GET",
-                    `/api/content/search/articles.json?office=${this.validOffice.id}&articleCategory=News Releases&sortBy=Last Updated&start=0&end=3`,
+                    `/api/content/search/articles.json?office=${this.validOffice.id}&articleCategory=Press release&sortBy=Last Updated&start=0&end=3`,
                      "@NewsReleaseResults")
                 .as("NewsRequest")
             cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
             cy.wait("@NewsRequest")
-            cy.get("[data-testid='news-cards']").should('not.exist')
-            cy.get("[data-testid='news-more-button']").should('not.exist')
+            cy.findByTestId("news-cards").should('not.exist')
+            cy.findByTestId("news-more-button").should('not.exist')
         })
     })
 
@@ -144,11 +205,11 @@ describe("District Office Page", function () {
         cy.server()
         cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
         cy.visit(`/offices/district/${this.validOffice.id}`)
-        cy.get("[data-testid='call-to-action']")
-            .find('a')
-                .should("has.attr", "data-testid", 'button')
-                .should('contain', "Search Nearby")
-                .should("has.attr", "href", '/local-assistance/find')
+        cy.findByTestId("call-to-action").within(() => {
+            cy.findByTestId("button")
+            .should('contain', "Search Nearby")
+            .should("has.attr", "href", '/local-assistance/find')
+        })
     })
 
     it("displays the upcoming events section with events for a district office", function() {
@@ -157,9 +218,9 @@ describe("District Office Page", function () {
         cy.route("GET", "/api/content/search/events.json**", "@EventResults")
         cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
         cy.visit(`/offices/district/${this.validOffice.id}`)
-        cy.get("[data-testid='events']")
+        cy.findByTestId("events")
         cy.get("[data-cy='event result']").should('have.length', 5)
-        cy.get("[data-testid='events-button']").find('a').should("has.attr", "href", '/events/find/')
+        cy.findByTestId("events-button").find('a').should("has.attr", "href", '/events/find/')
     })
 
     describe("Newsletter sign up section", () => {
@@ -169,24 +230,27 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
 
-            cy.get("[data-testid='office-newsletter']").should("contain", "Sign up for national and local SBA newsletters")
-            cy.get("[data-testid=newsletter-form]").as("form")
-                .should("have.length", 2)
-                .find("[data-testid=button]")
-                .contains("Subscribe")
-            cy.get("@form")
-                .find("[data-testid=caption-text]")
-                .contains("Please enter your zip code to get information about business news and events in your area.")
-            cy.get("@form")
-                .find("[data-testid=newsletter-email-address-container]").within(() => {
-            cy.get("[data-testid=newsletter-email-address-label]").contains("Email address")
-                .get("[data-testid=newsletter-email-address]")
-            })
-            cy.get("@form")
-                .find("[data-testid=newsletter-zip-code-container]").within(() => {
-            cy.get("[data-testid=newsletter-zip-code-label]").contains("Zip code")
-                .get("[data-testid=newsletter-zip-code]")
-          })
+            cy.findByTestId("office-newsletter")
+                .should("contain", "Sign up for national and local SBA newsletters")
+                .within(() => {
+                    cy.findByTestId("newsletter-form").as("form")
+                    .should("have.length", 1)
+                    .findByTestId("button")
+                    .contains("Subscribe")
+                    cy.get("@form")
+                        .findByTestId("caption-text")
+                        .contains("Please enter your zip code to get information about business news and events in your area.")
+                    cy.get("@form")
+                        .findByTestId("newsletter-email-address-container").within(() => {
+                    cy.findByTestId("newsletter-email-address-label").contains("Email address")
+                        .findByTestId("newsletter-email-address")
+                    })
+                    cy.get("@form")
+                        .findByTestId("newsletter-zip-code-container").within(() => {
+                    cy.findByTestId("newsletter-zip-code-label").contains("Zip code")
+                        .findByTestId("newsletter-zip-code")
+                    })
+                })
         })
 
         it("Subscribe button is enabled when e-mail address is valid and zip code field is empty", function() {
@@ -195,11 +259,14 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
 
-            cy.get("[data-testid=newsletter-email-address]")
-              .type("test4@test4.com")
-            cy.get("[data-testid=newsletter-form]")
-              .find("[data-testid=button]")
-              .should("not.be.disabled")
+            cy.findByTestId("office-newsletter")
+                .within(() => {
+                    cy.findByTestId("newsletter-email-address")
+                    .type("test4@test4.com")
+                    cy.findByTestId("newsletter-form")
+                    .findByTestId("button")
+                    .should("not.be.disabled")
+                })
           })
 
         it("shows error message and disables Subscribe button when e-mail address is invalid", function() {
@@ -208,10 +275,13 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
 
-            cy.get("[data-testid=newsletter-email-address]").type("test@.com")
-            cy.get("[data-testid=newsletter-zip-code]").type("12345")
-            cy.get("[data-testid=newsletter-form]").contains("Subscribe").should("be.disabled")
-            cy.get("[data-testid=newsletter-email-address-error]").contains("Enter a valid email address")
+            cy.findByTestId("office-newsletter")
+            .within(() => {
+                cy.findByTestId("newsletter-email-address").type("test@.com")
+                cy.findByTestId("newsletter-zip-code").type("12345")
+                cy.findByTestId("newsletter-form").contains("Subscribe").should("be.disabled")
+                cy.findByTestId("newsletter-email-address-error").contains("Enter a valid email address")
+            })
         })
 
         it("shows error message and disables Subscribe button when e-mail address is valid, but zip code is incomplete", function() {
@@ -220,10 +290,13 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
 
-            cy.get("[data-testid=newsletter-zip-code]").type("3456")
-            cy.get("[data-testid=newsletter-email-address]").type("test4@test4.com")
-            cy.get("[data-testid=newsletter-form]").contains("Subscribe").first().should("be.disabled")
-            cy.get("[data-testid=newsletter-zip-code-error]").contains("Enter a valid zip code")
+            cy.findByTestId("office-newsletter")
+            .within(() => {
+                cy.findByTestId("newsletter-zip-code").type("3456")
+                cy.findByTestId("newsletter-email-address").type("test4@test4.com")
+                cy.findByTestId("newsletter-form").contains("Subscribe").first().should("be.disabled")
+                cy.findByTestId("newsletter-zip-code-error").contains("Enter a valid zip code")
+            })
         })
 
         it("shows the lender match link component", function() {
@@ -232,12 +305,11 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
 
-            cy.get("[data-testid=office-lender-match]")
+            cy.findByTestId("office-lender-match")
                 .find('a')
                     .should('contain', "Learn More")
                     .should("has.attr", "href", '/lendermatch')
         })
-
     })
 
     describe("hero section", function () {
@@ -259,12 +331,12 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
 
-            cy.get("[data-testid=hero]").within(()=>{
-                cy.get("[data-testid=title]")
+            cy.findByTestId("hero").within(()=>{
+                cy.findByTestId("title")
                     .should('have.text',expectedTitle)
-                cy.get("[data-testid=message]")
+                cy.findByTestId("message")
                     .should('have.text', expectedSummary)
-                cy.get("[data-testid=button]")
+                cy.findByTestId("button")
                     .contains("Learn More")
                     .and('has.attr', "href", expectedButtonUrl)
                 cy.get("div")
@@ -281,8 +353,8 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
 
-            cy.get("[data-testid=hero]").within(()=>{
-                cy.get("[data-testid=button]").should('not.exist')
+            cy.findByTestId("hero").within(()=>{
+                cy.findByTestId("button").should('not.exist')
             })
         })
 
@@ -298,16 +370,16 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
 
-            cy.get("[data-testid=hero]").within(()=>{
-                cy.get("[data-testid=title]")
+            cy.findByTestId("hero").within(()=>{
+                cy.findByTestId("title")
                     .should('have.text',expectedTitle)
-                cy.get("[data-testid=message]")
+                cy.findByTestId("message")
                     .should('have.text', expectedSummary)
             })
         })
     })
 
-    describe.only("document quicklinks section", function () {
+    describe("document quicklinks section", function () {
         it("is displayed when there are documents associated with the office", function () {
             const expectedTitle1 = "Office Doc 1"
             const expectedTitle2 = "Office Doc 2"
@@ -429,11 +501,11 @@ describe("District Office Page", function () {
             cy.wait("@Leader2")
             cy.wait("@Leader3")
 
-            cy.get("[data-testid='office-leadership']").within(() =>{
-                cy.get('[data-testid=authorCard]').should('have.length', 3)
-                cy.get('[data-testid=authorCard]').eq(0).should('contain', "Leader One")
-                cy.get('[data-testid=authorCard]').eq(1).should('contain', "Leader Two")
-                cy.get('[data-testid=authorCard]').eq(2).should('contain', "Leader Three")
+            cy.findByTestId("office-leadership").within(() =>{
+                cy.findAllByTestId("authorCard").should('have.length', 3)
+                cy.findAllByTestId("authorCard").eq(0).should('contain', "Leader One")
+                cy.findAllByTestId("authorCard").eq(1).should('contain', "Leader Two")
+                cy.findAllByTestId("authorCard").eq(2).should('contain', "Leader Three")
             })
         })
 
@@ -446,7 +518,7 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
 
-            cy.get("[data-testid=office-leadership]").should('not.exist')
+            cy.findByTestId("office-leadership").should('not.exist')
         })
 
         it("only displays 3 leaders even if more are listed", function () {
@@ -468,8 +540,8 @@ describe("District Office Page", function () {
             cy.wait("@Leader2")
             cy.wait("@Leader3")
 
-            cy.get("[data-testid='office-leadership']").within(() =>{
-                cy.get('[data-testid=authorCard]').should('have.length', 3)
+            cy.findByTestId("office-leadership").within(() =>{
+                cy.findAllByTestId("authorCard").should('have.length', 3)
             })
         })
 
@@ -487,8 +559,8 @@ describe("District Office Page", function () {
             cy.wait("@OfficeRequest")
             cy.wait("@Leader1")
 
-            cy.get("[data-testid='office-leadership']").within(() =>{
-                cy.get('[data-testid=authorCard]').should('have.length', 1)
+            cy.findByTestId("office-leadership").within(() =>{
+                cy.findByTestId("authorCard").should('have.length', 1)
             })
         })
 
@@ -515,8 +587,8 @@ describe("District Office Page", function () {
             cy.wait("@Leader1")
             cy.wait("@Leader2")
 
-            cy.get("[data-testid='office-leadership']").within(() =>{
-                cy.get('[data-testid=authorCard]').should('have.length', 2)
+            cy.findByTestId("office-leadership").within(() =>{
+                cy.findAllByTestId("authorCard").should('have.length', 2)
             })
         })
     })
