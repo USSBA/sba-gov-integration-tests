@@ -307,7 +307,7 @@ describe("District Office Page", function () {
         })
     })
 
-    describe("document quicklinks section", function () {
+    describe.only("document quicklinks section", function () {
         it("is displayed when there are documents associated with the office", function () {
             const expectedTitle1 = "Office Doc 1"
             const expectedTitle2 = "Office Doc 2"
@@ -326,26 +326,27 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
             cy.wait("@DocumentsRequest")
-            cy.getByTestId("quick-links").within(() => {
-                cy.getByTestId("documents-card").within(() => {
-                    cy.getAllByTestId("document-link").should('have.length', 3)
-                    cy.getAllByTestId("document-link").eq(0)
+            cy.findByTestId("quick-links").within(() => {
+                cy.findByTestId("documents-card").within(() => {
+                    cy.findAllByTestId("document-link").should('have.length', 3)
+                    cy.findAllByTestId("document-link").eq(0)
                         .should('contain', expectedTitle1)
                         .and('have.attr', 'href', `${this.OfficeDocuments.items[0].url}`)
-                    cy.getAllByTestId("document-link").eq(1)
+                    cy.findAllByTestId("document-link").eq(1)
                         .should('contain', expectedTitle2)
                         .and('have.attr', 'href', `${this.OfficeDocuments.items[1].url}`)
-                    cy.getAllByTestId("document-link").eq(2)
+                    cy.findAllByTestId("document-link").eq(2)
                         .should('contain', expectedTitle3)
                         .and('have.attr', 'href', `${this.OfficeDocuments.items[2].url}`)
                 })
             })
-            cy.getByTestId("see-all-link")
+            cy.findByTestId("see-all-link")
                 .should("have.text", "See all")
-                .and("have.attr", "href", `/document?office=${this.validOffice.id}`)
+                // The querystring library creates these URLs when some of the fields are blank
+                .and("have.attr", "href", `/document?&&office=${this.validOffice.id}`)
         })
 
-        it("does not display the quicklinks section when no results are returned", function () {
+        it("does NOT display the quicklinks section when no results are returned", function () {
             this.OfficeDocuments.count = 0
             this.OfficeDocuments.items = []
             cy.server()
@@ -357,7 +358,7 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
             cy.wait("@DocumentsRequest")
-            cy.queryByTestId("quick-links").should('not.exist')
+            cy.findByTestId("quick-links").contains('no documents found')
         })
 
         it("displays all quick links beyond the default 3", function () {
@@ -375,7 +376,7 @@ describe("District Office Page", function () {
             cy.wait("@OfficeRequest")
             cy.wait("@DocumentsRequest")
             cy.queryByTestId("quick-links").within(()=>{
-                cy.getAllByTestId("document-link")
+                cy.findAllByTestId("document-link")
                 .should('have.length', this.OfficeDocuments.count)
             })
         })
@@ -395,7 +396,7 @@ describe("District Office Page", function () {
             cy.wait("@OfficeRequest")
             cy.wait("@DocumentsRequest")
             cy.queryByTestId("quick-links").within(()=>{
-                cy.getAllByTestId("document-link")
+                cy.findAllByTestId("document-link")
                 .should('have.length', this.OfficeDocuments.count)
             })
         })
