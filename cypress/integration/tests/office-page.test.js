@@ -418,7 +418,7 @@ describe("District Office Page", function () {
                 .and("have.attr", "href", `/document?&&office=${this.validOffice.id}`)
         })
 
-        it("does NOT display the quicklinks section when no results are returned", function () {
+        it("displays no documents message when NO results are returned", function () {
             this.OfficeDocuments.count = 0
             this.OfficeDocuments.items = []
             cy.server()
