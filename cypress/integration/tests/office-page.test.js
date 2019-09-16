@@ -1,3 +1,5 @@
+import { findByTestId } from "@testing-library/dom";
+
 describe("District Office Page", function () {
     beforeEach(function(){
         cy.request("GET", '/api/content/sbaOffices.json')
@@ -5,6 +7,7 @@ describe("District Office Page", function () {
             cy.wrap(result.body[0]).as("validOffice")
         })
         cy.fixture("office/genericOffice.json").as("GenericOffice")
+        cy.fixture('document/office-docs.json').as("OfficeDocuments")
     })
 
     it("loads and pulls an office for content", function () {
@@ -198,7 +201,6 @@ describe("District Office Page", function () {
         })
     })
 
-
     it("displays a CTA for a district office page", function() {
         cy.server()
         cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
@@ -373,6 +375,101 @@ describe("District Office Page", function () {
                     .should('have.text',expectedTitle)
                 cy.findByTestId("message")
                     .should('have.text', expectedSummary)
+            })
+        })
+    })
+
+    describe("document quicklinks section", function () {
+        it("is displayed when there are documents associated with the office", function () {
+            const expectedTitle1 = "Office Doc 1"
+            const expectedTitle2 = "Office Doc 2"
+            const expectedTitle3 = "Office Doc 3"
+            this.OfficeDocuments.items[0].title = expectedTitle1
+            this.OfficeDocuments.items[1].title = expectedTitle2
+            this.OfficeDocuments.items[2].title = expectedTitle3
+
+            cy.server()
+            cy.route("GET", 
+                `/api/content/search/documents.json?sortBy=Last Updated&type=all&program=all&activity=all&office=${this.validOffice.id}&start=0&end=3`,
+                this.OfficeDocuments)
+                .as("DocumentsRequest")
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@DocumentsRequest")
+            cy.findByTestId("quick-links").within(() => {
+                cy.findByTestId("documents-card").within(() => {
+                    cy.findAllByTestId("document-link").should('have.length', 3)
+                    cy.findAllByTestId("document-link").eq(0)
+                        .should('contain', expectedTitle1)
+                        .and('have.attr', 'href', `${this.OfficeDocuments.items[0].url}`)
+                    cy.findAllByTestId("document-link").eq(1)
+                        .should('contain', expectedTitle2)
+                        .and('have.attr', 'href', `${this.OfficeDocuments.items[1].url}`)
+                    cy.findAllByTestId("document-link").eq(2)
+                        .should('contain', expectedTitle3)
+                        .and('have.attr', 'href', `${this.OfficeDocuments.items[2].url}`)
+                })
+            })
+            cy.findByTestId("see-all-link")
+                .should("have.text", "See all")
+                // The querystring library creates these URLs when some of the fields are blank
+                .and("have.attr", "href", `/document?&&office=${this.validOffice.id}`)
+        })
+
+        it("displays no documents message when NO results are returned", function () {
+            this.OfficeDocuments.count = 0
+            this.OfficeDocuments.items = []
+            cy.server()
+            cy.route("GET", 
+                `/api/content/search/documents.json?sortBy=Last Updated&type=all&program=all&activity=all&office=${this.validOffice.id}&start=0&end=3`,
+                this.OfficeDocuments)
+                .as("DocumentsRequest")
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@DocumentsRequest")
+            cy.findByTestId("quick-links").contains('No documents found')
+        })
+
+        it("displays all quick links beyond the default 3", function () {
+            // adding one extra office, default is normally 3
+            this.OfficeDocuments.items.push(this.OfficeDocuments.items[0])
+            this.OfficeDocuments.count = this.OfficeDocuments.items.length
+
+            cy.server()
+            cy.route("GET", 
+                `/api/content/search/documents.json?sortBy=Last Updated&type=all&program=all&activity=all&office=${this.validOffice.id}&start=0&end=3`,
+                this.OfficeDocuments)
+                .as("DocumentsRequest")
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@DocumentsRequest")
+            cy.queryByTestId("quick-links").within(()=>{
+                cy.findAllByTestId("document-link")
+                .should('have.length', this.OfficeDocuments.count)
+            })
+        })
+
+        it("displays all quicklinks when fewer than 3 are returned", function(){
+            // remove an item, should be 2
+            this.OfficeDocuments.items.pop()
+            this.OfficeDocuments.count = this.OfficeDocuments.items.length
+
+            cy.server()
+            cy.route("GET", 
+                `/api/content/search/documents.json?sortBy=Last Updated&type=all&program=all&activity=all&office=${this.validOffice.id}&start=0&end=3`,
+                this.OfficeDocuments)
+                .as("DocumentsRequest")
+            cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+            cy.visit(`/offices/district/${this.validOffice.id}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@DocumentsRequest")
+            cy.queryByTestId("quick-links").within(()=>{
+                cy.findAllByTestId("document-link")
+                .should('have.length', this.OfficeDocuments.count)
             })
         })
     })
