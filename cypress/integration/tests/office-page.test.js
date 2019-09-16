@@ -430,7 +430,7 @@ describe("District Office Page", function () {
             cy.visit(`/offices/district/${this.validOffice.id}`)
             cy.wait("@OfficeRequest")
             cy.wait("@DocumentsRequest")
-            cy.findByTestId("quick-links").contains('no documents found')
+            cy.findByTestId("quick-links").contains('No documents found')
         })
 
         it("displays all quick links beyond the default 3", function () {
