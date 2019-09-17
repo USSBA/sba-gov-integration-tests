@@ -93,7 +93,7 @@ describe("District Office Page", function () {
 
             cy.findByTestId("location-info").within(()=>{
                 cy.findByTestId("main-location").within(()=>{
-                    cy.findByTestId("contact card title").should('have.text', mainLocation.name)
+                    cy.findByTestId("contact card title").should('have.text', this.GenericOffice.title)
                     cy.findByTestId("contact phone").should('have.text', mainLocation.phoneNumber)
                     cy.findByTestId("contact fax").should('have.text', mainLocation.fax)
                     cy.findByTestId("contact email").should('have.text', mainLocation.email)
