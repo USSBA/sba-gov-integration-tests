@@ -42,9 +42,9 @@ describe("Blog Category Page", function () {
             cy.get("[data-testid='blog-category-subtitle']")
                 .contains(category.subtitle)
             cy.get("[data-testid='blog-top-paginator']")
-                .should('have.text', `Showing 1 - 12 of 18`)
+                .should('have.text', "Showing 1 - 12 of 18")
             cy.get("[data-testid='blog-bottom-paginator']")
-                .should('have.text', `Showing 1 - 12 of 18`)
+                .should('have.text', "Showing 1 - 12 of 18")
             cy.get("[data-testid='card']").then(($card) => {
                 cy.wrap($card).should("have.length", this.BlogData.blogs.length)
             })
@@ -61,6 +61,29 @@ describe("Blog Category Page", function () {
                         .and('have.attr', 'href', this.BlogData.blogs[index].url)
                 })
             })
+        })
+    })
+
+    describe("category page for an office id", function(){
+        beforeEach(function () {
+            cy.fixture("blogs/success-story-blogs-page-1.json").as("BlogData")
+            cy.fixture("office/6386.json").as("OfficeData")
+        })
+
+        it("displays custom subtitle with office name when visiting a category page for the corresponding office id", function(){
+            cy.server()
+            const mockOfficeId = this.OfficeData.id
+            const categoryNameUrl = 'success-stories'
+            const categoryNameRequestParam = 'Success Story'
+
+            cy.route("GET", `/api/content/${mockOfficeId}.json`, "@OfficeData").as("OfficeRequest")
+            cy.route("GET", `/api/content/search/blogs.json?category=${categoryNameRequestParam}&office=${mockOfficeId}&start=0&end=12`, "@BlogData").as("BlogRequest")
+            cy.visit(`blogs/${categoryNameUrl}/${mockOfficeId}`)
+            cy.wait("@OfficeRequest")
+            cy.wait("@BlogRequest")
+
+            cy.get("[data-testid='blog-category-subtitle']")
+                .contains(this.OfficeData.title)
         })
     })
 
