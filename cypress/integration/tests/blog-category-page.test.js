@@ -20,6 +20,13 @@ describe("Blog Category Page", function () {
             url: "/blogs/industry-word",
             subtitle: "Commentary and advice from leaders in the small business industry.",
             fixture: 'industry-word-blogs-page-1.json',
+        },
+        {
+            name: "Success Story",
+            title: "Success Story",
+            url: "/blogs/success-stories",
+            subtitle: "Success stories from small business owners across the country.",
+            fixture: 'success-story-blogs-page-1.json',
         }
     ]
 
@@ -27,8 +34,7 @@ describe("Blog Category Page", function () {
         it(`${category.name} displays blogs for that category`, function(){
             cy.server()
             cy.fixture(`blogs/${category.fixture}`).as("BlogData")
-            cy.route("GET", `/api/content/search/blogs.json?category=${category.name}&start=0&end=12`, `@BlogData`).as("BlogRequest")
-            
+            cy.route("GET", `/api/content/search/blogs.json?category=${category.name}&office=&start=0&end=12`, `@BlogData`).as("BlogRequest")
             cy.visit(category.url)
             cy.wait("@BlogRequest")
             cy.get("[data-testid='blog-category-title']")
@@ -36,9 +42,9 @@ describe("Blog Category Page", function () {
             cy.get("[data-testid='blog-category-subtitle']")
                 .contains(category.subtitle)
             cy.get("[data-testid='blog-top-paginator']")
-                .should('have.text', "Showing 1 - 12 of 18")
+                .should('have.text', `Showing 1 - 12 of 18`)
             cy.get("[data-testid='blog-bottom-paginator']")
-                .should('have.text', "Showing 1 - 12 of 18")
+                .should('have.text', `Showing 1 - 12 of 18`)
             cy.get("[data-testid='card']").then(($card) => {
                 cy.wrap($card).should("have.length", this.BlogData.blogs.length)
             })
@@ -60,8 +66,8 @@ describe("Blog Category Page", function () {
 
     it("allows paginating through results", function(){
         cy.server()
-        cy.route("GET", `/api/content/search/blogs.json?category=Industry Word&start=0&end=12`, this.IndustryWordDataPage1).as("BlogRequest1")
-        cy.route("GET", `/api/content/search/blogs.json?category=Industry Word&start=12&end=24`,this.IndustryWordDataPage2).as("BlogRequest2")
+        cy.route("GET", `/api/content/search/blogs.json?category=Industry Word&office=&start=0&end=12`, this.IndustryWordDataPage1).as("BlogRequest1")
+        cy.route("GET", `/api/content/search/blogs.json?category=Industry Word&office=&start=12&end=24`,this.IndustryWordDataPage2).as("BlogRequest2")
 
         cy.visit("/blogs/industry-word")
         cy.wait("@BlogRequest1")
@@ -85,8 +91,8 @@ describe("Blog Category Page", function () {
 
     it("does not allow pagination backwards from the first page", function(){
         cy.server()
-        cy.route("GET", `/api/content/search/blogs.json?category=Industry Word&start=0&end=12`, this.IndustryWordDataPage1).as("BlogRequest1")
-        cy.route("GET", `/api/content/search/blogs.json?category=Industry Word&start=12&end=24`,this.IndustryWordDataPage2).as("BlogRequest2")
+        cy.route("GET", `/api/content/search/blogs.json?category=Industry Word&office=&start=0&end=12`, this.IndustryWordDataPage1).as("BlogRequest1")
+        cy.route("GET", `/api/content/search/blogs.json?category=Industry Word&office=&start=12&end=24`,this.IndustryWordDataPage2).as("BlogRequest2")
 
         cy.visit("/blogs/industry-word")
         cy.wait("@BlogRequest1")
@@ -101,8 +107,8 @@ describe("Blog Category Page", function () {
 
     it("does not allow pagination forwards from the last page", function(){
         cy.server()
-        cy.route("GET", `/api/content/search/blogs.json?category=Industry Word&start=0&end=12`, this.IndustryWordDataPage1).as("BlogRequest1")
-        cy.route("GET", `/api/content/search/blogs.json?category=Industry Word&start=12&end=24`,this.IndustryWordDataPage2).as("BlogRequest2")
+        cy.route("GET", `/api/content/search/blogs.json?category=Industry Word&office=&start=0&end=12`, this.IndustryWordDataPage1).as("BlogRequest1")
+        cy.route("GET", `/api/content/search/blogs.json?category=Industry Word&office=&start=12&end=24`,this.IndustryWordDataPage2).as("BlogRequest2")
 
         cy.visit("/blogs/industry-word")
         cy.wait("@BlogRequest1")
