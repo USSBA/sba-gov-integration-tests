@@ -20,6 +20,13 @@ describe("Blog Category Page", function () {
             url: "/blogs/industry-word",
             subtitle: "Commentary and advice from leaders in the small business industry.",
             fixture: 'industry-word-blogs-page-1.json',
+        },
+        {
+            name: "Success Story",
+            title: "Success Story",
+            url: "/blogs/success-stories",
+            subtitle: "Success stories from small business owners across the country.",
+            fixture: 'success-story-blogs-page-1.json',
         }
     ]
 
@@ -28,7 +35,6 @@ describe("Blog Category Page", function () {
             cy.server()
             cy.fixture(`blogs/${category.fixture}`).as("BlogData")
             cy.route("GET", `/api/content/search/blogs.json?category=${category.name}&start=0&end=12`, `@BlogData`).as("BlogRequest")
-            
             cy.visit(category.url)
             cy.wait("@BlogRequest")
             cy.get("[data-testid='blog-category-title']")
@@ -55,6 +61,29 @@ describe("Blog Category Page", function () {
                         .and('have.attr', 'href', this.BlogData.blogs[index].url)
                 })
             })
+        })
+    })
+
+    describe("category page for an office id", function(){
+        beforeEach(function () {
+            cy.fixture("blogs/success-story-blogs-page-1.json").as("BlogData")
+            cy.fixture("office/6386.json").as("OfficeData")
+        })
+
+        it("displays custom subtitle with office name when visiting a category page for the corresponding office id", function(){
+            cy.server()
+            const mockOfficeId = this.OfficeData.id
+            const categoryNameUrl = 'success-stories'
+            const categoryNameRequestParam = 'Success Story'
+
+            cy.route("GET", `/api/content/${mockOfficeId}.json`, "@OfficeData").as("OfficeRequest")
+            cy.route("GET", `/api/content/search/blogs.json?category=${categoryNameRequestParam}&start=0&end=12&office=${mockOfficeId}`, "@BlogData").as("BlogRequest")
+            cy.visit(`blogs/${categoryNameUrl}/${mockOfficeId}`, { failOnStatusCode: false })
+            cy.wait("@OfficeRequest")
+            cy.wait("@BlogRequest")
+
+            cy.get("[data-testid='blog-category-subtitle']")
+                .contains(this.OfficeData.title)
         })
     })
 
