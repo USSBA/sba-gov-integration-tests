@@ -78,7 +78,7 @@ describe("Blog Category Page", function () {
 
             cy.route("GET", `/api/content/${mockOfficeId}.json`, "@OfficeData").as("OfficeRequest")
             cy.route("GET", `/api/content/search/blogs.json?category=${categoryNameRequestParam}&start=0&end=12&office=${mockOfficeId}`, "@BlogData").as("BlogRequest")
-            cy.visit(`blogs/${categoryNameUrl}/${mockOfficeId}`)
+            cy.visit(`blogs/${categoryNameUrl}/${mockOfficeId}`, { failOnStatusCode: false })
             cy.wait("@OfficeRequest")
             cy.wait("@BlogRequest")
 
