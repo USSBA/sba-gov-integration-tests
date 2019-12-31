@@ -293,16 +293,17 @@ describe("District Office Page", function () {
         })
     })
 
-    it("displays the upcoming events section with events for a district office", function() {
-        cy.server()
-        cy.fixture("office/events.json").as("EventResults")
-        cy.route("GET", "/api/content/search/events.json**", "@EventResults")
-        cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
-        cy.visit(`/offices/district/${this.validOffice.id}`)
-        cy.findByTestId("events")
-        cy.get("[data-cy='event result']").should('have.length', 5)
-        cy.findByTestId("events-button").find('a').should("has.attr", "href", '/events/find/')
-    })
+    // Events component temporarily removed as per TA-3466. Uncomment when events backend is completed.
+    // it("displays the upcoming events section with events for a district office", function() {
+    //     cy.server()
+    //     cy.fixture("office/events.json").as("EventResults")
+    //     cy.route("GET", "/api/content/search/events.json**", "@EventResults")
+    //     cy.route("GET", `/api/content/${this.validOffice.id}.json`).as("OfficeRequest")
+    //     cy.visit(`/offices/district/${this.validOffice.id}`)
+    //     cy.findByTestId("events")
+    //     cy.get("[data-cy='event result']").should('have.length', 5)
+    //     cy.findByTestId("events-button").find('a').should("has.attr", "href", '/events/find/')
+    // })
 
     describe("Newsletter sign up section", () => {
         it("displays the newsletter signup", function () {
