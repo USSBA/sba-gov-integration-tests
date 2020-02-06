@@ -68,6 +68,37 @@ describe('Blog Page', function () {
         cy.get("[data-testid=picture]").should("not.exist")
     })
 
+    it('links the correct category for an industry word blog', function() {
+        cy.server()
+        this.BlogPage.author = this.validBlogAuthor
+        this.BlogPage.blogCategory = "Industry Word"
+        const expectedBlogCategoryUrl = "/blogs/industry-word"
+
+        cy.route("GET", `/api/content/${ this.validBlogId }.json`, "@BlogPage" )
+        cy.route("GET", `/api/content/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
+
+        cy.visit(`/blog/${ this.validBlogUrl }`)
+
+        cy.get("[data-testid=postCategory]")
+            .should('contain', this.BlogPage.blogCategory)
+            .find('a').should('have.attr', 'href', expectedBlogCategoryUrl)
+    })
+    it('links a the correct category for a success story blog', function() {
+        cy.server()
+        this.BlogPage.author = this.validBlogAuthor
+        this.BlogPage.blogCategory = "Success Story"
+        const expectedBlogCategoryUrl = "/blogs/success-stories"
+
+        cy.route("GET", `/api/content/${ this.validBlogId }.json`, "@BlogPage" )
+        cy.route("GET", `/api/content/${ this.validBlogAuthor }.json`, "@BlogAuthor" )
+
+        cy.visit(`/blog/${ this.validBlogUrl }`)
+
+        cy.get("[data-testid=postCategory]")
+            .should('contain', this.BlogPage.blogCategory)
+            .find('a').should('have.attr', 'href', expectedBlogCategoryUrl)
+    })
+
     it("displays a blog section without an image", function () {
         const sectionIndexWithoutImage = 0
         cy.server()
