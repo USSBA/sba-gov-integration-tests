@@ -84,6 +84,27 @@ describe("Document", function(){
             // No icon for non PDFs
             cy.get('a').contains("Download txt").find("i").should("not.exist")
         })
+
+        it("displays the 508 non-compliance message when documents come from the non-compliant file directory", function(){
+            cy.server()
+            cy.fixture("document/document-noncompliant.json").as("Document")
+            cy.route("GET", /\/api\/content\/\d+\.json/, "@Document").as("NodeLookup")
+            cy.visit("/document/policy-guidance--dcoi-strategic-plan")
+            cy.wait("@NodeLookup")
+            cy.get(".document-article-title").should("have.text", "Agency Financial Report")
+
+            cy.get("[data-testid='not-compliant-message']").should('exist')
+        })
+        it("does not display the 508 non-compliance message when documents do not come from the non-compliant file directory", function(){
+            cy.server()
+            cy.fixture("document/document-compliant.json").as("Document")
+            cy.route("GET", /\/api\/content\/\d+\.json/, "@Document").as("NodeLookup")
+            cy.visit("/document/policy-guidance--dcoi-strategic-plan")
+            cy.wait("@NodeLookup")
+            cy.get(".document-article-title").should("have.text", "Agency Financial Report")
+
+            cy.get("[data-testid='not-compliant-message']").should('not.exist')
+        })
         
         it('displays the 404 page when the document is NOT found', function() {
           cy.visit("document/foo", { failOnStatusCode: false })
