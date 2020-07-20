@@ -96,7 +96,7 @@ describe("Event search results", function(){
     cy.get("@RegistrationInfo").find(".button").should('not.exist')
   })
 
-  it("opens leaving SBA modal when registration button is clicked and shows registration link in SBA modal", function(){
+  it("opens registration link in a new window/tab", function(){
     const mockUrl = "https://doesnt.matter"
 
     cy.server()
@@ -107,10 +107,7 @@ describe("Event search results", function(){
 
     cy.visit("/events/find")
 
-    cy.get("[data-cy='event result']").eq(0).find("[data-cy='registration']").click()
+    cy.get(`a[href='${mockUrl}']`).should('have.attr', 'target', '_blank')
 
-    // inside of SBA modal
-    cy.get('.ReactModal__Content > [data-cy=title]').should("have.text", "You're leaving the Small Business Administration website.")
-    cy.get("[data-cy='external url']").should("have.text", mockUrl)
   })
 })
