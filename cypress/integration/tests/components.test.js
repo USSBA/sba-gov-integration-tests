@@ -7,13 +7,11 @@ describe("Component", function () {
             cy.route("GET", "/api/content/5.json", "@LinkPage").as("PageRequest")
         })
     
-        it("displays an exit modal for a link to an external site", function () {
+        it("opens links to an external site in a new window/tab", function () {
             cy.visit('/business-guide/launch-your-business/choose-your-business-name')
             cy.wait("@PageRequest")
             cy.contains("External non-.gov link")
-              .and('have.class', 'external-link-marker')
-              .click()
-            cy.contains("You're leaving the Small Business Administration website.")
+              .and('have.attr', 'target', '_blank')
         })
 
         it("does not display an exit modal when the link is a relative link", function () {

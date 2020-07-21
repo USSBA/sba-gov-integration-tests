@@ -120,7 +120,7 @@ describe('Blog Page', function () {
         })
     })
 
-    it('opens the leaving sba modal when clicking external link', function(){
+    it('has an external link that opens in a new window/tab', function(){
         cy.server()
         const sectionWithLink = 0
         const externalUrl = "https://externallink.com"
@@ -136,13 +136,9 @@ describe('Blog Page', function () {
         cy.get("[data-testid=postBlogBody]").within(() => {
             // Section
             cy.get("[data-testid=postBlogSection]").eq(sectionWithLink).within(() =>{
-                // click external link
-                cy.get("[data-testid='text section']").contains("External Link").click()
+                cy.get(`a[href='${externalUrl}']`).should('have.attr', 'target', '_blank')
             })
         })
-
-        // check link diplaying on leaving sba module
-        cy.get("[data-cy='external url']").should("contain", externalUrl)
     })
 
     it("displays an author card with an image", function () {

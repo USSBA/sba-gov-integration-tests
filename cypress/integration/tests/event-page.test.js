@@ -94,16 +94,6 @@ describe("Event details page", function(){
         cy.get("[data-cy='event-details-time']").should("have.text", expectedTime)
     })
 
-    it("should display leaving sba modal when registration button is clicked", function(){
-        cy.server()
-        const expectedUrl = this.event.registrationUrl
-        cy.route("GET", "/api/content/search/event/**.json", "@event").as("EventDetailRoute")
-        cy.visit(`/event/${this.validEventId}`)
-        cy.get('[data-cy="registration"]')
-        cy.get('button').contains("Register").click()
-        cy.get("[data-cy='external url']").should("have.text", expectedUrl)
-    })
-
     it("should display details for an online event", function(){
         cy.server()
         cy.fixture("event/99999.json").as("specialEvent").then(event => {
