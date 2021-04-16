@@ -2,7 +2,6 @@ describe("Local Assistance Find", function(){
 
     it("has fields for searching offices", function(){
         cy.visit("/local-assistance/find")
-        expect(cy.get("input#search")).to.exist
         expect(cy.get("input#zip")).to.exist
         expect(cy.get("[data-cy='officetype-select']")).to.exist
         expect(cy.get("button#office-primary-search-bar-search-button")).to.exist
@@ -13,7 +12,6 @@ describe("Local Assistance Find", function(){
         cy.server()
         cy.route("GET","/api/content/search/offices.json**").as("OfficeSearch")
         cy.visit("/local-assistance/find")
-        cy.get("input#search").type("district")
         cy.get("[data-cy='search button']").click()
         cy.wait("@OfficeSearch")
         expect(cy.get("#office-results").as("Results")).to.exist
