@@ -86,4 +86,19 @@ describe("Local Assistance Find", function(){
         cy.get("[data-cy='contact link']").first().should("have.text", "Website")
     })
 
+    it('First record is District office', () => {
+        cy.server()
+        cy.visit("/local-assistance/find")
+        cy.get("input#zip").type("21075")
+        cy.get("[data-cy='search button']").click()
+        cy.get('#office-title-result-0')
+            .contains('District')
+        })
+        
+    it("Search bassed on Longitude and Latitude", function(){
+        cy.visit("local-assistance/find?pageNumber=1&mapCenter=39.919861127290275%2C-81.56856083125557&address=21075")
+        cy.get('#office-title-result-0')
+            .contains('District')
+            expect(cy.get("[data-testid='showing results text']").contains("Showing 1 - 5 of 50")).to.exist
+        })
 })
